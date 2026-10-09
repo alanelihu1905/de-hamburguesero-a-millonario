@@ -1,0 +1,101 @@
+{
+  "SM_Fachada_CasaMarea": {
+    "triangulos": 1376,
+    "dimensiones_XxYxZ_m": [
+      18.0,
+      7.4,
+      4.45
+    ],
+    "min": [
+      -9.0,
+      -3.2,
+      -0.15
+    ],
+    "max": [
+      9.0,
+      4.2,
+      4.3
+    ],
+    "materiales": [
+      "M_Cal_Arena",
+      "M_Herreria",
+      "M_Crema",
+      "M_Turquesa",
+      "M_Caoba",
+      "M_Piedra_Caliza",
+      "M_Metal_Plancha",
+      "M_Chile",
+      "M_Mango"
+    ],
+    "puerta_libre": {
+      "altura_libre_m": 2.29,
+      "ancho_libre_m": 1.99,
+      "rayos_con_golpe_en_vano": 0
+    },
+    "presupuesto_doc04": "fachada 2 500 + banderín 300",
+    "objetos_extra": [
+      "SM_Letrero_Texto (2 triángulos, M_Letrero)"
+    ],
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Fachada_CasaMarea.fbx"
+  },
+  "SM_Letrero_Texto": {
+    "triangulos": 2,
+    "dimensiones_XxYxZ_m": [
+      1.9,
+      0.0,
+      0.34
+    ],
+    "min": [
+      -0.95,
+      -2.322,
+      2.45
+    ],
+    "max": [
+      0.95,
+      -2.322,
+      2.79
+    ],
+    "materiales": [
+      "M_Letrero"
+    ]
+  },
+  "SM_Despacho_Este": {
+    "triangulos": 332,
+    "dimensiones_XxYxZ_m": [
+      1.81,
+      6.2,
+      3.1
+    ],
+    "min": [
+      4.9,
+      -2.1,
+      0.0
+    ],
+    "max": [
+      6.71,
+      4.1,
+      3.1
+    ],
+    "materiales": [
+      "M_Cal_Arena",
+      "M_Turquesa",
+      "M_Crema",
+      "M_Piedra_Caliza",
+      "M_Herreria"
+    ],
+    "presupuesto_doc04": "toldo + postes 700",
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Despacho_Este.fbx"
+  },
+  "paleta": {
+    "M_Cal_Arena": "#E8C4A0",
+    "M_Turquesa": "#2BA6A0",
+    "M_Crema": "#F7EEDD",
+    "M_Caoba": "#8A5A3C",
+    "M_Herreria": "#2E2538",
+    "M_Chile": "#E4572E",
+    "M_Mango": "#F4C95D",
+    "M_Piedra_Caliza": "#CDBFA4",
+    "M_Metal_Plancha": "#3E4A50",
+    "M_Letrero": "#2BA6A0"
+  }
+}

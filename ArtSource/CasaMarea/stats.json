@@ -1,0 +1,113 @@
+{
+  "Huacal_Ingredientes": {
+    "triangulos": 628,
+    "tope": 900,
+    "dimensiones_WxDxH_m": [
+      0.9,
+      0.55,
+      0.5
+    ],
+    "objetivo_WxDxH_m": [
+      0.9,
+      0.55,
+      0.5
+    ],
+    "min": [
+      -0.45,
+      -0.275,
+      0.0
+    ],
+    "max": [
+      0.45,
+      0.275,
+      0.5
+    ],
+    "materiales": [
+      "M_Caoba",
+      "M_Chile",
+      "M_Crema",
+      "M_Jitomate",
+      "M_Pan",
+      "M_Lechuga"
+    ],
+    "glb": "Assets/_Game/Models/CasaMarea/SM_Huacal_Ingredientes.glb",
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Huacal_Ingredientes.fbx",
+    "capturas": [
+      "ArtSource/CasaMarea/Preview/Huacal_Ingredientes_frontal.png",
+      "ArtSource/CasaMarea/Preview/Huacal_Ingredientes_tres_cuartos.png"
+    ]
+  },
+  "Plancha_Tubo": {
+    "triangulos": 332,
+    "tope": 1100,
+    "dimensiones_WxDxH_m": [
+      1.1,
+      0.6,
+      0.75
+    ],
+    "objetivo_WxDxH_m": [
+      1.1,
+      0.6,
+      0.75
+    ],
+    "min": [
+      -0.55,
+      -0.3,
+      0.0
+    ],
+    "max": [
+      0.55,
+      0.3,
+      0.75
+    ],
+    "materiales": [
+      "M_Metal_Plancha",
+      "M_Plancha_Superficie",
+      "M_Chile",
+      "M_Brasa"
+    ],
+    "glb": "Assets/_Game/Models/CasaMarea/SM_Plancha_Tubo.glb",
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Plancha_Tubo.fbx",
+    "capturas": [
+      "ArtSource/CasaMarea/Preview/Plancha_Tubo_frontal.png",
+      "ArtSource/CasaMarea/Preview/Plancha_Tubo_tres_cuartos.png"
+    ]
+  },
+  "PuntoVenta_Feston": {
+    "triangulos": 416,
+    "tope": 1000,
+    "dimensiones_WxDxH_m": [
+      0.9,
+      0.548,
+      0.8
+    ],
+    "objetivo_WxDxH_m": [
+      0.9,
+      0.55,
+      0.8
+    ],
+    "min": [
+      -0.45,
+      -0.278,
+      0.0
+    ],
+    "max": [
+      0.45,
+      0.27,
+      0.8
+    ],
+    "materiales": [
+      "M_Turquesa",
+      "M_Crema",
+      "M_Metal_Plancha",
+      "M_Caoba",
+      "M_Mango"
+    ],
+    "glb": "Assets/_Game/Models/CasaMarea/SM_PuntoVenta_Feston.glb",
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_PuntoVenta_Feston.fbx",
+    "capturas": [
+      "ArtSource/CasaMarea/Preview/PuntoVenta_Feston_frontal.png",
+      "ArtSource/CasaMarea/Preview/PuntoVenta_Feston_tres_cuartos.png"
+    ]
+  }
+}
