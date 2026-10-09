@@ -22,3 +22,4 @@ Assets/AssetStoreTools*
 *.log
 *.blend[0-9]
 __pycache__/
+Tests/EconomySmoke/.local/
