@@ -29,6 +29,7 @@ namespace Tycoon3D.Interaction
             if (target == null) return;
             CurrentPrompt = target.Prompt;
             if (Input.GetKeyDown(KeyCode.E)) target.Interact();
+            if (Input.GetKeyDown(KeyCode.Q) && target is ISecondaryInteractable secondary) secondary.InteractSecondary();
         }
     }
 }

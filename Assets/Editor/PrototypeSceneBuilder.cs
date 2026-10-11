@@ -109,7 +109,7 @@ namespace Tycoon3D.Editor
             GameObject sun = new GameObject("Sol");
             Light light = sun.AddComponent<Light>();
             light.type = LightType.Directional;
-            light.intensity = 1.6f;
+            light.intensity = 1.0f;
             light.color = new Color32(255, 196, 126, 255);
             light.shadows = LightShadows.Soft;
             light.shadowStrength = .85f;

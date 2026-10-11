@@ -11,6 +11,13 @@ namespace Tycoon3D.Economy
 
         private void Awake() => Pesos = Mathf.Max(0, startingPesos);
 
+        /// <summary>Fija el saldo desde el perfil guardado (arranque o recarga de escena). No cuenta como ganancia ni gasto.</summary>
+        public void Restore(int pesos)
+        {
+            Pesos = Mathf.Max(0, pesos);
+            Changed?.Invoke(Pesos);
+        }
+
         public bool TrySpend(int amount)
         {
             if (amount < 0 || Pesos < amount) return false;

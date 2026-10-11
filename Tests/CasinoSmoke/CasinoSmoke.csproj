@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="../EconomySmoke/UnityStubs.cs" Link="UnityStubs.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/Economy/Wallet.cs" Link="Wallet.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/Restaurant/BurgerLoop.cs" Link="BurgerLoop.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/Casino/SlotMachineLogic.cs" Link="SlotMachineLogic.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/Casino/SlotPaytable.cs" Link="SlotPaytable.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/Casino/CasinoSession.cs" Link="CasinoSession.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/Casino/CasinoState.cs" Link="CasinoState.cs" />
+  </ItemGroup>
+</Project>

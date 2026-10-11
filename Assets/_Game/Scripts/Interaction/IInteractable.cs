@@ -5,5 +5,11 @@ namespace Tycoon3D.Interaction
         string Prompt { get; }
         void Interact();
     }
+
+    /// <summary>Acción secundaria opcional (tecla Q), por ejemplo cambiar la apuesta del casino.</summary>
+    public interface ISecondaryInteractable
+    {
+        void InteractSecondary();
+    }
 }
 

@@ -38,8 +38,8 @@ namespace Tycoon3D.UI
             GUI.Label(new Rect(30, 43, 500, 25), "Dinero: $" + (wallet != null ? wallet.Pesos : 0) +
                       "    Ventas: " + (burgerLoop != null ? burgerLoop.Sales : 0), label);
             if (burgerLoop != null) GUI.Label(new Rect(30, 72, 500, 52), burgerLoop.Message, label);
-            GUI.Label(new Rect(20, Screen.height - 40, 650, 32),
-                "WASD mover · Ratón mirar · E interactuar · R reiniciar · Esc cursor", label);
+            GUI.Label(new Rect(20, Screen.height - 40, 820, 32),
+                "WASD mover · Ratón mirar · E interactuar · Q apuesta (casino) · R volver al inicio · Esc cursor", label);
             if (interactor != null && !string.IsNullOrEmpty(interactor.CurrentPrompt))
                 GUI.Label(new Rect(Screen.width * .5f - 180, Screen.height * .65f, 400, 32),
                     interactor.CurrentPrompt, label);

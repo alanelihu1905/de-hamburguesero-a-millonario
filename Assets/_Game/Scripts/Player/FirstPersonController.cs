@@ -24,6 +24,14 @@ namespace Tycoon3D.Player
             Cursor.visible = false;
         }
 
+        /// <summary>Orienta la vista (giro en grados, sin inclinación). Lo usan las pruebas en vivo para no depender del ratón.</summary>
+        public void FaceDirection(float yawDegrees)
+        {
+            transform.rotation = Quaternion.Euler(0f, yawDegrees, 0f);
+            pitch = 0f;
+            if (viewCamera != null) viewCamera.transform.localRotation = Quaternion.identity;
+        }
+
         private void Update()
         {
             if (transform.position.y < -5f)

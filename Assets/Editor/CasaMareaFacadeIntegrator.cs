@@ -34,7 +34,7 @@ namespace Tycoon3D.Editor
 
         private static void AddModel(string fileName, Transform parent)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(ModelPath + fileName);
+            var prefab = CasaMareaPalette.Model(fileName.Replace(".fbx", ""));
             if (prefab == null) throw new InvalidOperationException("Falta FBX: " + fileName);
             var model = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
             model.name = fileName.Replace(".fbx", "");
@@ -51,7 +51,7 @@ namespace Tycoon3D.Editor
                 bounds.Encapsulate(renderer.bounds);
                 var sources = renderer.sharedMaterials;
                 var replacements = new Material[sources.Length];
-                for (int i = 0; i < sources.Length; i++) replacements[i] = CasaMareaModelIntegrator.UrpMaterial(sources[i]);
+                for (int i = 0; i < sources.Length; i++) replacements[i] = CasaMareaPalette.Material(sources[i]);
                 renderer.sharedMaterials = replacements;
             }
             Debug.Log(model.name + ": tamaño Unity " + bounds.size + ", centro " + bounds.center);

@@ -18,6 +18,7 @@ namespace Tycoon3D.Editor
         {
             try
             {
+                Tycoon3D.Core.GameProfile.DirectoryOverride = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "tycoon-smoke-burger-" + System.Guid.NewGuid().ToString("N"));   // perfil limpio, aparte del real
                 EditorSceneManager.OpenScene(ScenePath);
                 previousEnterPlayModeOptionsEnabled = EditorSettings.enterPlayModeOptionsEnabled;
                 previousEnterPlayModeOptions = EditorSettings.enterPlayModeOptions;

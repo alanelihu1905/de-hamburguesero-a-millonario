@@ -32,7 +32,7 @@ namespace Tycoon3D.Editor
         {
             var station = GameObject.Find(stationName);
             if (station == null) throw new InvalidOperationException("Falta estación: " + stationName);
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(ModelPath + fileName);
+            var prefab = CasaMareaPalette.Model(fileName.Replace(".fbx", ""));
             if (prefab == null) throw new InvalidOperationException("Falta FBX importado: " + fileName);
 
             var old = station.transform.Find("Modelo Casa Marea");
@@ -51,7 +51,7 @@ namespace Tycoon3D.Editor
             {
                 var sources = renderer.sharedMaterials;
                 var replacements = new Material[sources.Length];
-                for (int i = 0; i < sources.Length; i++) replacements[i] = UrpMaterial(sources[i]);
+                for (int i = 0; i < sources.Length; i++) replacements[i] = CasaMareaPalette.Material(sources[i]);
                 renderer.sharedMaterials = replacements;
             }
 
