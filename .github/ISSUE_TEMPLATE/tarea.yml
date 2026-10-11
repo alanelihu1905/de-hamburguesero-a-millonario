@@ -1,0 +1,38 @@
+name: Tarea
+description: Trabajo pequeño y verificable de una de las tres áreas
+labels: []
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área
+      options: ["A · Economía y guardado", "B · Casino y UI", "C · Arte, mundo y QA"]
+    validations: { required: true }
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo
+      description: Una o dos frases. Qué podrá hacer o ver el jugador, o qué quedará garantizado.
+    validations: { required: true }
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Criterios de aceptación
+      description: Lista de comprobaciones que se pueden ejecutar. Incluye qué prueba o marcador lo demuestra.
+      placeholder: "- [ ] ...\n- [ ] Prueba: ..."
+    validations: { required: true }
+  - type: textarea
+    id: archivos
+    attributes:
+      label: Archivos o carpetas que se tocarán
+      description: Para evitar choques entre ramas. Si cruza a otra área, dilo aquí.
+  - type: dropdown
+    id: tamano
+    attributes:
+      label: Tamaño
+      options: ["S (hasta 2 h de agente)", "M (hasta medio día)", "L (dividir antes de empezar)"]
+  - type: dropdown
+    id: prioridad
+    attributes:
+      label: Prioridad
+      options: ["P1", "P2", "P3"]

@@ -9,3 +9,8 @@
 - Registrar decisiones duraderas en `Docs/DECISIONS.md` y progreso temporal en `Docs/PROJECT_STATE.md`.
 - No declarar una función verificada sin prueba en Unity. No guardar secretos en Git ni en documentos.
 
+
+# Colaboración en GitHub
+
+- El trabajo compartido sigue `CONTRIBUTING.md` (flujo, ramas, PR, normas para agentes) y `Docs/COLABORACION.md` (áreas y tablero).
+- Un agente trabaja en su área y su issue; no declara nada verificado sin el marcador de prueba; no sube secretos, perfiles de guardado, `Library/` ni `Builds/`.

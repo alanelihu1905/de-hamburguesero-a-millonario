@@ -10,6 +10,7 @@
 .idea/
 .vscode/
 *.csproj
+!Tests/**/*.csproj
 *.sln
 *.user
 *.pidb
@@ -23,3 +24,25 @@ Assets/AssetStoreTools*
 *.blend[0-9]
 __pycache__/
 Tests/EconomySmoke/.local/
+
+# Entorno local de cada colaborador y de su agente
+.claude/
+.codex/
+.antigravity/
+
+# Perfiles de guardado y salidas de pruebas (nunca se versionan)
+profile.sav
+profile.bak
+profile.tmp
+profile.corrupt-*
+Tests/**/bin/
+Tests/**/obj/
+
+# Secretos
+.env
+.env.*
+*.pem
+*.key
+secrets.*
+*.p12
+*.keystore

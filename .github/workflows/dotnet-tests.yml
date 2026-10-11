@@ -1,0 +1,25 @@
+name: Pruebas dotnet
+
+# Corre las pruebas que no necesitan Unity. Las pruebas de Play Mode y el build se ejecutan en el equipo de quien hace el PR
+# y su marcador se pega en la descripción. (No se usa CI con Unity: exige activar una licencia como secreto del repositorio.)
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  dotnet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false          # las pruebas solo leen código C#
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: SaveSmoke
+        run: dotnet run --project Tests/SaveSmoke
+      - name: CasinoSmoke
+        run: dotnet run --project Tests/CasinoSmoke
+      - name: EconomySmoke
+        run: dotnet run --project Tests/EconomySmoke
