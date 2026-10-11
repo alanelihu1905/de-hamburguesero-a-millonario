@@ -33,6 +33,15 @@ namespace Tycoon3D.Casino
         public ReelDrum[] Drums => drums;
         public bool Flashing => Time.time < flashUntil;
 
+        /// <summary>Hace festejar las bombillas de esta máquina durante unos segundos (celebración del jackpot).</summary>
+        public void Celebrate(float seconds) => flashUntil = Mathf.Max(flashUntil, Time.time + seconds);
+
+        /// <summary>Lanza una oleada de monedas desde esta máquina.</summary>
+        public void CoinBurst(int count)
+        {
+            if (coins != null) coins.Emit(count);
+        }
+
         public string DisplayName => Paytable.Name;
 
         /// <summary>Duración total del giro: la máquina Mango Rápido es ágil; el Gran Jackpot hace esperar un poco más.</summary>
@@ -194,7 +203,7 @@ namespace Tycoon3D.Casino
                 if (bulbs[i] == null) continue;
                 bool lit;
                 if (reduce) lit = true;                                                // modo sin parpadeos: encendidas fijas
-                else if (Flashing) lit = ((int)(Time.time * 5f) % 2 == 0);              // 2.5 Hz
+                else if (Flashing) lit = FlashPolicy.Lit(Time.time, FlashPolicy.CelebrationHz, false);   // 2.5 destellos por segundo, nunca más de 3
                 else lit = ((i + step) % 3) != 0;
                 Color c = lit ? new Color32(244, 201, 93, 255) : new Color32(120, 84, 52, 255);
                 bulbs[i].GetPropertyBlock(block);

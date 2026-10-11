@@ -158,7 +158,10 @@ namespace Tycoon3D.Casino
             // panel compacto anclado abajo: no tapa la máquina que se está jugando
             var r = ToRect(layout.Panel);
             float w = r.width;
-            Frame(r, Plum, Mango, 4f * s);
+            bool celebrating = service.Celebration != null && service.Celebration.Active;
+            // durante el jackpot el marco del panel festeja: dos destellos y medio por segundo, y fijo con las luces fijas
+            Color border = celebrating && FlashPolicy.Lit(Time.time, FlashPolicy.CelebrationHz, service.ReduceFlashing) ? Cream : Mango;
+            Frame(r, Plum, border, celebrating ? 8f * s : 4f * s);
             Fill(new Rect(r.x, r.yMax - 6f * s, w, 6f * s), Chile);
 
             title.fontSize = Mathf.RoundToInt(24 * s);

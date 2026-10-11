@@ -355,6 +355,40 @@ Check(Throws(() => SlotMachineLogic.Play(0, false, new SystemRandomSource(1))), 
     Check(s.CashOutChips(s.Chips) > 0, "turno: las fichas se pueden canjear en cualquier momento");
 }
 
+// Destellos: nunca más de tres por segundo, y ninguno con las luces fijas
+{
+    Check(FlashPolicy.MaxFlashesPerSecond == 3f && FlashPolicy.CelebrationHz <= FlashPolicy.MaxFlashesPerSecond, "destellos: la celebración usa menos de tres por segundo");
+    Check(FlashPolicy.EffectiveHz(10f, false) == 3f && FlashPolicy.EffectiveHz(2.5f, false) == 2.5f && FlashPolicy.EffectiveHz(10f, true) == 0f && FlashPolicy.EffectiveHz(-4f, false) == 0f,
+        "destellos: el ritmo pedido se recorta a tres y con luces fijas es cero");
+    foreach (float pedido in new[] { 1f, 2.5f, 3f, 5f, 20f, 1000f })
+    {
+        // se muestrea cada milisegundo durante 10 s y se cuentan los destellos (apagado a encendido) en cada ventana de un segundo
+        var flancos = new List<double>();
+        bool anterior = FlashPolicy.Lit(0f, pedido, false);
+        for (int ms = 1; ms <= 10000; ms++)
+        {
+            bool ahora = FlashPolicy.Lit(ms / 1000f, pedido, false);
+            if (ahora && !anterior) flancos.Add(ms / 1000.0);
+            anterior = ahora;
+        }
+        int peor = 0;
+        for (int i = 0; i < flancos.Count; i++)
+        {
+            int enVentana = 0;
+            for (int j = i; j < flancos.Count && flancos[j] < flancos[i] + 1.0; j++) enVentana++;
+            peor = Math.Max(peor, enVentana);
+        }
+        Check(peor <= 3, "destellos: pidiendo " + pedido + " Hz hay como mucho " + peor + " destellos por segundo");
+        bool fija = true;
+        for (int ms = 0; ms <= 10000; ms += 7) fija &= FlashPolicy.Lit(ms / 1000f, pedido, true);
+        Check(fija, "destellos: con luces fijas siempre encendida (" + pedido + " Hz)");
+    }
+    Check(FlashPolicy.Pulse(.123f, 5f, true) == .6f && FlashPolicy.Pulse(0f, 2.5f, false) == .5f, "destellos: el pulso suave queda quieto con luces fijas");
+    float minimo = 1f, maximo = 0f;
+    for (int ms = 0; ms <= 4000; ms++) { float v = FlashPolicy.Pulse(ms / 1000f, 2.5f, false); minimo = Math.Min(minimo, v); maximo = Math.Max(maximo, v); }
+    Check(minimo < .02f && maximo > .98f, "destellos: el pulso recorre toda su intensidad");
+}
+
 Console.WriteLine("CasinoSmoke: {0} comprobaciones aprobadas.", checks);
 
 void Check(bool condition, string description)

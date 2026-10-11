@@ -90,6 +90,7 @@ namespace Tycoon3D.Editor
             sounds.reelStop = CasinoArt.Clip("reel_stop"); sounds.betChange = CasinoArt.Clip("bet_change");
             sounds.lose = CasinoArt.Clip("lose"); sounds.winSmall = CasinoArt.Clip("win_small");
             sounds.winBig = CasinoArt.Clip("win_big"); sounds.jackpot = CasinoArt.Clip("jackpot"); sounds.coin = CasinoArt.Clip("coin");
+            sounds.jackpotCoins = CasinoArt.Clip("jackpot_coins");
             casino.Configure(wallet, sounds, atlas);
             var door = new GameObject("Puerta Casino FOX").transform;
             door.SetParent(service.transform, false);

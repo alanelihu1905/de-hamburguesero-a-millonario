@@ -7,6 +7,8 @@ namespace Tycoon3D.Casino
     public sealed class CasinoSounds : MonoBehaviour
     {
         public AudioClip spinLoop, spinStart, reelStop, betChange, lose, winSmall, winBig, jackpot, coin;
+        /// <summary>Lluvia de monedas de la celebración del jackpot (opcional: sin ella solo suena la fanfarria).</summary>
+        public AudioClip jackpotCoins;
         [Range(0f, 1f)] public float volume = .8f;
         [SerializeField] private AudioMixerGroup musicGroup;
         [SerializeField] private AudioMixerGroup effectsGroup;

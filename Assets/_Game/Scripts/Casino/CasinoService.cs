@@ -170,7 +170,15 @@ namespace Tycoon3D.Casino
 
         private void Awake() => Ensure();
 
-        private void Start() => machines = FindObjectsByType<SlotMachineStation>(FindObjectsSortMode.None);
+        public JackpotCelebration Celebration { get; private set; }
+
+        private void Start()
+        {
+            machines = FindObjectsByType<SlotMachineStation>(FindObjectsSortMode.None);
+            Celebration = GetComponent<JackpotCelebration>();
+            if (Celebration == null) Celebration = gameObject.AddComponent<JackpotCelebration>();
+            Celebration.Bind(this);
+        }
 
         private void Ensure()
         {

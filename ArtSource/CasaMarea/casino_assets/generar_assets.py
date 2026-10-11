@@ -369,9 +369,33 @@ def make_audio():
     save_wav("casino_ambient", mix(pad, shaker, length=n), .5)
 
 
+def make_jackpot_coins():
+    """Lluvia de monedas del jackpot: unos 3.6 s de monedas que caen, primero espaciadas, luego densas y al final de nuevo sueltas.
+    Original y determinista (semilla fija). Se genera sola con --jackpot-coins para no tocar el resto de los assets."""
+    dur = 3.6
+    n = int(RATE * dur)
+    rnd = random.Random(2026)
+    tracks = []
+    for k in range(78):
+        u = rnd.random()
+        # más densidad hacia el centro de la lluvia (campana suave)
+        at = .05 + (dur - .5) * (.5 + .5 * math.sin((u - .5) * math.pi) ** 1)
+        freq = rnd.choice([1760, 1976, 2093, 2349, 2637, 2794, 3136])
+        vol = rnd.uniform(.12, .3)
+        clink = mix(tone(freq, .22, vol, "bell", rnd.uniform(14, 24)), noise(.012, vol * .8, 200, .5, seed=k + 11), length=int(RATE * .24))
+        tracks.append(place(clink, at, n))
+    rumble = [0.05 * math.sin(2 * math.pi * 120 * i / RATE) * math.sin(math.pi * i / n) ** 2 for i in range(n)]
+    save_wav("jackpot_coins", mix(*tracks, rumble, length=n), .8)
+
+
 if __name__ == "__main__":
+    if "--jackpot-coins" in __import__("sys").argv:
+        make_jackpot_coins()
+        print("lluvia de monedas del jackpot generada en", os.path.relpath(AUD, ROOT))
+        raise SystemExit(0)
     make_symbols()
     make_floor()
     make_cobble()
     make_audio()
+    make_jackpot_coins()
     print("assets del casino generados en", os.path.relpath(TEX, ROOT), "y", os.path.relpath(AUD, ROOT))
