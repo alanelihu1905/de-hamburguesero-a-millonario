@@ -218,6 +218,27 @@ Check(Throws(() => SlotMachineLogic.Play(0, false, new SystemRandomSource(1))), 
     Check(libre.FreeSpins == 1 && libre.TotalWagered == 0 && libre.RoundsStarted == 1, "libro: el giro de cortesía no cobra y se cuenta aparte");
 }
 
+// ---- ruleta europea de un cero: probabilidades y pagos comprobables con RNG inyectable ----------------------------
+{
+    Check(Enumerable.Range(1, 36).Count(RouletteLogic.IsRed) == 18, "Ruleta: 18 números rojos");
+    Check(Enumerable.Range(1, 36).Count(RouletteLogic.IsBlack) == 18, "Ruleta: 18 números negros");
+    Check(!RouletteLogic.IsRed(0) && !RouletteLogic.IsBlack(0), "Ruleta: cero verde, no rojo ni negro");
+    Check(!RouletteLogic.Wins(new RouletteBet(RouletteBetKind.Red, 25), 0), "Ruleta: cero pierde apuesta roja");
+    Check(!RouletteLogic.Wins(new RouletteBet(RouletteBetKind.Odd, 25), 0), "Ruleta: cero pierde apuesta impar");
+    Check(!RouletteLogic.Wins(new RouletteBet(RouletteBetKind.Even, 25), 0), "Ruleta: cero pierde apuesta par");
+    Check(RouletteLogic.Wins(new RouletteBet(RouletteBetKind.Low, 25), 18)
+        && RouletteLogic.Wins(new RouletteBet(RouletteBetKind.High, 25), 19), "Ruleta: límites 1-18 y 19-36");
+    var straight = RouletteLogic.Play(new RouletteBet(RouletteBetKind.StraightNumber, 25, 17), new Scripted(17));
+    Check(straight.Won && straight.GrossPayout == 900 && straight.Net == 875, "Ruleta: pleno paga 35 a 1 más devolución");
+    var color = RouletteLogic.Play(new RouletteBet(RouletteBetKind.Red, 100), new Scripted(1));
+    Check(color.Won && color.GrossPayout == 200 && color.Net == 100, "Ruleta: rojo paga 1 a 1 más devolución");
+    var miss = RouletteLogic.Play(new RouletteBet(RouletteBetKind.Black, 100), new Scripted(1));
+    Check(!miss.Won && miss.GrossPayout == 0 && miss.Net == -100, "Ruleta: color perdido cobra una sola apuesta");
+    Check(Throws(() => new RouletteBet(RouletteBetKind.StraightNumber, 25, 37)), "Ruleta: rechaza número fuera de mesa");
+    Check(Throws(() => new RouletteBet(RouletteBetKind.Red, 0)), "Ruleta: rechaza apuesta sin valor");
+    Check(Throws(() => new RouletteRound(new RouletteBet(RouletteBetKind.Red, 25), -1)), "Ruleta: rechaza resultado inválido");
+}
+
 Console.WriteLine("CasinoSmoke: {0} comprobaciones aprobadas.", checks);
 
 void Check(bool condition, string description)

@@ -66,3 +66,9 @@ Repositorio público compartido para tres personas con sus agentes. Preparado: `
 - `CityGridLayout.TryGetBlockCenterWorldPosition` convierte coordenadas de cuadrícula al centro X/Z del mundo y rechaza cuadras fuera de la ciudad.
 - `Tests/CitySmoke` comprueba ida y vuelta en las 441 cuadras: `dotnet run --project Tests/CitySmoke` aprobó 960 comprobaciones.
 - No modifica la escena ni demuestra la integración en Unity Play Mode. Siguen tres avisos de nulabilidad preexistentes en `CityMap.cs`.
+
+## Codex (área C) — lógica base de ruleta europea (2026-10-11)
+
+- Se añadió `RouletteLogic` para ruleta virtual de un cero: apuestas a pleno, color, paridad y mitades; incluye retorno bruto y neto con pago estándar.
+- `Tests/CasinoSmoke` verifica el cero verde, límites, pago de pleno 35:1, pago de color 1:1, errores de rango y muestra: 698 comprobaciones aprobadas.
+- Lógica pura con RNG inyectable; no está conectada al HUD ni probada en Unity Play Mode.
