@@ -82,6 +82,15 @@ Los ids son los de `ZoneId` en `CityMap.cs` y del plan `Docs/PLAN_CIUDAD_PUERTO_
 
 Esta fachada residencial es genérica. La fachada propia de Casa Marea ya existe en `Assets/_Game/Models/CasaMarea/SM_Fachada_CasaMarea.fbx` y no la reemplaza este kit.
 
+## 4 bis. Vista previa de la variación por zona (verificado en Blender)
+
+`ArtSource/PuertoAlba/render_variantes_zonas.py` cambia solo los colores de los materiales con `zonas_variacion.json` y renderiza cada zona en dos vistas. La geometría no cambia.
+
+- `ArtSource/PuertoAlba/Preview/Zonas/hoja_zonas.png`: hoja de contacto, una fila por zona en el orden del JSON (Casa Marea, Mercado del Sol, Muelle Farol, Centro del Faro, Talleres Brisa, Paseo Arena, Colina Cobalto, Estación Sur). Columna izquierda, piezas residenciales; derecha, gasolinera.
+- Vistas individuales: `Preview/Zonas/<id>_residencial_tienda.png` y `<id>_gasolinera.png`.
+- Verificado: el script termina con `LISTO_VARIANTES 8 zonas` y las ocho zonas muestran colores distintos.
+- No verificado: que Unity aplique estos colores (ver sección 9).
+
 ## 5. Casino central, permanente y visible
 
 - El kit **no contiene piezas del casino** y ninguna pieza supera 5.5 m de altura, para no competir con su letrero.
