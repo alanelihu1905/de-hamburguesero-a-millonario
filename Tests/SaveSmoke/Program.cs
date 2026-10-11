@@ -212,15 +212,22 @@ CasinoSession NewSession(Func<int> pesos, Func<int, bool> spend, Action<int> ear
 
     int pesos2 = (int)fromDisk.Pesos;                                // otra sesión tras el reinicio
     var s2 = NewSession(() => pesos2, v => { pesos2 -= v; return true; }, v => pesos2 += v, 0);
+    var ledger = new MovementLedger(); ledger.Restore(fromDisk, pesos2, 0);
+    s2.MovementRecorded += (kind, amount, from, to, id) => ledger.Record(kind, amount, from, to, id);
     int recovered = s2.Restore(CasinoProfileMapping.Read(fromDisk));
     Check(recovered == 1000 && pesos2 == 1075 && !s2.Busy, "pendiente: al volver se acredita el premio una sola vez ($1075)");
+    Check(ledger.Matches(1075, 0) && ledger.Entries.Count == 2 && ledger.Entries[1].Kind == MovementKind.Payout,
+        "pendiente: el libro común registra el premio recuperado una vez");
     Check(s2.TotalSpins == 1 && s2.TotalWon == 1000 && s2.TotalWagered == 25 && s2.RoundsStarted == 1, "pendiente: el libro queda coherente tras la liquidación");
     var snap2 = s2.Snapshot();
     Check(!snap2.PendingActive, "pendiente: la liquidación limpia la ronda pendiente");
-    var data2 = new SaveData { Pesos = pesos2 }; CasinoProfileMapping.Write(data2, snap2);
+    var data2 = new SaveData { Pesos = pesos2 }; CasinoProfileMapping.Write(data2, snap2); ledger.Write(data2);
     int pesos3 = (int)data2.Pesos;
     var s3 = NewSession(() => pesos3, v => true, v => pesos3 += v, 0);
+    var ledger3 = new MovementLedger(); ledger3.Restore(data2, pesos3, 0);
+    s3.MovementRecorded += (kind, amount, from, to, id) => ledger3.Record(kind, amount, from, to, id);
     Check(s3.Restore(CasinoProfileMapping.Read(data2)) == 0 && pesos3 == 1075, "pendiente: un segundo reinicio no paga otra vez");
+    Check(ledger3.Entries.Count == 2 && ledger3.Matches(1075, 0), "pendiente: un segundo reinicio no duplica el premio en el libro");
     Check(Throws(() => s3.Complete()), "pendiente: Complete sin ronda sigue fallando");
 }
 {

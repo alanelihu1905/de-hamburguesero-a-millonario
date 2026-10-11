@@ -27,4 +27,4 @@ Se prepararon `README.md`, `CONTRIBUTING.md`, `Docs/COLABORACION.md`, plantillas
 ## Colaboración pública y libro común (2026-10-10)
 Repositorio público: `https://github.com/alanelihu1905/de-hamburguesero-a-millonario`. GitHub CI pasó; 15 issues abiertas. Los usuarios de los dos colaboradores aún faltan. La automatización que asignaba tareas a Claude quedó pausada por instrucción del usuario; Codex implementa y dirige ahora.
 
-Rama `codex/libro-movimientos`: libro común de 32 movimientos con migración v1→v2, saldo auditable y premio de ronda pendiente registrado una sola vez. `SaveSmoke` 472, `CasinoSmoke` 685 y `EconomySmoke` 9 comprobaciones. Play Mode: `TYCOON_CASINO_SMOKE_OK` y `TYCOON_SMOKE_OK`. Pendiente: publicar PR y fusionar tras revisión; build macOS actual aún no regenerada.
+Rama `codex/libro-movimientos`: libro común de 32 movimientos con migración v1→v2, saldo auditable y premio de ronda pendiente registrado una sola vez. `SaveSmoke` 474, `CasinoSmoke` 685 y `EconomySmoke` 9 comprobaciones. Play Mode: `TYCOON_CASINO_SMOKE_OK` y `TYCOON_SMOKE_OK`. Pendiente: publicar PR y fusionar tras revisión; build macOS actual aún no regenerada.
