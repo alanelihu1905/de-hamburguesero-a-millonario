@@ -1,10 +1,16 @@
-﻿SM_Casa_Dos_Plantas: escala_importador=1 unidades_archivo=True tris=468 tamaño_XYZ=5.300x6.450x7.050 base_y=0.000 rango_z=[-3.150,3.900] frente en +Z (correcto)
+﻿SM_Boulevard_Terraza: escala_importador=1 unidades_archivo=True tris=348 tamaño_XYZ=6.200x3.110x4.005 base_y=0.000 rango_z=[-1.880,2.125] frente en +Z (correcto)
+SM_Casa_Dos_Plantas: escala_importador=1 unidades_archivo=True tris=468 tamaño_XYZ=5.300x6.450x7.050 base_y=0.000 rango_z=[-3.150,3.900] frente en +Z (correcto)
+SM_Centro_Torre: escala_importador=1 unidades_archivo=True tris=72 tamaño_XYZ=8.000x28.300x9.000 base_y=0.000 rango_z=[-4.000,5.000] frente en +Z (correcto)
 SM_Fachada_Residencial: escala_importador=1 unidades_archivo=True tris=204 tamaño_XYZ=4.200x3.380x0.520 base_y=0.000 rango_z=[-0.260,0.260] no aplica
 SM_Gasolinera_Caseta: escala_importador=1 unidades_archivo=True tris=84 tamaño_XYZ=3.300x3.000x2.800 base_y=0.000 rango_z=[-1.400,1.400] no aplica
 SM_Gasolinera_Letrero: escala_importador=1 unidades_archivo=True tris=48 tamaño_XYZ=2.400x4.200x0.200 base_y=0.000 rango_z=[-0.100,0.100] no aplica
 SM_Gasolinera_Marquesina: escala_importador=1 unidades_archivo=True tris=72 tamaño_XYZ=12.000x5.500x8.000 base_y=0.000 rango_z=[-4.000,4.000] no aplica
 SM_Gasolinera_Surtidor: escala_importador=1 unidades_archivo=True tris=72 tamaño_XYZ=0.900x1.550x0.650 base_y=0.000 rango_z=[-0.300,0.350] frente en +Z (correcto)
-SM_Hito_Casino: escala_importador=1 unidades_archivo=True tris=120 tamaño_XYZ=12.000x10.300x4.430 base_y=0.000 rango_z=[-2.000,2.430] frente en +Z (correcto)
+SM_Hito_Casino: escala_importador=1 unidades_archivo=True tris=1236 tamaño_XYZ=12.000x10.300x4.470 base_y=0.000 rango_z=[-2.000,2.470] frente en +Z (correcto)
+SM_Mercado_Pabellon_Reloj: escala_importador=1 unidades_archivo=True tris=244 tamaño_XYZ=10.600x9.400x8.600 base_y=0.000 rango_z=[-4.300,4.300] no aplica
+SM_Muelle_Almacen_Grua: escala_importador=1 unidades_archivo=True tris=108 tamaño_XYZ=14.100x9.600x6.400 base_y=0.000 rango_z=[-3.200,3.200] no aplica
+SM_Parque_Quiosco: escala_importador=1 unidades_archivo=True tris=94 tamaño_XYZ=4.600x4.000x5.450 base_y=0.000 rango_z=[-2.300,3.150] frente en +Z (correcto)
 SM_Puerta_Residencial: escala_importador=1 unidades_archivo=True tris=108 tamaño_XYZ=1.700x2.650x0.580 base_y=0.000 rango_z=[0.140,0.720] frente en +Z (correcto)
+SM_Taller_Brisa: escala_importador=1 unidades_archivo=True tris=96 tamaño_XYZ=8.400x7.500x6.400 base_y=0.000 rango_z=[-3.200,3.200] no aplica
 SM_Tienda_Barrio: escala_importador=1 unidades_archivo=True tris=144 tamaño_XYZ=6.200x4.450x4.950 base_y=0.000 rango_z=[-2.050,2.900] frente en +Z (correcto)
 MATERIALES_ZONA: 48 materiales en Assets/_Game/Models/PuertoAlba/Zonas

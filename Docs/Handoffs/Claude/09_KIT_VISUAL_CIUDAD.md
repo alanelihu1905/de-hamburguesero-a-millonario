@@ -133,6 +133,44 @@ Esta fachada residencial es genérica. La fachada propia de Casa Marea ya existe
 - Ubicación final del casino: sigue abierta entre el plan (Casa Marea) y la propuesta 08 (zona 8). El hito es un marcador, no el edificio real.
 - Materiales de zona aplicados en la ciudad real.
 
+## 4 quinquies. Seis piezas de zona y corrección del rótulo (esta tanda)
+
+**Piezas de zona** (`ArtSource/PuertoAlba/build_zonas_hitos.py` → `Assets/_Game/Models/PuertoAlba/`, medidas en `stats_zonas_hitos.json`):
+
+| Pieza | Zona (ZoneId) | Tris (tope) | Dimensiones X × Y × Z (Blender) |
+| --- | --- | --- | --- |
+| `SM_Mercado_Pabellon_Reloj` | MercadoDelSol | 244 (900) | 10.60 × 8.60 × 9.40 |
+| `SM_Muelle_Almacen_Grua` | MuelleFarol | 108 (900) | 14.10 × 6.40 × 9.60 |
+| `SM_Boulevard_Terraza` | CentroDelFaro | 348 (700) | 6.20 × 4.005 × 3.11 |
+| `SM_Taller_Brisa` | TalleresBrisa | 96 (700) | 8.40 × 6.40 × 7.50 |
+| `SM_Parque_Quiosco` | PaseoArena | 94 (600) | 4.60 × 5.45 × 4.00 |
+| `SM_Centro_Torre` | CentroDelFaro | 72 (900) | 8.00 × 9.00 × 28.30 |
+
+- **Decisión de mapeo:** «Boulevard Sabores» y «Centro Financiero» (propuesta 08) no son `ZoneId` ni aparecen en el plan. Los asigno a CentroDelFaro porque el plan le da restaurante de mesas y oficinas. Es una decisión mía: si Claude prefiere otra zona, cambiar el campo `zona` en `PuertoAlbaKitPreviewBuilder.cs`.
+- Materiales: las piezas usan nombres del kit (`M_Muro_Base`, `M_Tejado`, `M_Toldo`, etc.), y en la escena cada una recibe los materiales `Zona_<zona>_*`.
+- Escala y pivote: base en z = 0 y centro en X; el muelle se recentró en Blender porque su huella es asimétrica (alero y grúa).
+- Colisiones simples por prefab: pilares y mesas del mercado, pérgola y mesas de la terraza, nave y chimenea del taller, cuerpo del quiosco aproximado a caja, fuste y retranqueo de la torre, y el almacén con las patas de la grúa.
+
+**Disposición (recorrido alrededor del casino, no ubicación final en la cuadrícula):** el hito queda en el centro. Las piezas nuevas están detrás (z entre 24 y 42) o a los lados (|x| ≥ 12). La plaza de acceso del casino (x en −7…7, z en −26…−1.5) queda libre.
+
+**Corrección del rótulo del hito (revisión visual):** la captura mostraba la marquesina vacía, porque el «texto» era un plano de color sin letras. Ahora `SM_Hito_Casino` tiene letras geométricas de 5 × 7 celdas («CASINO FOX»), con cajas en la cara del rótulo; no usa TMP ni fuentes. Son 1236 triángulos en total, dentro del tope de 2000. Las medidas del hito cambian a 12.00 × 4.47 × 10.30 por las letras, que sobresalen 0.07 m. El tamaño de celda es 0.125 m y el espacio entre palabras, 3 celdas.
+
+**Comprobación automática del texto:** `Verify` mide en la captura del hito los píxeles ámbar dentro de la proyección del rótulo, usando el aspecto 16:9 de la captura (la primera versión medía con la resolución de la ventana de batch y daba 0). Exige al menos 400 píxeles ámbar, entre 3 % y 60 % del rótulo, y al menos 20 % de fondo oscuro. Resultado: 3639 píxeles ámbar (15.6 %) y 83.6 % de fondo oscuro.
+
+**Marcadores de esta tanda (Unity 6000.0.84f1, batch):**
+- `TYCOON_KIT_IMPORT_OK: 15 FBX importados y 48 materiales de zona creados`
+- `KIT_PREVIEW_BUILD_OK: prefabs y escena Assets/_Game/Scenes/PuertoAlba_KitPreview.unity`
+- `TYCOON_KIT_PREVIEW_OK: prefabs, escena, muestras de zona y capturas comprobados.` con 163 OK y 0 FALLO en `ArtSource/PuertoAlba/unity_preview_check.txt`.
+- Validador sin Unity: `validar_kit.py` → `FALLOS (0)` con las 15 piezas.
+- Capturas tras `Shader.WarmupAllShaders()` y dos renders: `Preview/Unity/Kit_hito_casino_unity.png` (letras visibles) y `Preview/Unity/Kit_vista_general_unity.png` (las seis piezas de zona, las muestras y la plaza libre).
+
+**NO VERIFICADO (marcador explícito):**
+- Lectura del rótulo a resolución real de juego (solo capturas de 1600×900 en batch).
+- Piezas de zona vistas de cerca: solo se han revisado en la vista general, no una a una.
+- Colisiones probadas caminando (existen, no hay prueba de movimiento).
+- Iluminación en build.
+- Colocación en la cuadrícula 21×21 y ubicación final del casino: sigue abierta.
+
 ## 5. Casino central, permanente y visible
 
 - El kit **no contiene piezas del casino** y ninguna pieza supera 5.5 m de altura, para no competir con su letrero.

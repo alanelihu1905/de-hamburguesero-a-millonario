@@ -1,0 +1,114 @@
+{
+  "SM_Mercado_Pabellon_Reloj": {
+    "triangulos": 244,
+    "presupuesto_triangulos": 900,
+    "dimensiones_XxYxZ_m": [
+      10.6,
+      8.6,
+      9.4
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Cornisa",
+      "M_Marco",
+      "M_Metal_Oscuro",
+      "M_Muro_Base",
+      "M_Tejado",
+      "M_Zocalo"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Mercado_Pabellon_Reloj.fbx"
+  },
+  "SM_Muelle_Almacen_Grua": {
+    "triangulos": 108,
+    "presupuesto_triangulos": 900,
+    "dimensiones_XxYxZ_m": [
+      14.1,
+      6.4,
+      9.6
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Cornisa",
+      "M_Metal_Oscuro",
+      "M_Muro_Base",
+      "M_Tejado"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Muelle_Almacen_Grua.fbx"
+  },
+  "SM_Boulevard_Terraza": {
+    "triangulos": 348,
+    "presupuesto_triangulos": 700,
+    "dimensiones_XxYxZ_m": [
+      6.2,
+      4.005,
+      3.11
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Madera",
+      "M_Metal_Oscuro",
+      "M_Toldo",
+      "M_Vidrio"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Boulevard_Terraza.fbx"
+  },
+  "SM_Taller_Brisa": {
+    "triangulos": 96,
+    "presupuesto_triangulos": 700,
+    "dimensiones_XxYxZ_m": [
+      8.4,
+      6.4,
+      7.5
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Letrero_Fondo",
+      "M_Letrero_Texto",
+      "M_Metal_Oscuro",
+      "M_Muro_Base",
+      "M_Tejado"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Taller_Brisa.fbx"
+  },
+  "SM_Parque_Quiosco": {
+    "triangulos": 94,
+    "presupuesto_triangulos": 600,
+    "dimensiones_XxYxZ_m": [
+      4.6,
+      5.45,
+      4.0
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Madera",
+      "M_Muro_Base",
+      "M_Puerta",
+      "M_Tejado",
+      "M_Zocalo"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Parque_Quiosco.fbx"
+  },
+  "SM_Centro_Torre": {
+    "triangulos": 72,
+    "presupuesto_triangulos": 900,
+    "dimensiones_XxYxZ_m": [
+      8.0,
+      9.0,
+      28.3
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Cornisa",
+      "M_Muro_Base",
+      "M_Tejado",
+      "M_Vidrio"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Centro_Torre.fbx"
+  }
+}

@@ -25,7 +25,7 @@ MODEL_DIR = os.path.join(PROJECT, "Assets", "_Game", "Models", "PuertoAlba")
 ZONAS_DIR = os.path.join(MODEL_DIR, "Zonas")
 PREVIEW = os.path.join(HERE, "Preview")
 CAMPOS = ["muro", "zocalo", "acento", "tejado", "toldo", "vidrio"]
-PIEZAS_ESPERADAS = 9
+PIEZAS_ESPERADAS = 9   # kit base; las seis de zona se añaden desde stats_zonas_hitos.json
 
 fallos = []
 ok = []
@@ -49,6 +49,10 @@ def es_fbx_real(ruta):
 
 stats = json.loads(leer(os.path.join(HERE, "stats_kit.json")))
 check(len(stats) == PIEZAS_ESPERADAS, "stats_kit.json tiene %d piezas (esperadas %d)" % (len(stats), PIEZAS_ESPERADAS))
+# piezas de zona (build_zonas_hitos.py): mismas comprobaciones que el kit
+zonas_hitos = json.loads(leer(os.path.join(HERE, "stats_zonas_hitos.json")))
+check(len(zonas_hitos) == 6, "stats_zonas_hitos.json tiene 6 piezas")
+stats.update(zonas_hitos)
 
 # 1–2. FBX, metas, presupuesto
 guids = {}

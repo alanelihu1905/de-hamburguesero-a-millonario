@@ -64,7 +64,7 @@ BUDGET = {
     "SM_Gasolinera_Caseta": 300,
     "SM_Gasolinera_Letrero": 200,
     "SM_Casa_Dos_Plantas": 500,
-    "SM_Hito_Casino": 500,
+    "SM_Hito_Casino": 2000,   # incluye las letras: más cajas que el resto del hito
 }
 
 
@@ -265,9 +265,62 @@ def build_hito_casino():
         box((8.0, 0.4, 2.4), (0, -2.2, 7.0), "M_Letrero_Fondo"),          # fondo del rótulo
         box((8.0, 0.06, 0.12), (0, -2.36, 8.1), "M_Casino_Neon"),         # tubo superior
         box((8.0, 0.06, 0.12), (0, -2.36, 5.9), "M_Casino_Neon"),         # tubo inferior
-        box((7.4, 0.02, 1.6), (0, -2.42, 7.0), "M_Letrero_Texto"),        # plano del texto (la textura la pone Unity)
     ]
+    p += letras_casino()
     return join(p, "SM_Hito_Casino")
+
+
+# Letras geométricas de 5 × 7 celdas: cada racha de celdas encendidas es una caja en la cara del rótulo.
+# No depende de fuentes ni de TMP; se lee desde la vista frontal.
+GLIFOS = {
+    "C": [".###.", "#...#", "#....", "#....", "#....", "#...#", ".###."],
+    "A": [".###.", "#...#", "#...#", "#####", "#...#", "#...#", "#...#"],
+    "S": [".####", "#....", "#....", ".###.", "....#", "....#", "####."],
+    "I": ["#####", "..#..", "..#..", "..#..", "..#..", "..#..", "#####"],
+    "N": ["#...#", "##..#", "#.#.#", "#..##", "#...#", "#...#", "#...#"],
+    "O": [".###.", "#...#", "#...#", "#...#", "#...#", "#...#", ".###."],
+    "F": ["#####", "#....", "#....", "####.", "#....", "#....", "#...."],
+    "X": ["#...#", "#...#", ".#.#.", "..#..", ".#.#.", "#...#", "#...#"],
+}
+TEXTO_CASINO = ["CASINO", "FOX"]
+CELDA = 0.125          # lado de cada celda del texto (m); 9 letras caben en 6.9 m de los 8 m del rótulo
+LETRAS_Z_CENTRO = 7.0  # centro vertical del rótulo (ver build_hito_casino)
+LETRAS_Y = -2.44       # cara de las letras, delante del fondo del rótulo (−2.40)
+
+
+def letras_casino():
+    """Cajas de las letras de «CASINO FOX», centradas en x y en el rótulo."""
+    # columnas totales: 5 por letra, 1 de separación entre letras y 3 entre palabras
+    cols = 0
+    for i, palabra in enumerate(TEXTO_CASINO):
+        cols += 5 * len(palabra) + (len(palabra) - 1)
+    cols += 3 * (len(TEXTO_CASINO) - 1)
+    x0 = -cols * CELDA / 2.0
+    z_top = LETRAS_Z_CENTRO + 7 * CELDA / 2.0
+    cajas = []
+    cursor = 0
+    for pi, palabra in enumerate(TEXTO_CASINO):
+        for li, letra in enumerate(palabra):
+            filas = GLIFOS[letra]
+            for r, fila in enumerate(filas):
+                c = 0
+                while c < 5:
+                    if fila[c] != "#":
+                        c += 1
+                        continue
+                    ini = c
+                    while c < 5 and fila[c] == "#":
+                        c += 1
+                    ancho = (c - ini) * CELDA
+                    cx = x0 + (cursor + ini) * CELDA + ancho / 2.0
+                    cz = z_top - (r + .5) * CELDA
+                    cajas.append(box((ancho, .06, CELDA), (cx, LETRAS_Y, cz), "M_Letrero_Texto"))
+            cursor += 5
+            if li < len(palabra) - 1:
+                cursor += 1
+        if pi < len(TEXTO_CASINO) - 1:
+            cursor += 3
+    return cajas
 
 
 BUILDERS = [build_fachada, build_puerta, build_tienda, build_marquesina, build_surtidor, build_caseta, build_letrero,
@@ -407,7 +460,7 @@ def main():
         "SM_Gasolinera_Caseta": (3.3, 2.8, 3.0),
         "SM_Gasolinera_Letrero": (2.4, 0.2, 4.2),
         "SM_Casa_Dos_Plantas": (5.3, 7.05, 6.45),   # balcón hasta y = -3.9; alero hasta y = +3.15; techo a z = 6.45
-        "SM_Hito_Casino": (12.0, 4.43, 10.3),       # rótulo hasta y = -2.43; torres y remates hasta z = 10.3
+        "SM_Hito_Casino": (12.0, 4.47, 10.3),       # letras hasta y = -2.47; torres y remates hasta z = 10.3
     }
     fallos = []
     for name, dims in expect.items():

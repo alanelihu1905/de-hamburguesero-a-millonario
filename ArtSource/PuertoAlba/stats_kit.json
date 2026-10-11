@@ -192,17 +192,17 @@
     "fbx": "Assets/_Game/Models/PuertoAlba/SM_Casa_Dos_Plantas.fbx"
   },
   "SM_Hito_Casino": {
-    "triangulos": 120,
-    "presupuesto_triangulos": 500,
+    "triangulos": 1236,
+    "presupuesto_triangulos": 2000,
     "dentro_de_presupuesto": true,
     "dimensiones_XxYxZ_m": [
       12.0,
-      4.43,
+      4.47,
       10.3
     ],
     "centro_huella_xy": [
       0.0,
-      -0.215
+      -0.235
     ],
     "base_z": 0.0,
     "materiales": [

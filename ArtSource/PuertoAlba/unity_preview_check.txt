@@ -17,7 +17,37 @@ OK    prefab PF_Hito_Casino existe
 OK    PF_Hito_Casino: tiene mallas (1)
 OK    PF_Hito_Casino: tiene colisiones
 OK    PF_Hito_Casino: base en y = 0 (0.000)
-OK    PF_Hito_Casino: tamaño (12.00, 10.30, 4.43) esperado (12.00, 10.30, 4.43)
+OK    PF_Hito_Casino: tamaño (12.00, 10.30, 4.47) esperado (12.00, 10.30, 4.47)
+OK    prefab PF_Mercado_Pabellon_Reloj existe
+OK    PF_Mercado_Pabellon_Reloj: tiene mallas (1)
+OK    PF_Mercado_Pabellon_Reloj: tiene colisiones
+OK    PF_Mercado_Pabellon_Reloj: base en y = 0 (0.000)
+OK    PF_Mercado_Pabellon_Reloj: tamaño (10.60, 9.40, 8.60) esperado (10.60, 9.40, 8.60)
+OK    prefab PF_Muelle_Almacen_Grua existe
+OK    PF_Muelle_Almacen_Grua: tiene mallas (1)
+OK    PF_Muelle_Almacen_Grua: tiene colisiones
+OK    PF_Muelle_Almacen_Grua: base en y = 0 (0.000)
+OK    PF_Muelle_Almacen_Grua: tamaño (14.10, 9.60, 6.40) esperado (14.10, 9.60, 6.40)
+OK    prefab PF_Boulevard_Terraza existe
+OK    PF_Boulevard_Terraza: tiene mallas (1)
+OK    PF_Boulevard_Terraza: tiene colisiones
+OK    PF_Boulevard_Terraza: base en y = 0 (0.000)
+OK    PF_Boulevard_Terraza: tamaño (6.20, 3.11, 4.01) esperado (6.20, 3.11, 4.00)
+OK    prefab PF_Taller_Brisa existe
+OK    PF_Taller_Brisa: tiene mallas (1)
+OK    PF_Taller_Brisa: tiene colisiones
+OK    PF_Taller_Brisa: base en y = 0 (0.000)
+OK    PF_Taller_Brisa: tamaño (8.40, 7.50, 6.40) esperado (8.40, 7.50, 6.40)
+OK    prefab PF_Parque_Quiosco existe
+OK    PF_Parque_Quiosco: tiene mallas (1)
+OK    PF_Parque_Quiosco: tiene colisiones
+OK    PF_Parque_Quiosco: base en y = 0 (0.000)
+OK    PF_Parque_Quiosco: tamaño (4.60, 4.00, 5.45) esperado (4.60, 4.00, 5.45)
+OK    prefab PF_Centro_Torre existe
+OK    PF_Centro_Torre: tiene mallas (1)
+OK    PF_Centro_Torre: tiene colisiones
+OK    PF_Centro_Torre: base en y = 0 (0.000)
+OK    PF_Centro_Torre: tamaño (8.00, 28.30, 9.00) esperado (8.00, 28.30, 9.00)
 OK    la escena de vista previa abre
 OK    la escena de vista previa no está en la build
 OK    hito Casino FOX presente
@@ -51,13 +81,13 @@ OK    muestra MuelleFarol tiene casa y tienda (2)
 OK    material Zona_MuelleFarol_muro pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_tejado pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_zocalo pertenece a MuelleFarol
-OK    material Zona_MuelleFarol_acento pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_vidrio pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_toldo pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_muro pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_tejado pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_zocalo pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_acento pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_vidrio pertenece a MuelleFarol
-OK    material Zona_MuelleFarol_toldo pertenece a MuelleFarol
 OK    muestra CentroDelFaro tiene casa y tienda (2)
 OK    material Zona_CentroDelFaro_muro pertenece a CentroDelFaro
 OK    material Zona_CentroDelFaro_tejado pertenece a CentroDelFaro
@@ -73,13 +103,13 @@ OK    muestra TalleresBrisa tiene casa y tienda (2)
 OK    material Zona_TalleresBrisa_muro pertenece a TalleresBrisa
 OK    material Zona_TalleresBrisa_tejado pertenece a TalleresBrisa
 OK    material Zona_TalleresBrisa_zocalo pertenece a TalleresBrisa
+OK    material Zona_TalleresBrisa_acento pertenece a TalleresBrisa
 OK    material Zona_TalleresBrisa_vidrio pertenece a TalleresBrisa
-OK    material Zona_TalleresBrisa_toldo pertenece a TalleresBrisa
 OK    material Zona_TalleresBrisa_muro pertenece a TalleresBrisa
 OK    material Zona_TalleresBrisa_tejado pertenece a TalleresBrisa
 OK    material Zona_TalleresBrisa_zocalo pertenece a TalleresBrisa
-OK    material Zona_TalleresBrisa_acento pertenece a TalleresBrisa
 OK    material Zona_TalleresBrisa_vidrio pertenece a TalleresBrisa
+OK    material Zona_TalleresBrisa_toldo pertenece a TalleresBrisa
 OK    muestra PaseoArena tiene casa y tienda (2)
 OK    material Zona_PaseoArena_muro pertenece a PaseoArena
 OK    material Zona_PaseoArena_tejado pertenece a PaseoArena
@@ -95,23 +125,39 @@ OK    muestra ColinaCobalto tiene casa y tienda (2)
 OK    material Zona_ColinaCobalto_muro pertenece a ColinaCobalto
 OK    material Zona_ColinaCobalto_tejado pertenece a ColinaCobalto
 OK    material Zona_ColinaCobalto_zocalo pertenece a ColinaCobalto
+OK    material Zona_ColinaCobalto_acento pertenece a ColinaCobalto
 OK    material Zona_ColinaCobalto_vidrio pertenece a ColinaCobalto
-OK    material Zona_ColinaCobalto_toldo pertenece a ColinaCobalto
 OK    material Zona_ColinaCobalto_muro pertenece a ColinaCobalto
 OK    material Zona_ColinaCobalto_tejado pertenece a ColinaCobalto
 OK    material Zona_ColinaCobalto_zocalo pertenece a ColinaCobalto
-OK    material Zona_ColinaCobalto_acento pertenece a ColinaCobalto
 OK    material Zona_ColinaCobalto_vidrio pertenece a ColinaCobalto
+OK    material Zona_ColinaCobalto_toldo pertenece a ColinaCobalto
 OK    muestra EstacionSur tiene casa y tienda (2)
-OK    material Zona_EstacionSur_muro pertenece a EstacionSur
-OK    material Zona_EstacionSur_tejado pertenece a EstacionSur
-OK    material Zona_EstacionSur_zocalo pertenece a EstacionSur
-OK    material Zona_EstacionSur_vidrio pertenece a EstacionSur
-OK    material Zona_EstacionSur_toldo pertenece a EstacionSur
 OK    material Zona_EstacionSur_muro pertenece a EstacionSur
 OK    material Zona_EstacionSur_tejado pertenece a EstacionSur
 OK    material Zona_EstacionSur_zocalo pertenece a EstacionSur
 OK    material Zona_EstacionSur_acento pertenece a EstacionSur
 OK    material Zona_EstacionSur_vidrio pertenece a EstacionSur
+OK    material Zona_EstacionSur_muro pertenece a EstacionSur
+OK    material Zona_EstacionSur_tejado pertenece a EstacionSur
+OK    material Zona_EstacionSur_zocalo pertenece a EstacionSur
+OK    material Zona_EstacionSur_vidrio pertenece a EstacionSur
+OK    material Zona_EstacionSur_toldo pertenece a EstacionSur
 OK    48 materiales de zona distintos en las muestras (48)
+OK    pieza de zona 'Zona Mercado' es instancia de prefab
+OK    pieza 'Zona Mercado' usa materiales de zona (4)
+OK    pieza de zona 'Zona Muelle' es instancia de prefab
+OK    pieza 'Zona Muelle' usa materiales de zona (3)
+OK    pieza de zona 'Zona Centro del Faro terraza' es instancia de prefab
+OK    pieza 'Zona Centro del Faro terraza' usa materiales de zona (2)
+OK    pieza de zona 'Zona Talleres' es instancia de prefab
+OK    pieza 'Zona Talleres' usa materiales de zona (2)
+OK    pieza de zona 'Zona Paseo' es instancia de prefab
+OK    pieza 'Zona Paseo' usa materiales de zona (3)
+OK    pieza de zona 'Zona Centro del Faro torre' es instancia de prefab
+OK    pieza 'Zona Centro del Faro torre' usa materiales de zona (4)
+OK    plaza de acceso del casino libre
+OK    el casino está dentro del encuadre de su cámara
+OK    nada tapa el casino desde su cámara
+OK    el rótulo del casino muestra letras en la captura (ámbar 3639 px (15.6%), fondo oscuro 83.6%)
 OK    capturas generadas: hito general
