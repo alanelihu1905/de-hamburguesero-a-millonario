@@ -1,0 +1,94 @@
+OK    la escena de calles abre
+OK    la escena de calles no está en la build
+OK    avenida de 120 m × 8 m
+OK    calle cruzada de 8 m × 80 m
+OK    las dos calles son transitables (tienen colisión)
+OK    8 franjas de paso de cebra (8)
+OK    18 farolas (18)
+OK    21 edificios y piezas en la escena (esperadas 21)
+OK    Edif avenida norte 1 [Avenida]: es instancia de prefab
+OK    Edif avenida norte 1 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida norte 1 [Avenida]: base en el suelo
+OK    Edif avenida norte 1 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida norte 2 [Avenida]: es instancia de prefab
+OK    Edif avenida norte 2 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida norte 2 [Avenida]: base en el suelo
+OK    Edif avenida norte 2 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida norte 3 [Avenida]: es instancia de prefab
+OK    Edif avenida norte 3 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida norte 3 [Avenida]: base en el suelo
+OK    Edif avenida norte 3 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida norte 4 [Avenida]: es instancia de prefab
+OK    Edif avenida norte 4 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida norte 4 [Avenida]: base en el suelo
+OK    Edif avenida norte 4 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida norte 5 [Avenida]: es instancia de prefab
+OK    Edif avenida norte 5 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida norte 5 [Avenida]: base en el suelo
+OK    Edif avenida norte 5 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida norte 6 [Avenida]: es instancia de prefab
+OK    Edif avenida norte 6 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida norte 6 [Avenida]: base en el suelo
+OK    Edif avenida norte 6 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida norte 7 [Avenida]: es instancia de prefab
+OK    Edif avenida norte 7 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida norte 7 [Avenida]: base en el suelo
+OK    Edif avenida norte 7 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida sur 1 [Avenida]: es instancia de prefab
+OK    Edif avenida sur 1 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida sur 1 [Avenida]: base en el suelo
+OK    Edif avenida sur 1 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida sur 2 [Avenida]: es instancia de prefab
+OK    Edif avenida sur 2 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida sur 2 [Avenida]: base en el suelo
+OK    Edif avenida sur 2 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida sur 3 [Avenida]: es instancia de prefab
+OK    Edif avenida sur 3 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida sur 3 [Avenida]: base en el suelo
+OK    Edif avenida sur 3 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida sur 4 [Avenida]: es instancia de prefab
+OK    Edif avenida sur 4 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida sur 4 [Avenida]: base en el suelo
+OK    Edif avenida sur 4 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida sur 5 [Avenida]: es instancia de prefab
+OK    Edif avenida sur 5 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida sur 5 [Avenida]: base en el suelo
+OK    Edif avenida sur 5 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida sur 6 [Avenida]: es instancia de prefab
+OK    Edif avenida sur 6 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida sur 6 [Avenida]: base en el suelo
+OK    Edif avenida sur 6 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida sur 7 [Avenida]: es instancia de prefab
+OK    Edif avenida sur 7 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida sur 7 [Avenida]: base en el suelo
+OK    Edif avenida sur 7 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif avenida sur 8 [Avenida]: es instancia de prefab
+OK    Edif avenida sur 8 [Avenida]: fuera de la avenida y del cruce
+OK    Edif avenida sur 8 [Avenida]: base en el suelo
+OK    Edif avenida sur 8 [Avenida]: frente hacia la calle (producto punto 1.000)
+OK    Edif cruce este 1 [Cruce]: es instancia de prefab
+OK    Edif cruce este 1 [Cruce]: fuera de la avenida y del cruce
+OK    Edif cruce este 1 [Cruce]: base en el suelo
+OK    Edif cruce este 1 [Cruce]: frente hacia la calle (producto punto 1.000)
+OK    Edif cruce oeste 1 [Cruce]: es instancia de prefab
+OK    Edif cruce oeste 1 [Cruce]: fuera de la avenida y del cruce
+OK    Edif cruce oeste 1 [Cruce]: base en el suelo
+OK    Edif cruce oeste 1 [Cruce]: frente hacia la calle (producto punto 1.000)
+OK    Edif cruce oeste 2 [Cruce]: es instancia de prefab
+OK    Edif cruce oeste 2 [Cruce]: fuera de la avenida y del cruce
+OK    Edif cruce oeste 2 [Cruce]: base en el suelo
+OK    Edif cruce oeste 2 [Cruce]: frente hacia la calle (producto punto 1.000)
+OK    Edif cruce este 2 [Cruce]: es instancia de prefab
+OK    Edif cruce este 2 [Cruce]: fuera de la avenida y del cruce
+OK    Edif cruce este 2 [Cruce]: base en el suelo
+OK    Edif cruce este 2 [Cruce]: frente hacia la calle (producto punto 1.000)
+OK    Torre de oficinas [Libre]: es instancia de prefab
+OK    Torre de oficinas [Libre]: fuera de la avenida y del cruce
+OK    Torre de oficinas [Libre]: base en el suelo
+OK    Quiosco de plaza [Libre]: es instancia de prefab
+OK    Quiosco de plaza [Libre]: fuera de la avenida y del cruce
+OK    Quiosco de plaza [Libre]: base en el suelo
+OK    cámara de calle presente
+OK    captura de calle generada
+OK    la captura de calle muestra asfalto (6.7%)
+OK    captura general generada
