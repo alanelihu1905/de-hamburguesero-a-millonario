@@ -177,6 +177,19 @@ CasinoSession NewSession(Func<int> pesos, Func<int, bool> spend, Action<int> ear
     Check(ledger.Matches(pesos, s.Chips) && ledger.Entries.Count == 4, "libro común: la cajera registra solo canjes completados");
 }
 {
+    int pesos = 25;
+    var s = NewSession(() => pesos, v => { if (pesos < v) return false; pesos -= v; return true; },
+        v => { if (pesos <= int.MaxValue - v) pesos += v; });
+    Check(s.BuyChips(1), "cajera: prepara una ficha para probar el límite del monedero");
+    int visits = s.CashierVisits;
+    pesos = int.MaxValue - 24;
+    Check(s.CashOutChips(1) == 0 && s.Chips == 1 && pesos == int.MaxValue - 24 && s.CashierVisits == visits,
+        "cajera: saldo al límite no consume ficha ni registra visita");
+    pesos = int.MaxValue - 25;
+    Check(s.CashOutChips(1) == 25 && s.Chips == 0 && pesos == int.MaxValue,
+        "cajera: canje exacto hasta el máximo acredita los pesos");
+}
+{
     // la apuesta se paga con fichas si alcanzan, el premio vuelve en fichas, y el jackpot de $25 deja 40 fichas
     int pesos = 100;
     var s = NewSession(() => pesos, v => { if (pesos < v) return false; pesos -= v; return true; }, v => pesos += v, 99);

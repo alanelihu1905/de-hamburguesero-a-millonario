@@ -100,7 +100,9 @@ namespace Tycoon3D.Casino
         public int CashOutChips(int count)
         {
             if (count <= 0 || count > Chips || hasPending) return 0;
-            int pesos = count * ChipValue;
+            long amount = (long)count * ChipValue;
+            if (amount > int.MaxValue || balance() > int.MaxValue - amount) return 0;
+            int pesos = (int)amount;
             Chips -= count;
             ChipsCashed += count;
             CashierVisits++;
