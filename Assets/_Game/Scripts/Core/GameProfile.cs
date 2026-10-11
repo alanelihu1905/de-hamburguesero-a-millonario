@@ -4,6 +4,7 @@ using Tycoon3D.Casino;
 using Tycoon3D.Economy;
 using Tycoon3D.Restaurant;
 using Tycoon3D.Save;
+using Tycoon3D.World;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,6 +30,8 @@ namespace Tycoon3D.Core
         private readonly MovementLedger ledger = new MovementLedger();
         private bool dirty;
         private bool warnedReadOnly;
+        private DayNightCycle cycle;
+        private float nextClockSave;
 
         public SaveData Data { get; private set; } = new SaveData();
         public MovementLedger Ledger => ledger;
@@ -69,6 +72,7 @@ namespace Tycoon3D.Core
         {
             if (Current != null && Current != this) { Destroy(gameObject); return; }
             Current = this;
+            cycle = gameObject.AddComponent<DayNightCycle>();
             LoadFromDisk();
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
@@ -108,6 +112,7 @@ namespace Tycoon3D.Core
             burger = FindFirstObjectByType<BurgerLoop>();
             casino = FindFirstObjectByType<CasinoService>();
             int recovered = 0;
+            RestoreClock();
             var prices = EconomyConfigSource.Current;
             if (burger != null) burger.ApplyConfig(prices);
             if (casino != null) casino.ApplyConfig(prices);
@@ -122,6 +127,15 @@ namespace Tycoon3D.Core
             if (recovered > 0)
                 Debug.Log("SAVE_PENDING_SETTLED premio=" + recovered);
             MarkDirty();                                                       // un perfil nuevo se escribe en el primer fotograma
+        }
+
+        // el reloj sigue donde se dejó; con -clock-hour manda el argumento (capturas y pruebas)
+        private void RestoreClock()
+        {
+            if (cycle == null || !Data.HasProfile || Data.ClockMinutes < 0) return;
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-clock-hour") >= 0) return;
+            cycle.Clock.Set(Data.ClockMinutes);
+            cycle.Apply();
         }
 
         private void Unsubscribe()
@@ -150,6 +164,7 @@ namespace Tycoon3D.Core
 
         private void LateUpdate()
         {
+            if (cycle != null && Time.unscaledTime >= nextClockSave) { nextClockSave = Time.unscaledTime + 15f; MarkDirty(); }   // la hora se guarda cada 15 s
             if (dirty) Flush();
         }
 
@@ -172,6 +187,7 @@ namespace Tycoon3D.Core
 
         private void Capture(SaveData d)
         {
+            if (cycle != null) d.ClockMinutes = (long)cycle.Clock.TotalMinutes;
             if (wallet != null) d.Pesos = wallet.Pesos;
             if (burger != null) { d.BurgerStep = (int)burger.Step; d.BurgerSales = burger.Sales; }
             if (casino != null && casino.Session != null) CasinoProfileMapping.Write(d, casino.Session.Snapshot());

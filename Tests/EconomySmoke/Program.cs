@@ -73,6 +73,39 @@ Check(ledger.Matches(wallet.Pesos, 0) && ledger.Entries.Count == 5, "Libro regis
     Check(loop2.IngredientCost == 15 && loop2.SalePrice == 50, "datos: volver a los valores por defecto");
 }
 
+// ---- reloj del juego y luz del día ---------------------------------------------------------------------------------
+{
+    var clock = new Tycoon3D.Core.GameClock();
+    Check(clock.Day == 1 && clock.MinuteOfDay == 480 && clock.Text == "Día 1 · 08:00", "reloj: empieza el día 1 a las 08:00");
+    clock.Advance(Tycoon3D.Core.GameClock.DefaultRealSecondsPerDay / 24f);
+    Check(clock.MinuteOfDay == 540 && clock.Text == "Día 1 · 09:00", "reloj: un día dura 480 s reales, una hora 20 s");
+    clock.Advance(-5f); clock.Advance(float.NaN); clock.Advance(float.PositiveInfinity);
+    Check(clock.MinuteOfDay == 540, "reloj: un tiempo negativo o inválido no mueve la hora");
+    clock.Advance(Tycoon3D.Core.GameClock.DefaultRealSecondsPerDay);
+    Check(clock.Day == 2 && clock.MinuteOfDay == 540, "reloj: pasadas 24 horas es el día 2 a la misma hora");
+    clock.RealSecondsPerDay = 1f;
+    Check(clock.RealSecondsPerDay == Tycoon3D.Core.GameClock.MinRealSecondsPerDay, "reloj: la velocidad máxima está acotada");
+    clock.SetHour(25.5f, 3);
+    Check(clock.Day == 3 && Math.Abs(clock.Hour - 1.5f) < 0.001f, "reloj: SetHour da la vuelta a las 24 horas");
+    clock.Set(-100); Check(clock.MinuteOfDay == 480 && clock.Day == 1, "reloj: un valor guardado inválido vuelve al inicio");
+
+    Check(Tycoon3D.Core.GameClock.PeriodOf(3f) == Tycoon3D.Core.DayPeriod.Madrugada && Tycoon3D.Core.GameClock.PeriodOf(9f) == Tycoon3D.Core.DayPeriod.Manana &&
+          Tycoon3D.Core.GameClock.PeriodOf(15f) == Tycoon3D.Core.DayPeriod.Tarde && Tycoon3D.Core.GameClock.PeriodOf(22f) == Tycoon3D.Core.DayPeriod.Noche, "reloj: periodos del día");
+    Check(Tycoon3D.Core.GameClock.Daylight(2f) == 0f && Tycoon3D.Core.GameClock.Daylight(12f) == 1f && Tycoon3D.Core.GameClock.Daylight(23f) == 0f, "luz: noche cerrada a las 02:00 y 23:00, pleno a las 12:00");
+    Check(Tycoon3D.Core.GameClock.Daylight(6.5f) > 0.1f && Tycoon3D.Core.GameClock.Daylight(6.5f) < 0.9f && Tycoon3D.Core.GameClock.Daylight(18.5f) > 0.1f && Tycoon3D.Core.GameClock.Daylight(18.5f) < 0.9f, "luz: amanecer y atardecer son intermedios");
+    float previous = Tycoon3D.Core.GameClock.Daylight(0f), biggestStep = 0f;
+    for (float h = 0.05f; h <= 24f; h += 0.05f)
+    {
+        float now = Tycoon3D.Core.GameClock.Daylight(h);
+        biggestStep = Math.Max(biggestStep, Math.Abs(now - previous));
+        if (now < 0f || now > 1f) throw new Exception("la luz sale de 0..1 a las " + h);
+        previous = now;
+    }
+    Check(biggestStep < 0.04f, "luz: la curva no da saltos (mayor paso por 3 minutos: " + biggestStep.ToString("F3") + ")");
+    Check(Tycoon3D.Core.GameClock.Daylight(26f) == Tycoon3D.Core.GameClock.Daylight(2f) && Tycoon3D.Core.GameClock.Daylight(-12f) == Tycoon3D.Core.GameClock.Daylight(12f), "luz: horas fuera de 0..24 dan la vuelta");
+    Check(Tycoon3D.Core.GameClock.SunHeight(12f) > 0.99f && Tycoon3D.Core.GameClock.SunHeight(0f) < -0.99f && Math.Abs(Tycoon3D.Core.GameClock.SunHeight(6f)) < 0.001f, "luz: el sol cruza el horizonte a las 06:00");
+}
+
 Console.WriteLine("EconomySmoke: {0} comprobaciones aprobadas.", Counter.Checks);
 
 static void Check(bool condition, string description)

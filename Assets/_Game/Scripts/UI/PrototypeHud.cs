@@ -1,6 +1,7 @@
 using Tycoon3D.Economy;
 using Tycoon3D.Interaction;
 using Tycoon3D.Restaurant;
+using Tycoon3D.World;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -55,6 +56,8 @@ namespace Tycoon3D.UI
                     interactor.CurrentPrompt, label);
             GUI.Label(new Rect(Screen.width * .5f - 5, Screen.height * .5f - 16, 20, 30), "+", label);
             DrawProfileNotice();
+            var cycle = DayNightCycle.Current;
+            if (cycle != null) GUI.Label(new Rect(20, 154, 400, 30), cycle.Clock.Text, label);
         }
     }
 }

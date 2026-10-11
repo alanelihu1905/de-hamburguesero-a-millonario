@@ -126,6 +126,19 @@ string Forge(Dictionary<string, string> extra, int version = SaveCodec.CurrentVe
         "caja: la reposición se guarda en el libro sin tocar pesos ni fichas del jugador");
 }
 
+// ---------------------------------------------------------------- reloj del juego en el perfil (formato v4)
+{
+    var data = Sample();
+    Check(new SaveData().ClockMinutes == -1, "reloj: sin guardar vale -1");
+    data.ClockMinutes = 3 * 1440 + 21 * 60;
+    Check(SaveCodec.CurrentVersion >= 4, "reloj: el formato es v4 o posterior");
+    Check(SaveCodec.TryParse(SaveCodec.Serialize(data), out var back) == ParseStatus.Ok && back.ClockMinutes == 3 * 1440 + 21 * 60, "reloj: la hora sobrevive al guardado");
+    Check(SaveCodec.TryParse(Forge(new() { ["clockMinutes"] = "-2" }), out _) == ParseStatus.Corrupt, "reloj: valor menor que -1 = dañado");
+    var viejo = Forge(new() { ["chips"] = "4", ["cashboxInit"] = "1", ["cashboxFunds"] = "14000" }, version: 3);
+    Check(SaveCodec.TryParse(viejo, out var v3) == ParseStatus.Ok && v3.ClockMinutes == -1 && v3.CashboxFunds == 14000 && v3.Chips == 4,
+        "migración: un perfil v3 se abre sin hora y conserva su caja");
+}
+
 // ---------------------------------------------------------------- repositorio y recuperación
 {
     var repo = new SaveRepository(NewDir());

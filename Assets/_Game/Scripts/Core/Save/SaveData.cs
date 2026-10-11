@@ -42,6 +42,9 @@ namespace Tycoon3D.Save
         public long CashboxOwed;
         public long CashboxRefilled;
 
+        // reloj del juego en minutos desde el día 1 a las 00:00 (-1 = sin guardar: el reloj arranca a las 08:00)
+        public long ClockMinutes = -1;
+
         // libro común: últimos movimientos y saldos anteriores al historial recortado
         public long LedgerSequence;
         public long LedgerOpeningPesos;

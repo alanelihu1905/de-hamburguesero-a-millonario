@@ -17,7 +17,7 @@ namespace Tycoon3D.Save
     /// </summary>
     public static class SaveCodec
     {
-        public const int CurrentVersion = 3;
+        public const int CurrentVersion = 4;
         public const string Header = "TYCOON3D-SAVE";
 
         private struct Field
@@ -57,6 +57,7 @@ namespace Tycoon3D.Save
             F("cashboxFunds", d => d.CashboxFunds, (d, v) => d.CashboxFunds = v, 0, int.MaxValue),
             F("cashboxOwed", d => d.CashboxOwed, (d, v) => d.CashboxOwed = v, 0, int.MaxValue),
             F("cashboxRefilled", d => d.CashboxRefilled, (d, v) => d.CashboxRefilled = v, 0, Big),
+            F("clockMinutes", d => d.ClockMinutes, (d, v) => d.ClockMinutes = v, -1, Big),
             F("ledgerSequence", d => d.LedgerSequence, (d, v) => d.LedgerSequence = v, 0, Big),
             F("ledgerOpeningPesos", d => d.LedgerOpeningPesos, (d, v) => d.LedgerOpeningPesos = v, -Big, Big),
             F("ledgerOpeningChips", d => d.LedgerOpeningChips, (d, v) => d.LedgerOpeningChips = v, -Big, Big),
@@ -77,7 +78,9 @@ namespace Tycoon3D.Save
                 values["ledgerCount"] = 0;
             },
             // v2 -> v3: la caja del casino no existía; sin cashboxInit empieza con su fondo inicial y sin deudas
-            [2] = values => { values["cashboxInit"] = 0; }
+            [2] = values => { values["cashboxInit"] = 0; },
+            // v3 -> v4: el reloj del juego no existía; sin clockMinutes arranca a las 08:00 del día 1
+            [3] = values => { values["clockMinutes"] = -1; }
         };
 
         public static string Serialize(SaveData data)
