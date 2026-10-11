@@ -23,6 +23,14 @@ El saldo, las ventas, el libro del casino, las fichas y una ronda pendiente sobr
 
 ## Preparación para GitHub (2026-10-10, solo local; nada publicado)
 Repositorio público compartido para tres personas con sus agentes. Preparado: `README.md` de arranque, `CONTRIBUTING.md`, `Docs/COLABORACION.md` (áreas, tablero, decisiones), plantillas de PR e issues, flujo de pruebas `dotnet`, 15 issues iniciales en `tools/github/issues.tsv` (script en simulación), `.gitignore` y `.gitattributes` reforzados. Pendiente de confirmar con el usuario: propietario, nombre, usuarios de las dos personas, licencia y si se publica la especificación. Sin commits ni remotos todavía.
+
+## Puerto Alba — cuadrícula urbana (2026-10-11, rama `codex/city-graph`)
+
+- Cuadrícula determinista de 21 × 21 cuadras, radio de diez, huella 1,776 m; zonas usan el `CityMap` canónico.
+- Casino visual en `(0,0)`, zona inicial Casa Marea; dos gasolineras, mercado, muelle, parque, restaurante, patio industrial y puertas escasas para visitantes de prueba.
+- Escena de blockout separada; el casino jugable con máquinas sigue en `BarrioResidencial.unity`. No hay interiores ni arte final en la cuadrícula.
+- `dotnet run --project Tests/CitySmoke`: 67 comprobaciones aprobadas. Tres avisos de nulabilidad preexistentes en `CityMap.cs`.
+- Antigravity creó la escena en Unity y el log registró `TYCOON_CITY_GRID_BUILT blocks=441 diameter=1776m`. Su smoke de Play Mode no llegó al marcador requerido; interacción E y vista en Play Mode siguen sin verificar.
 ## Puerto Alba — cuadrícula urbana (2026-10-11)
 
 - Ciudad determinista 21 × 21: diez cuadras desde centro y huella de 1,776 m por lado.

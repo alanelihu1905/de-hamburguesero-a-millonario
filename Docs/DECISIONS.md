@@ -47,3 +47,4 @@
 - Motivo: dar escala urbana navegable y puntos de interés sin hacer interactivos todos los interiores.
 - Alcance: blockout de primitivas en escena separada. Arte final, NPC con IA y streaming quedan para fases posteriores.
 - Validación requerida: CitySmoke y prueba Play Mode en Unity 6000.0.84f1 con marcador visible.
+- ID de zona y punto de inicio deben venir de `CityMap`: casino en Casa Marea `(0,0)`, sin alterar el casino jugable de `BarrioResidencial`. La cuadrícula es solo exterior de blockout.

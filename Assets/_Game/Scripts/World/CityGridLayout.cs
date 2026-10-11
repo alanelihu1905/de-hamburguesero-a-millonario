@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Tycoon3D.City;
 
 namespace Tycoon3D.World
 {
@@ -13,12 +14,12 @@ namespace Tycoon3D.World
         public const float BlockPitchMeters = 84f;
         public const float RoadWidthMeters = 12f;
 
-        private static readonly (CityZoneId zone, int x, int z)[] anchors =
+        private static readonly (ZoneId zone, int x, int z)[] anchors =
         {
-            (CityZoneId.LasAcacias, -7, -7), (CityZoneId.Mercado, -6, 1),
-            (CityZoneId.Muelle, 0, 9), (CityZoneId.Restaurantes, 6, 2),
-            (CityZoneId.Industrial, 8, -5), (CityZoneId.Parque, -2, 6),
-            (CityZoneId.CentroFinanciero, 3, -4), (CityZoneId.AvenidaCentral, 0, 0)
+            (ZoneId.CasaMarea, 0, 0), (ZoneId.MercadoDelSol, -6, 1),
+            (ZoneId.MuelleFarol, 0, 9), (ZoneId.CentroDelFaro, 3, -4),
+            (ZoneId.TalleresBrisa, 8, -5), (ZoneId.PaseoArena, -2, 6),
+            (ZoneId.ColinaCobalto, 6, 2), (ZoneId.EstacionSur, 0, -9)
         };
 
         private readonly CityBlockDefinition[] blocks;
@@ -44,10 +45,10 @@ namespace Tycoon3D.World
 
         private static CityBlockDefinition CreateBlock(int x, int z)
         {
-            CityZoneId zone = NearestZone(x, z);
+            ZoneId zone = NearestZone(x, z);
             CityBlockFeature feature = CityBlockFeature.Building;
             if (x == 0 && z == 0) feature = CityBlockFeature.Casino;
-            else if ((x == -5 && z == -7) || (x == 8 && z == -4)) feature = CityBlockFeature.GasStation;
+            else if ((x == 0 && z == -8) || (x == 8 && z == -4)) feature = CityBlockFeature.GasStation;
             else if (x == -6 && z == 1) feature = CityBlockFeature.Market;
             else if (x == 0 && z == 9) feature = CityBlockFeature.Port;
             else if (x == 6 && z == 2) feature = CityBlockFeature.Restaurant;
@@ -60,10 +61,10 @@ namespace Tycoon3D.World
             return new CityBlockDefinition(x, z, zone, feature, hasDoor);
         }
 
-        private static CityZoneId NearestZone(int x, int z)
+        private static ZoneId NearestZone(int x, int z)
         {
             int bestDistance = int.MaxValue;
-            CityZoneId best = CityZoneId.LasAcacias;
+            ZoneId best = ZoneId.CasaMarea;
             for (int i = 0; i < anchors.Length; i++)
             {
                 int distance = Math.Abs(x - anchors[i].x) + Math.Abs(z - anchors[i].z);
@@ -79,11 +80,11 @@ namespace Tycoon3D.World
     {
         public int X { get; }
         public int Z { get; }
-        public CityZoneId Zone { get; }
+        public ZoneId Zone { get; }
         public CityBlockFeature Feature { get; }
         public bool HasNpcDoor { get; }
 
-        public CityBlockDefinition(int x, int z, CityZoneId zone, CityBlockFeature feature, bool hasNpcDoor)
+        public CityBlockDefinition(int x, int z, ZoneId zone, CityBlockFeature feature, bool hasNpcDoor)
         { X = x; Z = z; Zone = zone; Feature = feature; HasNpcDoor = hasNpcDoor; }
     }
 }

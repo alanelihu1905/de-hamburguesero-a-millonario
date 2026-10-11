@@ -1,4 +1,5 @@
 using Tycoon3D.Interaction;
+using Tycoon3D.City;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -133,32 +134,32 @@ namespace Tycoon3D.World
             text.color = color;
         }
 
-        private static Material WallForZone(CityZoneId zone)
+        private static Material WallForZone(ZoneId zone)
         {
             switch (zone)
             {
-                case CityZoneId.Mercado: return MakeMaterial("Wall Market", new Color(.83f, .58f, .28f));
-                case CityZoneId.Muelle: return MakeMaterial("Wall Port", new Color(.44f, .57f, .61f));
-                case CityZoneId.Restaurantes: return MakeMaterial("Wall Restaurant", new Color(.55f, .30f, .32f));
-                case CityZoneId.Industrial: return MakeMaterial("Wall Industrial", new Color(.43f, .46f, .45f));
-                case CityZoneId.Parque: return MakeMaterial("Wall Park", new Color(.62f, .70f, .56f));
-                case CityZoneId.CentroFinanciero: return MakeMaterial("Wall Finance", new Color(.36f, .49f, .62f));
-                case CityZoneId.AvenidaCentral: return MakeMaterial("Wall Avenue", new Color(.48f, .39f, .57f));
+                case ZoneId.MercadoDelSol: return MakeMaterial("Wall Market", new Color(.83f, .58f, .28f));
+                case ZoneId.MuelleFarol: return MakeMaterial("Wall Port", new Color(.44f, .57f, .61f));
+                case ZoneId.TalleresBrisa: return MakeMaterial("Wall Industrial", new Color(.43f, .46f, .45f));
+                case ZoneId.PaseoArena: return MakeMaterial("Wall Park", new Color(.62f, .70f, .56f));
+                case ZoneId.CentroDelFaro: return MakeMaterial("Wall Finance", new Color(.36f, .49f, .62f));
+                case ZoneId.ColinaCobalto: return MakeMaterial("Wall Cobalto", new Color(.48f, .58f, .74f));
+                case ZoneId.EstacionSur: return MakeMaterial("Wall Station", new Color(.75f, .69f, .50f));
                 default: return MakeMaterial("Wall Residential", stucco);
             }
         }
 
-        private static Material RoofForZone(CityZoneId zone)
+        private static Material RoofForZone(ZoneId zone)
         {
             switch (zone)
             {
-                case CityZoneId.Mercado: return MakeMaterial("Roof Market", new Color(.73f, .42f, .18f));
-                case CityZoneId.Muelle: return MakeMaterial("Roof Port", new Color(.29f, .37f, .40f));
-                case CityZoneId.Restaurantes: return MakeMaterial("Roof Restaurant", new Color(.31f, .19f, .22f));
-                case CityZoneId.Industrial: return MakeMaterial("Roof Industrial", new Color(.27f, .29f, .29f));
-                case CityZoneId.Parque: return MakeMaterial("Roof Park", new Color(.34f, .47f, .32f));
-                case CityZoneId.CentroFinanciero: return MakeMaterial("Roof Finance", new Color(.21f, .29f, .40f));
-                case CityZoneId.AvenidaCentral: return MakeMaterial("Roof Avenue", new Color(.29f, .23f, .35f));
+                case ZoneId.MercadoDelSol: return MakeMaterial("Roof Market", new Color(.73f, .42f, .18f));
+                case ZoneId.MuelleFarol: return MakeMaterial("Roof Port", new Color(.29f, .37f, .40f));
+                case ZoneId.TalleresBrisa: return MakeMaterial("Roof Industrial", new Color(.27f, .29f, .29f));
+                case ZoneId.PaseoArena: return MakeMaterial("Roof Park", new Color(.34f, .47f, .32f));
+                case ZoneId.CentroDelFaro: return MakeMaterial("Roof Finance", new Color(.21f, .29f, .40f));
+                case ZoneId.ColinaCobalto: return MakeMaterial("Roof Cobalto", new Color(.29f, .35f, .48f));
+                case ZoneId.EstacionSur: return MakeMaterial("Roof Station", new Color(.39f, .35f, .27f));
                 default: return MakeMaterial("Roof Residential", roof);
             }
         }

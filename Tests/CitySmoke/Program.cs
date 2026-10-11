@@ -1,35 +1,38 @@
+using Tycoon3D.City;
 using Tycoon3D.World;
 
-var graph = new CityGraph();
 var checks = 0;
 void Check(bool value, string message) { if (!value) throw new InvalidOperationException(message); checks++; }
 
-Check(graph.Zones.Count == 8, "Puerto Alba tiene ocho zonas estables");
-Check(graph.Zones.Select(zone => zone.Id).Distinct().Count() == 8, "los IDs de zona son únicos");
-foreach (var zone in graph.Zones)
+Check(CityMap.Zones.Length == 8, "Puerto Alba tiene ocho zonas estables");
+Check(CityMap.Zones.Select(zone => zone.Id).Distinct().Count() == 8, "los IDs de zona son únicos");
+Check(CityMap.Validate().Count == 0, "grafo de zonas conectado y válido");
+Check(CityMap.Start == ZoneId.CasaMarea && CityMap.CasinoZone == CityMap.Start, "casino permanece disponible en zona inicial");
+foreach (var zone in CityMap.Zones)
 {
-    Check(graph.Neighbors(zone.Id).Count > 0, $"zona aislada: {zone.Id}");
-    Check(!string.IsNullOrWhiteSpace(zone.Name) && !string.IsNullOrWhiteSpace(zone.Landmark), $"zona sin identidad visual: {zone.Id}");
-    foreach (var neighbor in graph.Neighbors(zone.Id)) Check(graph.Neighbors(neighbor).Contains(zone.Id), $"enlace no bidireccional: {zone.Id}-{neighbor}");
+    Check(!string.IsNullOrWhiteSpace(zone.Name) && !string.IsNullOrWhiteSpace(zone.Purpose), $"zona sin identidad: {zone.Id}");
+    Check(CityMap.NeighborsOf(zone.Id).Count > 0, $"zona aislada: {zone.Id}");
+    Check(CityMap.NeighborsOf(zone.Id).Distinct().Count() == CityMap.NeighborsOf(zone.Id).Count, $"vecinos repetidos: {zone.Id}");
+    foreach (var neighbor in CityMap.NeighborsOf(zone.Id))
+        Check(CityMap.NeighborsOf(neighbor).Contains(zone.Id), $"enlace no bidireccional: {zone.Id}-{neighbor}");
+    var route = CityMap.Route(CityMap.Start, zone.Id);
+    Check(route != null && route[0] == CityMap.Start && route[^1] == zone.Id, $"no hay ruta a {zone.Id}");
 }
-foreach (var destination in graph.Zones)
-{
-    var route = graph.FindRoute(CityZoneId.LasAcacias, destination.Id);
-    Check(route.Count > 0 && route[0] == CityZoneId.LasAcacias && route[^1] == destination.Id, $"no hay ruta a {destination.Id}");
-    Check(graph.RouteDistanceMeters(route) > 0 || destination.Id == CityZoneId.LasAcacias, $"ruta sin distancia a {destination.Id}");
-}
-var casinoRoute = graph.FindRoute(CityZoneId.LasAcacias, CityZoneId.AvenidaCentral);
-Check(graph.RouteDistanceMeters(casinoRoute) == 1790, "la ruta más corta inicial al casino suma 1790 m");
-Check(graph.FindRoute(CityZoneId.AvenidaCentral, CityZoneId.AvenidaCentral).Count == 1, "ruta consigo misma");
-Check(graph.TryGetZone(CityZoneId.Muelle, out var port) && port.Name == "Muelle", "metadatos de zona consultables");
+Check(CityMap.Route(CityMap.Start, CityMap.CasinoZone)?.Count == 1, "casino no requiere recorrido desde el inicio");
 var grid = new CityGridLayout();
 Check(grid.Blocks.Count == 441, "ciudad cubre 21 x 21 cuadras");
 Check(grid.DiameterMeters == 1776f, "huella urbana mide 1,776 m por lado");
 Check(grid.TryGetBlock(-10, -10, out _) && grid.TryGetBlock(10, 10, out _), "cuadrícula incluye radio de diez cuadras");
 Check(!grid.TryGetBlock(-11, 0, out _), "cuadrícula rechaza exterior del radio");
-Check(grid.Blocks.Select(block => block.Zone).Distinct().Count() == 8, "las ocho zonas ocupan bloques");
-Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.Casino) == 1, "casino siempre existe en centro");
+Check(grid.Blocks.Select(block => block.Zone).Distinct().Count() == CityMap.Zones.Length, "las ocho zonas ocupan bloques");
+Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.Casino) == 1, "casino siempre existe en el inicio");
 Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.GasStation) == 2, "ciudad contiene dos gasolineras");
 Check(grid.Blocks.Count(block => block.HasNpcDoor) >= 50, "hay puertas tocables en varios edificios");
-Check(grid.TryGetBlock(0, 0, out var center) && center.Feature == CityBlockFeature.Casino, "casino está en bloque central");
+Check(grid.Blocks.Where(block => block.HasNpcDoor).All(block => block.Feature == CityBlockFeature.Building), "puertas NPC solo aparecen en fachadas sencillas");
+Check(grid.Blocks.Where(block => block.Feature == CityBlockFeature.GasStation).Select(block => block.Zone).Distinct().Count() == 2,
+    "gasolineras cubren dos zonas distintas");
+Check(new CityGridLayout().Blocks.Select(block => block.HasNpcDoor).SequenceEqual(grid.Blocks.Select(block => block.HasNpcDoor)),
+    "las posiciones de puertas son reproducibles");
+Check(grid.TryGetBlock(0, 0, out var center) && center.Feature == CityBlockFeature.Casino && center.Zone == CityMap.CasinoZone,
+    "casino está en cuadra inicial Casa Marea");
 Console.WriteLine($"CitySmoke: {checks} comprobaciones aprobadas. Cuadrícula 21x21, casino central, gasolineras y puertas NPC.");

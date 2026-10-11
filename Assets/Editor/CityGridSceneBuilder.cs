@@ -26,7 +26,7 @@ namespace Tycoon3D.Editor
             city.AddComponent<CityGridBlockout>();
 
             var player = new GameObject("City Grid Player");
-            player.transform.position = new Vector3(0, 1, -120);
+            player.transform.position = new Vector3(0, 1, -45);
             var controller = player.AddComponent<CharacterController>();
             controller.height = 1.8f;
             controller.radius = .35f;
