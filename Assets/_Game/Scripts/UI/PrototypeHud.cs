@@ -26,6 +26,16 @@ namespace Tycoon3D.UI
             if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
+        // aviso fijo si otra copia del juego usa el mismo perfil: aquí se juega pero no se guarda nada
+        private void DrawProfileNotice()
+        {
+            var profile = Tycoon3D.Core.GameProfile.Current;
+            if (profile == null || !profile.LockedByOtherInstance) return;
+            var box = new Rect(Screen.width * .5f - 330, Screen.height - 96, 660, 48);
+            GUI.Box(box, string.Empty);
+            GUI.Label(box, "Otra copia del juego está usando este perfil. Aquí juegas sin guardar. Cierra la otra copia para guardar.", label);
+        }
+
         private void OnGUI()
         {
             if (label == null)
@@ -44,6 +54,7 @@ namespace Tycoon3D.UI
                 GUI.Label(new Rect(Screen.width * .5f - 180, Screen.height * .65f, 400, 32),
                     interactor.CurrentPrompt, label);
             GUI.Label(new Rect(Screen.width * .5f - 5, Screen.height * .5f - 16, 20, 30), "+", label);
+            DrawProfileNotice();
         }
     }
 }

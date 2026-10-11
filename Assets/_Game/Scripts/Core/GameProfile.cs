@@ -28,6 +28,7 @@ namespace Tycoon3D.Core
         private CasinoService casino;
         private readonly MovementLedger ledger = new MovementLedger();
         private bool dirty;
+        private bool warnedReadOnly;
 
         public SaveData Data { get; private set; } = new SaveData();
         public MovementLedger Ledger => ledger;
@@ -35,6 +36,8 @@ namespace Tycoon3D.Core
         public int Writes { get; private set; }
         public string Directory => repository != null ? repository.Directory : null;
         public bool ReadOnly => repository != null && repository.ReadOnly;
+        /// <summary>True si otra copia del juego tiene abierto este perfil: aquí se juega sin guardar.</summary>
+        public bool LockedByOtherInstance => repository != null && repository.LockedByOtherInstance;
         public string LastError => repository?.LastError;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -73,6 +76,7 @@ namespace Tycoon3D.Core
         private void OnDestroy()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            repository?.Dispose();
             if (Current == this) Current = null;
         }
 
@@ -85,7 +89,9 @@ namespace Tycoon3D.Core
 
         private void LoadFromDisk()
         {
+            repository?.Dispose();                                             // suelta el candado antes de volver a tomarlo
             repository = new SaveRepository(ResolveDirectory());
+            warnedReadOnly = false;
             Outcome = repository.Load(out var loaded);
             Data = loaded;
             Debug.Log("SAVE_LOAD " + Outcome + " dir=" + repository.Directory + " pesos=" + Data.Pesos + " fichas=" + Data.Chips +
@@ -157,7 +163,11 @@ namespace Tycoon3D.Core
             if (repository == null || (wallet == null && burger == null && casino == null)) return;
             Capture(Data);
             if (repository.Save(Data)) Writes++;
-            else if (repository.LastError != null) Debug.LogWarning("SAVE_FAIL " + repository.LastError);
+            else if (repository.LastError != null && !warnedReadOnly)
+            {
+                Debug.LogWarning("SAVE_FAIL " + repository.LastError);
+                warnedReadOnly = repository.ReadOnly;                            // en solo lectura se avisa una vez, no en cada cambio
+            }
         }
 
         private void Capture(SaveData d)

@@ -12,6 +12,11 @@ void Check(bool ok, string what)
     checks++;
     if (!ok) { Console.WriteLine("FALLO: " + what); Environment.Exit(1); }
 }
+LoadOutcome Reload(string dir, out SaveData data)
+{
+    using var r = new SaveRepository(dir);                              // abrir y cerrar la app: el candado se toma y se suelta
+    return r.Load(out data);
+}
 string NewDir() => Path.Combine(Path.GetTempPath(), "tycoon-save-" + Guid.NewGuid().ToString("N"));
 SaveData Sample() => new SaveData
 {
@@ -130,19 +135,21 @@ string Forge(Dictionary<string, string> extra, int version = SaveCodec.CurrentVe
     Check(repo.Load(out var l1) == LoadOutcome.Loaded && l1.Pesos == 1075 && l1.SaveCount == 1, "repo: carga lo guardado");
     s.Pesos = 2000;
     Check(repo.Save(s) && File.Exists(repo.BackupPath), "repo: el segundo guardado crea la copia de seguridad");
-    Check(new SaveRepository(repo.Directory).Load(out var l2) == LoadOutcome.Loaded && l2.Pesos == 2000, "repo: otra instancia (otro arranque) ve $2000");
+    repo.Dispose();                                                  // cerrar la app suelta el candado del perfil
+    Check(Reload(repo.Directory, out var l2) == LoadOutcome.Loaded && l2.Pesos == 2000, "repo: otra instancia (otro arranque) ve $2000");
 
     // principal dañado -> recupera la copia ($1075) y deja el principal válido
     File.WriteAllText(repo.MainPath, "TYCOON3D-SAVE\nversion=1\npesos=1\nchecksum=deadbeef\n");
     var r2 = new SaveRepository(repo.Directory);
     Check(r2.Load(out var rec) == LoadOutcome.RecoveredFromBackup && rec.Pesos == 1075, "repo: principal dañado se recupera desde la copia");
     Check(Directory.GetFiles(repo.Directory, "profile.corrupt-*").Length == 1, "repo: el archivo dañado se aparta, no se borra");
-    Check(new SaveRepository(repo.Directory).Load(out var after) == LoadOutcome.Loaded && after.Pesos == 1075, "repo: tras recuperar, el principal vuelve a ser válido");
+    r2.Dispose();
+    Check(Reload(repo.Directory, out var after) == LoadOutcome.Loaded && after.Pesos == 1075, "repo: tras recuperar, el principal vuelve a ser válido");
 
     // ambos dañados -> perfil nuevo, sin excepción
     File.WriteAllText(repo.MainPath, "roto");
     File.WriteAllText(repo.BackupPath, "roto también");
-    Check(new SaveRepository(repo.Directory).Load(out var none) == LoadOutcome.ResetCorrupt && !none.HasProfile, "repo: ambos dañados = perfil nuevo");
+    Check(Reload(repo.Directory, out var none) == LoadOutcome.ResetCorrupt && !none.HasProfile, "repo: ambos dañados = perfil nuevo");
     Check(Directory.GetFiles(repo.Directory, "profile.corrupt-*").Length == 2, "repo: el segundo dañado también se aparta con otro nombre");
 }
 {
@@ -160,7 +167,8 @@ string Forge(Dictionary<string, string> extra, int version = SaveCodec.CurrentVe
     var repo = new SaveRepository(NewDir());
     repo.Save(Sample());
     File.WriteAllText(Path.Combine(repo.Directory, SaveRepository.TempFile), "TYCOON3D-SAVE\nversion=1\npes");
-    Check(new SaveRepository(repo.Directory).Load(out var l) == LoadOutcome.Loaded && l.Pesos == 1075, "repo: un temporal a medias se ignora");
+    repo.Dispose();
+    Check(Reload(repo.Directory, out var l) == LoadOutcome.Loaded && l.Pesos == 1075, "repo: un temporal a medias se ignora");
     Check(!File.Exists(Path.Combine(repo.Directory, SaveRepository.TempFile)), "repo: el temporal a medias se elimina");
 }
 {
@@ -179,6 +187,61 @@ string Forge(Dictionary<string, string> extra, int version = SaveCodec.CurrentVe
     File.WriteAllText(file, "x");
     var repo = new SaveRepository(Path.Combine(file, "dentro"));
     Check(repo.Load(out _) == LoadOutcome.ResetCorrupt && repo.LastError != null && !repo.Save(Sample()), "repo: un directorio imposible no lanza excepción");
+}
+
+// ---------------------------------------------------------------- dos copias de la app con el mismo perfil
+{
+    string dir = NewDir();
+    var primera = new SaveRepository(dir);
+    Check(primera.Load(out _) == LoadOutcome.Fresh && primera.HoldsLock && !primera.LockedByOtherInstance, "candado: la primera copia toma el perfil");
+    var datos = Sample();
+    Check(primera.Save(datos), "candado: la primera copia guarda");
+    string antes = File.ReadAllText(primera.MainPath);
+    string tmpAjeno = Path.Combine(dir, SaveRepository.TempFile);
+    File.WriteAllText(tmpAjeno, "TYCOON3D-SAVE" + (char)10 + "version=3" + (char)10 + "pes");  // la primera copia está a mitad de un guardado
+
+    var segunda = new SaveRepository(dir);
+    Check(segunda.Load(out var visto) == LoadOutcome.LockedByOtherInstance && segunda.LockedByOtherInstance && segunda.ReadOnly && !segunda.HoldsLock,
+        "candado: la segunda copia lo detecta y queda en solo lectura");
+    Check(visto.Pesos == 1075 && visto.Chips == 17, "candado: la segunda copia ve lo último que guardó la primera");
+    datos.Pesos = 5;
+    Check(!segunda.Save(datos) && segunda.LastError != null, "candado: la segunda copia no puede guardar");
+    Check(File.ReadAllText(primera.MainPath) == antes && File.Exists(tmpAjeno) && !File.Exists(segunda.BackupPath) && Directory.GetFiles(dir, "profile.corrupt-*").Length == 0,
+        "candado: la segunda copia no toca el disco (ni borra el temporal de la primera)");
+    Check(primera.Save(datos) && SaveCodec.TryParse(File.ReadAllText(primera.MainPath), out var guardado) == ParseStatus.Ok && guardado.Pesos == 5,
+        "candado: la primera copia sigue guardando con normalidad");
+
+    // si el principal de la primera está a medias y la copia es válida, la segunda lee la copia sin moverla ni repararla
+    File.WriteAllText(primera.MainPath, "a medias");
+    var tercera = new SaveRepository(dir);
+    Check(tercera.Load(out var viaCopia) == LoadOutcome.LockedByOtherInstance && viaCopia.HasProfile && File.ReadAllText(primera.MainPath) == "a medias",
+        "candado: con el principal ilegible la segunda copia lee la copia de seguridad sin repararla");
+
+    // al cerrar la primera copia (o caerse: el sistema suelta el archivo) el perfil queda libre
+    primera.Dispose();
+    primera.Dispose();
+    var cuarta = new SaveRepository(dir);
+    Check(cuarta.Load(out _) != LoadOutcome.LockedByOtherInstance && cuarta.HoldsLock && !cuarta.ReadOnly, "candado: tras cerrar la primera, otra copia toma el perfil");
+    Check(cuarta.Save(Sample()), "candado: y puede guardar");
+    cuarta.Dispose();
+    // perfiles distintos no se estorban
+    using (var a = new SaveRepository(NewDir())) using (var b = new SaveRepository(NewDir()))
+        Check(a.Load(out _) == LoadOutcome.Fresh && b.Load(out _) == LoadOutcome.Fresh, "candado: dos perfiles en carpetas distintas no se estorban");
+    // volver a leer el disco en la misma app (equivale a reabrir) libera y retoma el candado
+    string d2 = NewDir();
+    var uno = new SaveRepository(d2); uno.Load(out _);
+    uno.Dispose();
+    var dos = new SaveRepository(d2);
+    Check(dos.Load(out _) == LoadOutcome.Fresh && dos.HoldsLock, "candado: soltar y volver a tomar el perfil en la misma app funciona");
+    dos.Dispose();
+    // sin Load previo, guardar también respeta el candado
+    string d3 = NewDir();
+    using (var duenio = new SaveRepository(d3))
+    {
+        duenio.Load(out _);
+        var intruso = new SaveRepository(d3);
+        Check(!intruso.Save(Sample()) && !File.Exists(Path.Combine(d3, SaveRepository.BackupFile)), "candado: guardar sin haber cargado tampoco pisa un perfil ocupado");
+    }
 }
 
 // ---------------------------------------------------------------- casino: fichas, ronda pendiente y reinicio
