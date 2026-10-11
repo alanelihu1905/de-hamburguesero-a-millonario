@@ -62,7 +62,6 @@ Repositorio público compartido para tres personas con sus agentes. Preparado: `
 - Detalle, licencia propia y decisiones abiertas en `Docs/Handoffs/Claude/09_KIT_VISUAL_CIUDAD.md` y `ArtSource/PuertoAlba/LICENCIA.md`.
 
 **No verificado**
-- Importación en Unity 6000.0.84f1: los FBX están en `Assets/_Game/Models/PuertoAlba/` sin `.meta`; Unity los generará al abrir el proyecto.
-- Orientación del frente y escala dentro de Unity.
+- Importación en Unity 6000.0.84f1 (batch, `PuertoAlbaKitImportCheck`): siete FBX importados con `.meta`, escala 1, base en y = 0, frente en +Z por medida. Informe en `ArtSource/PuertoAlba/unity_import_check.txt`. No es una revisión visual en escena.
 - Colocación en la cuadrícula 21×21: no hay `CityGridLayout` en esta rama; el tamaño de celda está por confirmar.
 - Ubicación del casino: el plan y `CityMap.cs` lo ponen en Casa Marea; la propuesta 08 lo pone en la zona 8. Decisión pendiente de Claude o Codex.

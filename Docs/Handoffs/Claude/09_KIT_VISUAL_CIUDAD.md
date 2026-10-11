@@ -10,11 +10,12 @@
 | Punto | Estado |
 | --- | --- |
 | Generación en Blender 5.2 (`build_kit_ciudad.py`) | **Verificado:** el script termina con código 0 y muestra `LISTO`. |
-| Dimensiones y pivote de las siete piezas | **Verificado en Blender:** cada medida coincide con la tabla de la sección 3 (comprobación dentro del script). |
+| Dimensiones y pivote de las siete piezas | **Verificado en Blender:** cada medida coincide con la tabla de la sección 2 (comprobación dentro del script). |
 | Presupuesto de triángulos | **Verificado en Blender:** todas las piezas quedan por debajo de su tope (`stats_kit.json`). |
 | Vistas de previsualización | **Verificado visualmente:** `Preview/Kit_residencial_tienda.png` y `Preview/Kit_gasolinera.png`. |
-| Importación en Unity 6000.0.84f1 | **No verificado.** Unity no estaba abierto en esta sesión. Los `.meta` de los FBX no existen todavía; los genera Unity al abrir el proyecto. |
-| Orientación del frente en Unity | **No verificado.** En Blender el frente mira a −Y; la conversión de ejes al FBX sigue el mismo criterio que el barrio, que tampoco está verificado en Unity (ver `Docs/Handoffs/Claude/04_CASA_MAREA_PLANO_Y_LOOK.md`). |
+| Importación en Unity 6000.0.84f1 | **Verificado en batch:** `Assets/Editor/PuertoAlbaKitImportCheck.cs` importa los siete FBX sin errores y genera sus `.meta`. Informe: `ArtSource/PuertoAlba/unity_import_check.txt`; marcador `TYCOON_KIT_IMPORT_OK`. |
+| Orientación del frente en Unity | **Verificado por medida:** en Unity, las salientes (toldo, visera, pistola) quedan en +Z, que es el frente de Unity. Es una medición de límites, no una revisión visual en escena. |
+| Escala y base en Unity | **Verificado por medida:** escala de importador 1; tamaños y base en y = 0 coinciden con Blender (sección 2). |
 | Colocación en la ciudad (cuadrícula 21×21) | **No hecho.** No he encontrado `CityGridLayout` ni `CityGridBlockout` en esta rama ni en el árbol de trabajo; no los he tocado. Ver sección 6. |
 | Zonas aplicadas en Unity | **No hecho.** `zonas_variacion.json` describe la variación; nada la aplica todavía. |
 
@@ -28,7 +29,9 @@
 | `ArtSource/PuertoAlba/Preview/*.png` | Vistas frontales del kit. |
 | `ArtSource/PuertoAlba/zonas_variacion.json` | Colores y piezas preferentes por zona (ocho zonas). |
 | `ArtSource/PuertoAlba/LICENCIA.md` | Licencia propia: obra del proyecto, sin material de terceros. |
-| `Assets/_Game/Models/PuertoAlba/SM_*.fbx` | Siete piezas importables, con el pivote en el origen. |
+| `Assets/_Game/Models/PuertoAlba/SM_*.fbx` (+ `.meta`) | Siete piezas importables, con el pivote en el origen. |
+| `Assets/Editor/PuertoAlbaKitImportCheck.cs` | Chequeo de importación en batch (escala, base, frente). |
+| `ArtSource/PuertoAlba/unity_import_check.txt` | Informe del último chequeo en Unity. |
 
 Para regenerar, desde la raíz del proyecto, en el host (Blender necesita GPU):
 
@@ -107,7 +110,7 @@ El encargo menciona una cuadrícula de 21×21. En esta rama no encuentro `CityGr
 ## 9. Lo que sigue (para Claude y Codex)
 
 1. Confirmar la ubicación del casino (sección 5) y el tamaño de celda de la cuadrícula (sección 6).
-2. Abrir el proyecto en Unity 6000.0.84f1 para generar los `.meta` de los FBX, comprobar que se importan y que el frente queda hacia el jugador. Eso es la verificación real; hasta entonces todo lo de la sección 0 que dice "no verificado" sigue así.
+2. Revisión visual en escena del kit en Unity (el chequeo actual mide límites, no mira la escena).
 3. Aplicar `zonas_variacion.json` mediante instancias de material, en una pieza de prueba antes de todo el kit.
 
 Ningún archivo de `CityGrid*` ni escena compartida se ha modificado.
