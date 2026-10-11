@@ -60,3 +60,9 @@ Repositorio público compartido para tres personas con sus agentes. Preparado: `
 - `CityGridLayout.TryGetBlockAtWorldPosition` resuelve la cuadra por coordenadas X/Z del mundo, limita la consulta al borde de la cuadrícula y rechaza valores no finitos.
 - `Tests/CitySmoke` cubre casino central, gasolinera, bordes, exterior e infinitos/NaN: 77 comprobaciones aprobadas.
 - Prueba pura de datos; no verifica Unity Play Mode ni cambia geometría.
+
+## Codex (área C) — conversión de centros de cuadra (2026-10-11)
+
+- `CityGridLayout.TryGetBlockCenterWorldPosition` convierte coordenadas de cuadrícula al centro X/Z del mundo y rechaza cuadras fuera de la ciudad.
+- `Tests/CitySmoke` comprueba ida y vuelta en las 441 cuadras: `dotnet run --project Tests/CitySmoke` aprobó 960 comprobaciones.
+- No modifica la escena ni demuestra la integración en Unity Play Mode. Siguen tres avisos de nulabilidad preexistentes en `CityMap.cs`.

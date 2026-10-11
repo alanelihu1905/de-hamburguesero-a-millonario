@@ -47,6 +47,21 @@ namespace Tycoon3D.World
             return true;
         }
 
+        /// <summary>Converts a grid coordinate to the block center in origin-centered world X/Z space.</summary>
+        public bool TryGetBlockCenterWorldPosition(int x, int z, out float worldX, out float worldZ)
+        {
+            if (x < -BlocksFromCenter || x > BlocksFromCenter || z < -BlocksFromCenter || z > BlocksFromCenter)
+            {
+                worldX = 0f;
+                worldZ = 0f;
+                return false;
+            }
+
+            worldX = x * BlockPitchMeters;
+            worldZ = z * BlockPitchMeters;
+            return true;
+        }
+
         /// <summary>Finds the block whose center is nearest to a world-space X/Z position.</summary>
         public bool TryGetBlockAtWorldPosition(float worldX, float worldZ, out CityBlockDefinition block)
         {

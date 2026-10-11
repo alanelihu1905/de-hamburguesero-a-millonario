@@ -24,6 +24,17 @@ Check(grid.Blocks.Count == 441, "ciudad cubre 21 x 21 cuadras");
 Check(grid.DiameterMeters == 1776f, "huella urbana mide 1,776 m por lado");
 Check(grid.TryGetBlock(-10, -10, out _) && grid.TryGetBlock(10, 10, out _), "cuadrícula incluye radio de diez cuadras");
 Check(!grid.TryGetBlock(-11, 0, out _), "cuadrícula rechaza exterior del radio");
+Check(!grid.TryGetBlockCenterWorldPosition(11, 0, out var invalidCenterX, out var invalidCenterZ) &&
+      invalidCenterX == 0f && invalidCenterZ == 0f,
+    "conversión de centro rechaza cuadras exteriores con salidas seguras");
+foreach (var block in grid.Blocks)
+{
+    Check(grid.TryGetBlockCenterWorldPosition(block.X, block.Z, out var worldX, out var worldZ),
+        $"no se pudo convertir el centro de ({block.X},{block.Z})");
+    Check(grid.TryGetBlockAtWorldPosition(worldX, worldZ, out var roundTrip) &&
+          roundTrip.X == block.X && roundTrip.Z == block.Z,
+        $"conversión mundo-cuadrícula no ida y vuelta en ({block.X},{block.Z})");
+}
 Check(grid.TryGetBlockAtWorldPosition(0f, 0f, out var centerByPosition) && centerByPosition.Feature == CityBlockFeature.Casino,
     "consulta espacial encuentra casino en origen");
 Check(grid.TryGetBlockAtWorldPosition(0f, -8 * CityGridLayout.BlockPitchMeters, out var stationByPosition) &&
