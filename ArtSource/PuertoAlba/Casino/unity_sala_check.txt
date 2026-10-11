@@ -1,0 +1,65 @@
+OK    FBX SM_Sala_Muro importa
+OK    SM_Sala_Muro: 72 triángulos en Unity = 72 en Blender
+OK    PF_Sala_Muro: prefab con colisión
+OK    PF_Sala_Muro: tamaño (4.000, 5.000, 0.400) esperado (4.000, 5.000, 0.400)
+OK    PF_Sala_Muro: base en y = 0
+OK    FBX SM_Sala_Esquina importa
+OK    SM_Sala_Esquina: 48 triángulos en Unity = 48 en Blender
+OK    PF_Sala_Esquina: prefab con colisión
+OK    PF_Sala_Esquina: tamaño (0.900, 5.000, 0.900) esperado (0.900, 5.000, 0.900)
+OK    PF_Sala_Esquina: base en y = 0
+OK    FBX SM_Sala_Puerta_Entrada importa
+OK    SM_Sala_Puerta_Entrada: 1092 triángulos en Unity = 1092 en Blender
+OK    PF_Sala_Puerta_Entrada: prefab con colisión
+OK    PF_Sala_Puerta_Entrada: tamaño (4.000, 5.000, 1.533) esperado (4.000, 5.000, 1.533)
+OK    PF_Sala_Puerta_Entrada: base en y = 0
+OK    FBX SM_Sala_Puerta_Salida importa
+OK    SM_Sala_Puerta_Salida: 852 triángulos en Unity = 852 en Blender
+OK    PF_Sala_Puerta_Salida: prefab con colisión
+OK    PF_Sala_Puerta_Salida: tamaño (4.000, 5.000, 1.533) esperado (4.000, 5.000, 1.533)
+OK    PF_Sala_Puerta_Salida: base en y = 0
+OK    FBX SM_Sala_Techo importa
+OK    SM_Sala_Techo: 72 triángulos en Unity = 72 en Blender
+OK    PF_Sala_Techo: prefab con colisión
+OK    PF_Sala_Techo: tamaño (4.000, 0.400, 4.000) esperado (4.000, 0.400, 4.000)
+OK    PF_Sala_Techo: base en y = 0
+OK    FBX SM_Mostrador_Cambio importa
+OK    SM_Mostrador_Cambio: 924 triángulos en Unity = 924 en Blender
+OK    PF_Mostrador_Cambio: prefab con colisión
+OK    PF_Mostrador_Cambio: tamaño (3.200, 2.455, 1.000) esperado (3.200, 2.455, 1.000)
+OK    PF_Mostrador_Cambio: base en y = 0
+OK    FBX SM_Taburete importa
+OK    SM_Taburete: 236 triángulos en Unity = 236 en Blender
+OK    PF_Taburete: prefab con colisión
+OK    PF_Taburete: tamaño (0.429, 0.690, 0.440) esperado (0.429, 0.690, 0.440)
+OK    PF_Taburete: base en y = 0
+OK    la escena de sala abre
+OK    la escena de sala no está en la build
+OK    18 módulos de muro (18)
+OK    puertas de entrada y de salida presentes
+OK    4 esquinas (4)
+OK    25 módulos de techo (25)
+OK    6 taburetes (6)
+OK    mostrador de cambio presente
+OK    3 máquinas rojas y 3 doradas
+OK    grupos de arquitectura y de mobiliario presentes
+OK    muros cerrados: 0 huecos inesperados en el contorno (0)
+OK    las aberturas de las puertas existen (12 rayos pasan)
+OK    techo cerrado: todos los rayos verticales topan (0 sin techo)
+OK    un cuerpo de 1.80 m pasa por la puerta de x = -4
+OK    un cuerpo de 1.80 m pasa por la puerta de x = 4
+OK    un muro bloquea el paso por x = 0 (distancia al choque 2.40 m)
+OK    pasillo libre de x −4.5 a 4.5 y de z −8 a 8.8
+OK    el letrero JACKPOT cae dentro del encuadre frontal
+OK    nada tapa el letrero desde la cámara frontal
+OK    los taburetes miden 0.69 m (altura de asiento humana)
+OK    cada taburete está a 0.6–1.2 m de su tragamonedas
+OK    el mostrador de cambio está en la esquina de la entrada (a menos de 8 m de la puerta de entrada)
+OK    el mostrador mira a la sala
+OK    el mobiliario no se solapa con muros, puertas, esquinas ni techo (0 solapes)
+OK    captura frontal generada
+OK    el letrero ENTRADA se lee en la captura (letras blancas 6559 px (20.4%), tablero 78.3%)
+OK    el letrero SALIDA se lee en la captura (letras blancas 6970 px (21.6%), tablero 77.1%)
+OK    captura del mostrador generada
+OK    captura general (sin techo) generada
+OK    consola sin errores durante la verificación (0)
