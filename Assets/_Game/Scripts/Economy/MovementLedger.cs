@@ -4,7 +4,7 @@ using Tycoon3D.Save;
 
 namespace Tycoon3D.Economy
 {
-    public enum MovementKind { Opening, Ingredients, Sale, BuyChips, CashOut, Stake, Payout, Courtesy, Adjustment }
+    public enum MovementKind { Opening, Ingredients, Sale, BuyChips, CashOut, Stake, Payout, Courtesy, Adjustment, Refill }
     public enum MovementAccount { Outside, Wallet, Chips, Casino }
 
     /// <summary>Movimiento en pesos; Chips representa fichas a su valor de cambio de $25.</summary>

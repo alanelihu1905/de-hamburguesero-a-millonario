@@ -22,12 +22,14 @@ namespace Tycoon3D.Casino
         private readonly Func<int> balance;
         private readonly Func<int, bool> trySpend;
         private readonly Action<int> earn;
+        private readonly CasinoCashbox cashbox;
         private SlotRound pending;
         private bool hasPending;
         private bool pendingWithChips;
 
-        public CasinoSession(IRandomSource rng, Func<int> balance, Func<int, bool> trySpend, Action<int> earn)
+        public CasinoSession(IRandomSource rng, Func<int> balance, Func<int, bool> trySpend, Action<int> earn, CasinoCashbox cashbox = null)
         {
+            this.cashbox = cashbox ?? new CasinoCashbox();
             this.rng = rng ?? throw new ArgumentNullException(nameof(rng));
             this.balance = balance ?? throw new ArgumentNullException(nameof(balance));
             this.trySpend = trySpend ?? throw new ArgumentNullException(nameof(trySpend));
@@ -37,6 +39,11 @@ namespace Tycoon3D.Casino
         /// <summary>Se dispara cuando cambia algo que debe guardarse (apuesta aceptada, liquidación, canje de fichas).</summary>
         public event Action StateChanged;
         public event Action<MovementKind, int, MovementAccount, MovementAccount, int> MovementRecorded;
+
+        /// <summary>Caja del casino: fondo, tope de premio por ronda y premios por cobrar.</summary>
+        public CasinoCashbox Cashbox => cashbox;
+        /// <summary>Cómo se pagó la última ronda: lo cobrado ya, la cuota de premios anteriores y lo que quedó por cobrar.</summary>
+        public CashboxPayment LastPayment { get; private set; }
 
         public int BetIndex { get; private set; }
         public int CurrentBet => BetTiers[BetIndex];
@@ -146,7 +153,8 @@ namespace Tycoon3D.Casino
             hasPending = true;
             pendingWithChips = withChips;
             RoundsStarted++;
-            if (round.FreeSpin) FreeSpins++; else TotalWagered += round.Stake;
+            if (round.FreeSpin) FreeSpins++;
+            else { TotalWagered += round.Stake; cashbox.TakeStake(round.Stake); }
             MovementRecorded?.Invoke(round.FreeSpin ? MovementKind.Courtesy : MovementKind.Stake,
                 round.FreeSpin ? 0 : round.Stake, withChips ? MovementAccount.Chips : MovementAccount.Wallet,
                 MovementAccount.Casino, RoundsStarted);
@@ -162,8 +170,8 @@ namespace Tycoon3D.Casino
             bool withChips = pendingWithChips;
             hasPending = false;
             pendingWithChips = false;
-            Settle(round.Payout, withChips && !round.FreeSpin);
-            if (round.Payout > 0) MovementRecorded?.Invoke(MovementKind.Payout, round.Payout, MovementAccount.Casino,
+            int paid = Settle(round.Payout, withChips && !round.FreeSpin, RoundsStarted);
+            if (paid > 0) MovementRecorded?.Invoke(MovementKind.Payout, paid, MovementAccount.Casino,
                 withChips && !round.FreeSpin ? MovementAccount.Chips : MovementAccount.Wallet, RoundsStarted);
             LastRound = round;
             LastPaidWithChips = withChips && !round.FreeSpin;
@@ -171,16 +179,26 @@ namespace Tycoon3D.Casino
             return round;
         }
 
-        private void Settle(int payout, bool inChips)
+        /// <summary>
+        /// Paga el premio contra la caja (con su tope y su fondo) y suma la cuota de lo que se debía. Devuelve lo acreditado
+        /// al jugador; lo que no cupo queda por cobrar en la caja. Una ronda sin premio también cobra una cuota pendiente.
+        /// </summary>
+        private int Settle(int prize, bool inChips, int roundId)
         {
-            if (payout > 0)
+            int refill = cashbox.EnsureReserve();
+            if (refill > 0) MovementRecorded?.Invoke(MovementKind.Refill, refill, MovementAccount.Outside, MovementAccount.Casino, roundId);
+            var payment = cashbox.Pay(prize);
+            LastPayment = payment;
+            int total = payment.Total;
+            if (total > 0)
             {
-                if (inChips) Chips += payout / ChipValue;
-                else earn(payout);
+                if (inChips) Chips += total / ChipValue;
+                else earn(total);
             }
             TotalSpins++;
-            TotalWon += payout;
-            if (payout > BestPayout) BestPayout = payout;
+            TotalWon += total;
+            if (prize > BestPayout) BestPayout = prize;
+            return total;
         }
 
         // ------------------------------------------------------------------ persistencia
@@ -189,7 +207,8 @@ namespace Tycoon3D.Casino
             BetIndex = BetIndex, Chips = Chips, ChipsBought = ChipsBought, ChipsCashed = ChipsCashed, CashierVisits = CashierVisits,
             Rounds = RoundsStarted, Spins = TotalSpins, Wagered = TotalWagered, Won = TotalWon, FreeSpins = FreeSpins, Best = BestPayout,
             PendingActive = hasPending, PendingStake = hasPending ? pending.Stake : 0, PendingPayout = hasPending ? pending.Payout : 0,
-            PendingFree = hasPending && pending.FreeSpin, PendingChips = hasPending && pendingWithChips, PendingRoundId = PendingRoundId
+            PendingFree = hasPending && pending.FreeSpin, PendingChips = hasPending && pendingWithChips, PendingRoundId = PendingRoundId,
+            CashboxInit = true, CashboxFunds = cashbox.Funds, CashboxOwed = cashbox.Owed, CashboxRefilled = cashbox.Refilled
         };
 
         /// <summary>
@@ -211,11 +230,12 @@ namespace Tycoon3D.Casino
             TotalWon = Math.Max(0, s.Won);
             FreeSpins = Math.Max(0, s.FreeSpins);
             BestPayout = Math.Max(0, s.Best);
+            if (s.CashboxInit) cashbox.Restore(s.CashboxFunds / ChipValue * ChipValue, s.CashboxOwed / ChipValue * ChipValue, s.CashboxRefilled);
+            else cashbox.Restore(cashbox.InitialFunds, 0, 0);
             int recovered = 0;
             if (s.PendingActive)
             {
-                recovered = Math.Max(0, s.PendingPayout);
-                Settle(recovered, s.PendingChips && !s.PendingFree);
+                recovered = Settle(Math.Max(0, s.PendingPayout), s.PendingChips && !s.PendingFree, s.PendingRoundId);
                 if (recovered > 0) MovementRecorded?.Invoke(MovementKind.Payout, recovered, MovementAccount.Casino,
                     s.PendingChips && !s.PendingFree ? MovementAccount.Chips : MovementAccount.Wallet, s.PendingRoundId);
                 StateChanged?.Invoke();

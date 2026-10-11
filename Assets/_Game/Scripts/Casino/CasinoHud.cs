@@ -208,14 +208,18 @@ namespace Tycoon3D.Casino
             else if (service.LastRound.HasValue && Time.time - service.LastRevealTime < 6f)
             {
                 var round = service.LastRound.Value;
+                var pay = session.LastPayment;
                 float t = Mathf.Clamp01((Time.time - service.LastRevealTime) / .7f);
-                int shown = Mathf.RoundToInt(round.Payout * t);
-                bool win = round.Payout > 0;
+                int shown = Mathf.RoundToInt(pay.Total * t);
+                bool win = pay.Total > 0;
                 banner.normal.textColor = win ? Mango : Cream;
-                GUI.Label(res, win ? "¡GANASTE +$" + shown + "!" : "Sin premio", banner);
+                string head = !win ? "Sin premio" : round.Payout > 0 ? "¡GANASTE +$" + shown + "!" : "Cuota de tu premio +$" + shown;
+                GUI.Label(res, head, banner);
                 body.fontSize = Mathf.RoundToInt(19 * s);
-                GUI.Label(new Rect(res.x, res.yMax - 2f * s, res.width, 26f * s),
-                    CasinoService.Describe(round).Replace(" +$" + round.Payout, "") + (round.FreeSpin ? "  (giro de cortesía)" : ""), body);
+                string detail = CasinoService.Describe(round).Replace(" +$" + round.Payout, "") + (round.FreeSpin ? "  (giro de cortesía)" : "");
+                if (pay.Deferred > 0) detail = "Premio $" + round.Payout + ": cobras $" + pay.Now + " ahora y $" + pay.Deferred + " en las próximas rondas";
+                else if (pay.Installment > 0 && round.Payout > 0) detail += "  · incluye cuota de premios anteriores";
+                GUI.Label(new Rect(res.x, res.yMax - 2f * s, res.width, 26f * s), detail, body);
             }
             else
             {
@@ -253,7 +257,8 @@ namespace Tycoon3D.Casino
             small.fontSize = Mathf.RoundToInt(14 * s);
             GUI.Label(new Rect(r.x + 10f * s, r.yMax - 28f * s, w - 20f * s, 22f * s),
                 "Libro del casino: " + session.RoundsStarted + " rondas · apostado $" + session.TotalWagered + " · premios $" + session.TotalWon
-                + (session.FreeSpins > 0 ? " · cortesías " + session.FreeSpins : "") + " · 1 ficha = $" + CasinoSession.ChipValue, small);
+                + (session.FreeSpins > 0 ? " · cortesías " + session.FreeSpins : "") + " · caja $" + session.Cashbox.Funds
+                + (session.Cashbox.Owed > 0 ? " · por cobrar $" + session.Cashbox.Owed : ""), small);
         }
 
         private GUIStyle big_() { big.fontSize = Mathf.RoundToInt(34 * Scale); return big; }

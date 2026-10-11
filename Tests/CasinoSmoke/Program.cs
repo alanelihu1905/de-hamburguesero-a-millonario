@@ -218,6 +218,93 @@ Check(Throws(() => SlotMachineLogic.Play(0, false, new SystemRandomSource(1))), 
     Check(libre.FreeSpins == 1 && libre.TotalWagered == 0 && libre.RoundsStarted == 1, "libro: el giro de cortesía no cobra y se cuenta aparte");
 }
 
+// Caja del casino: fondo, tope por ronda y premios por cobrar (el tope reparte, no bloquea)
+{
+    var c = new CasinoCashbox();
+    Check(c.Funds == 20000 && c.RoundCap == 5000 && c.ReserveFloor == 1000 && c.Owed == 0, "caja: valores por defecto");
+    Check(Throws(() => new CasinoCashbox(-1, 5000, 1000)) && Throws(() => new CasinoCashbox(100, 0, 0)) && Throws(() => new CasinoCashbox(100, 500, 600)), "caja: reglas inválidas se rechazan");
+    var pequeno = c.Pay(1000);
+    Check(pequeno.Now == 1000 && pequeno.Deferred == 0 && pequeno.Installment == 0 && c.Funds == 19000 && c.Owed == 0, "caja: un premio dentro del tope se paga entero");
+    var grande = c.Pay(80000);
+    Check(grande.Now == 5000 && grande.Deferred == 75000 && c.Owed == 75000 && c.Funds == 14000, "caja: el jackpot de $80000 paga el tope y deja $75000 por cobrar");
+    int rondas = 0, pagado = grande.Total;
+    while (c.Owed > 0 && rondas < 100)
+    {
+        rondas++;
+        var cuota = c.Pay(0);
+        pagado += cuota.Total;
+        if (cuota.Total > c.RoundCap) throw new Exception("la cuota excede el tope");
+        c.EnsureReserve();
+    }
+    Check(c.Owed == 0 && pagado == 80000 && rondas < 100, "caja: con el fondo agotado la reserva sigue pagando cuotas y se entrega todo el premio (" + rondas + " rondas)");
+    Check(c.Refilled > 0 && c.Funds >= 0, "caja: lo repuesto por la casa queda anotado");
+
+    var vacia = new CasinoCashbox(0, 5000, 1000);
+    vacia.TakeStake(100);
+    int repuesto = vacia.EnsureReserve();
+    Check(repuesto == 900 && vacia.Funds == 1000 && vacia.Refilled == 900, "caja: la casa repone hasta la reserva y lo anota");
+    var corto = vacia.Pay(4000);
+    Check(corto.Now == 1000 && corto.Deferred == 3000 && vacia.Funds == 0 && vacia.Owed == 3000, "caja: si el fondo no alcanza se paga lo que hay y el resto queda por cobrar");
+    vacia.EnsureReserve();
+    var siguiente = vacia.Pay(0);
+    Check(siguiente.Installment == 1000 && vacia.Owed == 2000, "caja: la siguiente ronda paga al menos la reserva aunque no haya premio nuevo");
+}
+{
+    // integración con la sesión: apuesta de $2000 y jackpot (x40 = $80000), con conservación del valor total
+    int saldo = 5000;
+    var s = Nueva(() => saldo, v => { if (saldo < v) return false; saldo -= v; return true; }, v => saldo += v, new Scripted(99, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+    s.CycleBet(); s.CycleBet(); s.CycleBet();
+    Check(s.CurrentBet == 2000, "caja: apuesta de $2000");
+    long Auditar() => saldo + s.Cashbox.Funds - s.Cashbox.Refilled;
+    Check(Auditar() == 5000 + 20000, "caja: valor inicial (pesos + fondo)");
+    s.Begin(out var r);
+    Check(r.Payout == 80000 && saldo == 3000 && s.Cashbox.Funds == 22000 && Auditar() == 25000, "caja: la apuesta entra a la caja");
+    s.Complete();
+    Check(saldo == 8000 && s.LastPayment.Now == 5000 && s.LastPayment.Deferred == 75000 && s.Cashbox.Owed == 75000, "caja: el jackpot paga $5000 ahora y deja $75000 por cobrar");
+    Check(s.TotalWon == 5000 && s.BestPayout == 80000 && Auditar() == 25000, "caja: el libro cuenta lo pagado y el mejor premio es el de la tabla");
+    for (int i = 0; i < 3; i++)
+    {
+        s.Begin(out _); s.Complete();
+        Check(s.LastPayment.Installment == 5000 && Auditar() == 25000, "caja: una ronda sin premio cobra una cuota de $5000 (ronda " + (i + 1) + ")");
+    }
+    Check(s.Cashbox.Owed == 60000, "caja: quedan $60000 por cobrar tras tres cuotas");
+}
+{
+    // premio dentro del tope y fichas: se paga entero y en fichas
+    int saldo = 5000;
+    var s = Nueva(() => saldo, v => { if (saldo < v) return false; saldo -= v; return true; }, v => saldo += v, new Scripted(99, 99));
+    s.SetBetIndex(1);
+    s.Begin(out var r); s.Complete();
+    Check(r.Payout == 4000 && s.LastPayment.Now == 4000 && s.LastPayment.Deferred == 0 && saldo == 5000 - 100 + 4000, "caja: jackpot de $100 (x40 = $4000) se paga entero");
+    var t = Nueva(() => saldo, v => { if (saldo < v) return false; saldo -= v; return true; }, v => saldo += v, new Scripted(99));
+    Check(t.BuyChips(80), "caja: compra 80 fichas");
+    t.SetBetIndex(3);
+    t.Begin(out _); t.Complete();
+    Check(t.Chips == 200 && t.LastPaidWithChips && t.Cashbox.Owed == 75000, "caja: el premio recortado se acredita en fichas ($5000 = 200 fichas)");
+}
+{
+    // persistencia de la caja y perfil anterior sin caja
+    int saldo = 5000;
+    var s = Nueva(() => saldo, v => { if (saldo < v) return false; saldo -= v; return true; }, v => saldo += v, new Scripted(99));
+    s.SetBetIndex(3);
+    s.Begin(out _); s.Complete();
+    var estado = s.Snapshot();
+    Check(estado.CashboxInit && estado.CashboxOwed == 75000 && estado.CashboxFunds == s.Cashbox.Funds, "caja: la instantánea trae fondo y deuda");
+    var otra = Nueva(() => saldo, v => { if (saldo < v) return false; saldo -= v; return true; }, v => saldo += v, new Scripted(0));
+    otra.Restore(estado);
+    Check(otra.Cashbox.Owed == 75000 && otra.Cashbox.Funds == s.Cashbox.Funds, "caja: se restaura con su deuda");
+    var viejo = estado; viejo.CashboxInit = false; viejo.CashboxFunds = 0; viejo.CashboxOwed = 0;
+    var tercera = Nueva(() => saldo, v => { if (saldo < v) return false; saldo -= v; return true; }, v => saldo += v, new Scripted(0));
+    tercera.Restore(viejo);
+    Check(tercera.Cashbox.Funds == 20000 && tercera.Cashbox.Owed == 0, "caja: un perfil anterior sin caja empieza con el fondo inicial");
+    // ronda pendiente al reabrir: se liquida contra la caja una sola vez
+    int saldo4 = 3000;
+    var cuarta = Nueva(() => saldo4, v => { if (saldo4 < v) return false; saldo4 -= v; return true; }, v => saldo4 += v, new Scripted(0));
+    var pendiente = new CasinoState { CashboxInit = true, CashboxFunds = 20000, PendingActive = true, PendingStake = 2000, PendingPayout = 80000, PendingRoundId = 1, Rounds = 1 };
+    int recuperado = cuarta.Restore(pendiente);
+    Check(recuperado == 5000 && saldo4 == 8000 && cuarta.Cashbox.Owed == 75000, "caja: una ronda pendiente se liquida con el tope y deja lo demás por cobrar");
+}
+
 Console.WriteLine("CasinoSmoke: {0} comprobaciones aprobadas.", checks);
 
 void Check(bool condition, string description)

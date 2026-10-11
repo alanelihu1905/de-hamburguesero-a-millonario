@@ -12,6 +12,8 @@ namespace Tycoon3D.Casino
             data.CasinoWon = s.Won; data.CasinoFreeSpins = s.FreeSpins; data.CasinoBest = s.Best;
             data.PendingActive = s.PendingActive ? 1 : 0; data.PendingStake = s.PendingStake; data.PendingPayout = s.PendingPayout;
             data.PendingFree = s.PendingFree ? 1 : 0; data.PendingChips = s.PendingChips ? 1 : 0; data.PendingRoundId = s.PendingRoundId;
+            data.CashboxInit = s.CashboxInit ? 1 : 0; data.CashboxFunds = s.CashboxFunds; data.CashboxOwed = s.CashboxOwed;
+            data.CashboxRefilled = s.CashboxRefilled;
         }
 
         public static CasinoState Read(SaveData d) => new CasinoState
@@ -20,7 +22,8 @@ namespace Tycoon3D.Casino
             CashierVisits = (int)d.CashierVisits, Rounds = (int)d.CasinoRounds, Spins = (int)d.CasinoSpins, Wagered = (int)d.CasinoWagered,
             Won = (int)d.CasinoWon, FreeSpins = (int)d.CasinoFreeSpins, Best = (int)d.CasinoBest,
             PendingActive = d.PendingActive == 1, PendingStake = (int)d.PendingStake, PendingPayout = (int)d.PendingPayout,
-            PendingFree = d.PendingFree == 1, PendingChips = d.PendingChips == 1, PendingRoundId = (int)d.PendingRoundId
+            PendingFree = d.PendingFree == 1, PendingChips = d.PendingChips == 1, PendingRoundId = (int)d.PendingRoundId,
+            CashboxInit = d.CashboxInit == 1, CashboxFunds = (int)d.CashboxFunds, CashboxOwed = (int)d.CashboxOwed, CashboxRefilled = d.CashboxRefilled
         };
     }
 }

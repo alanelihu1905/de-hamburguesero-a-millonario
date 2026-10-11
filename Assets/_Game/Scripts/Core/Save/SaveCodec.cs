@@ -17,7 +17,7 @@ namespace Tycoon3D.Save
     /// </summary>
     public static class SaveCodec
     {
-        public const int CurrentVersion = 2;
+        public const int CurrentVersion = 3;
         public const string Header = "TYCOON3D-SAVE";
 
         private struct Field
@@ -53,6 +53,10 @@ namespace Tycoon3D.Save
             F("pendingFree", d => d.PendingFree, (d, v) => d.PendingFree = v, 0, 1),
             F("pendingChips", d => d.PendingChips, (d, v) => d.PendingChips = v, 0, 1),
             F("pendingRoundId", d => d.PendingRoundId, (d, v) => d.PendingRoundId = v, 0, Big),
+            F("cashboxInit", d => d.CashboxInit, (d, v) => d.CashboxInit = v, 0, 1),
+            F("cashboxFunds", d => d.CashboxFunds, (d, v) => d.CashboxFunds = v, 0, int.MaxValue),
+            F("cashboxOwed", d => d.CashboxOwed, (d, v) => d.CashboxOwed = v, 0, int.MaxValue),
+            F("cashboxRefilled", d => d.CashboxRefilled, (d, v) => d.CashboxRefilled = v, 0, Big),
             F("ledgerSequence", d => d.LedgerSequence, (d, v) => d.LedgerSequence = v, 0, Big),
             F("ledgerOpeningPesos", d => d.LedgerOpeningPesos, (d, v) => d.LedgerOpeningPesos = v, -Big, Big),
             F("ledgerOpeningChips", d => d.LedgerOpeningChips, (d, v) => d.LedgerOpeningChips = v, -Big, Big),
@@ -71,7 +75,9 @@ namespace Tycoon3D.Save
                 values["ledgerOpeningPesos"] = Math.Max(0, pesos);
                 values["ledgerOpeningChips"] = Math.Max(0, chips);
                 values["ledgerCount"] = 0;
-            }
+            },
+            // v2 -> v3: la caja del casino no existía; sin cashboxInit empieza con su fondo inicial y sin deudas
+            [2] = values => { values["cashboxInit"] = 0; }
         };
 
         public static string Serialize(SaveData data)
@@ -149,7 +155,7 @@ namespace Tycoon3D.Save
             {
                 string key = "ledger" + i.ToString(CultureInfo.InvariantCulture);
                 if (!Read(values, key + "Id", 1, Big, out long id) || id <= previous ||
-                    !Read(values, key + "Kind", 0, (int)MovementKind.Adjustment, out long kind) ||
+                    !Read(values, key + "Kind", 0, (int)MovementKind.Refill, out long kind) ||
                     !Read(values, key + "Amount", 0, int.MaxValue, out long amount) ||
                     !Read(values, key + "From", 0, (int)MovementAccount.Casino, out long from) ||
                     !Read(values, key + "To", 0, (int)MovementAccount.Casino, out long to) ||

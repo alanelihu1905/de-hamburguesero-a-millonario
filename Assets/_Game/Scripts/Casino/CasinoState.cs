@@ -21,5 +21,11 @@ namespace Tycoon3D.Casino
         public bool PendingFree;
         public bool PendingChips;
         public int PendingRoundId;
+
+        // caja del casino (CashboxInit = false en un perfil anterior: la caja empieza con su fondo inicial)
+        public bool CashboxInit;
+        public int CashboxFunds;
+        public int CashboxOwed;
+        public long CashboxRefilled;
     }
 }

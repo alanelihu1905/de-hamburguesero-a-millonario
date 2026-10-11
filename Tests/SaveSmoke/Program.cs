@@ -98,6 +98,29 @@ string Forge(Dictionary<string, string> extra, int version = SaveCodec.CurrentVe
         "libro: rechaza entrada incompleta");
 }
 
+// ---------------------------------------------------------------- caja del casino en el perfil (formato v3)
+{
+    var data = Sample();
+    data.CashboxInit = 1; data.CashboxFunds = 14000; data.CashboxOwed = 75000; data.CashboxRefilled = 900;
+    Check(SaveCodec.CurrentVersion >= 3, "caja: el formato es v3 o posterior");
+    Check(SaveCodec.TryParse(SaveCodec.Serialize(data), out var back) == ParseStatus.Ok && back.CashboxInit == 1 && back.CashboxFunds == 14000 &&
+        back.CashboxOwed == 75000 && back.CashboxRefilled == 900, "caja: fondo, deuda y reposición sobreviven al guardado");
+    Check(SaveCodec.TryParse(Forge(new() { ["cashboxFunds"] = "-5" }), out _) == ParseStatus.Corrupt, "caja: fondo negativo = dañado");
+    Check(SaveCodec.TryParse(Forge(new() { ["cashboxOwed"] = "-1" }), out _) == ParseStatus.Corrupt, "caja: deuda negativa = dañado");
+    Check(SaveCodec.TryParse(Forge(new() { ["cashboxInit"] = "2" }), out _) == ParseStatus.Corrupt, "caja: marca de inicio fuera de rango = dañado");
+    var viejo = Forge(new() { ["chips"] = "4", ["burgerSales"] = "2", ["ledgerOpeningPesos"] = "50", ["ledgerOpeningChips"] = "4", ["ledgerCount"] = "0" }, version: 2);
+    Check(SaveCodec.TryParse(viejo, out var v2) == ParseStatus.Ok && v2.CashboxInit == 0 && v2.CashboxFunds == 0 && v2.Chips == 4 && v2.BurgerSales == 2,
+        "migración: un perfil v2 se abre sin caja y conserva fichas y ventas");
+    // el movimiento de reposición de la casa viaja en el libro
+    var ledger = new MovementLedger();
+    var d2 = new SaveData { Pesos = 100 };
+    ledger.Restore(d2, 100, 0);
+    ledger.Record(MovementKind.Refill, 900, MovementAccount.Outside, MovementAccount.Casino, 3);
+    ledger.Write(d2);
+    Check(SaveCodec.TryParse(SaveCodec.Serialize(d2), out var l2) == ParseStatus.Ok && l2.LedgerEntries[1].Kind == MovementKind.Refill && ledger.Matches(100, 0),
+        "caja: la reposición se guarda en el libro sin tocar pesos ni fichas del jugador");
+}
+
 // ---------------------------------------------------------------- repositorio y recuperación
 {
     var repo = new SaveRepository(NewDir());

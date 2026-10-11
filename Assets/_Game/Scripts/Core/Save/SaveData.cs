@@ -36,6 +36,12 @@ namespace Tycoon3D.Save
         public long PendingChips;
         public long PendingRoundId;
 
+        // caja del casino: fondo, premios por cobrar y lo repuesto por la casa (CashboxInit = 0: perfil anterior, fondo inicial)
+        public long CashboxInit;
+        public long CashboxFunds;
+        public long CashboxOwed;
+        public long CashboxRefilled;
+
         // libro común: últimos movimientos y saldos anteriores al historial recortado
         public long LedgerSequence;
         public long LedgerOpeningPesos;
