@@ -1,0 +1,237 @@
+{
+  "SM_Banco_Calle": {
+    "triangulos": 180,
+    "dimensiones_XxYxZ_m": [
+      1.5,
+      0.49,
+      0.85
+    ],
+    "min": [
+      -0.75,
+      -0.24,
+      0.0
+    ],
+    "max": [
+      0.75,
+      0.25,
+      0.85
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.005
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Caoba",
+      "M_Herreria",
+      "M_Chile"
+    ],
+    "presupuesto_triangulos": 250,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Banco_Calle.fbx"
+  },
+  "SM_Maceta_Tropical": {
+    "triangulos": 456,
+    "dimensiones_XxYxZ_m": [
+      0.701,
+      0.706,
+      0.843
+    ],
+    "min": [
+      -0.368,
+      -0.348,
+      0.0
+    ],
+    "max": [
+      0.333,
+      0.357,
+      0.843
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        -0.018,
+        0.004
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Barro",
+      "M_Caoba",
+      "M_Vegetacion",
+      "M_Hoja_Clara",
+      "M_Chile",
+      "M_Crema"
+    ],
+    "presupuesto_triangulos": 600,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Maceta_Tropical.fbx"
+  },
+  "SM_Farol_Calle": {
+    "triangulos": 308,
+    "dimensiones_XxYxZ_m": [
+      0.42,
+      0.42,
+      2.78
+    ],
+    "min": [
+      -0.21,
+      -0.21,
+      0.0
+    ],
+    "max": [
+      0.21,
+      0.21,
+      2.78
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Piedra_Caliza",
+      "M_Herreria",
+      "M_Chile",
+      "M_Mango"
+    ],
+    "presupuesto_triangulos": 400,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Farol_Calle.fbx"
+  },
+  "SM_Cubeta": {
+    "triangulos": 260,
+    "dimensiones_XxYxZ_m": [
+      0.37,
+      0.35,
+      0.426
+    ],
+    "min": [
+      -0.185,
+      -0.175,
+      0.0
+    ],
+    "max": [
+      0.185,
+      0.175,
+      0.426
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Turquesa",
+      "M_Crema",
+      "M_Chile",
+      "M_Herreria"
+    ],
+    "presupuesto_triangulos": 300,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Cubeta.fbx"
+  },
+  "SM_Cartel_Precios": {
+    "triangulos": 308,
+    "dimensiones_XxYxZ_m": [
+      0.62,
+      0.45,
+      0.965
+    ],
+    "min": [
+      -0.31,
+      -0.225,
+      -0.0
+    ],
+    "max": [
+      0.31,
+      0.225,
+      0.965
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": -0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Caoba",
+      "M_Pizarra",
+      "M_Turquesa",
+      "M_Mango",
+      "M_Chile"
+    ],
+    "presupuesto_triangulos": 400,
+    "dentro_de_presupuesto": true,
+    "objeto_extra": {
+      "SM_Cartel_Texto": {
+        "triangulos": 4,
+        "dimensiones_XxYxZ_m": [
+          0.44,
+          0.436,
+          0.528
+        ],
+        "min": [
+          -0.22,
+          -0.218,
+          0.142
+        ],
+        "max": [
+          0.22,
+          0.218,
+          0.67
+        ],
+        "pivote": {
+          "desfase_centro_XY_m": [
+            0.0,
+            0.0
+          ],
+          "base_z_m": 0.142,
+          "base_en_cero": false
+        },
+        "materiales": [
+          "M_Cartel_Texto"
+        ]
+      }
+    },
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Cartel_Precios.fbx"
+  },
+  "paleta": {
+    "M_Caoba": "#8A5A3C",
+    "M_Herreria": "#2E2538",
+    "M_Chile": "#E4572E",
+    "M_Crema": "#F7EEDD",
+    "M_Turquesa": "#2BA6A0",
+    "M_Mango": "#F4C95D",
+    "M_Piedra_Caliza": "#CDBFA4",
+    "M_Barro": "#B5623B",
+    "M_Vegetacion": "#4F7A3A",
+    "M_Hoja_Clara": "#7BAF4B",
+    "M_Pizarra": "#3B2F4A",
+    "M_Cartel_Texto": "#3B2F4A"
+  },
+  "materiales_unicos_en_la_tanda": [
+    "M_Barro",
+    "M_Caoba",
+    "M_Chile",
+    "M_Crema",
+    "M_Herreria",
+    "M_Hoja_Clara",
+    "M_Mango",
+    "M_Piedra_Caliza",
+    "M_Pizarra",
+    "M_Turquesa",
+    "M_Vegetacion"
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "SM_Cliente_Pescador": {
+    "triangulos": 396,
+    "dimensiones_XxYxZ_m": [
+      0.731,
+      0.54,
+      1.8
+    ],
+    "min": [
+      -0.365,
+      -0.27,
+      0.0
+    ],
+    "max": [
+      0.365,
+      0.27,
+      1.8
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Pizarra",
+      "M_Herreria",
+      "M_Turquesa",
+      "M_Piel_Media",
+      "M_Madera_Clara",
+      "M_Chile"
+    ],
+    "presupuesto_triangulos": 700,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Cliente_Pescador.fbx"
+  },
+  "SM_Cliente_Vecina": {
+    "triangulos": 440,
+    "dimensiones_XxYxZ_m": [
+      0.731,
+      0.54,
+      1.75
+    ],
+    "min": [
+      -0.365,
+      -0.27,
+      0.0
+    ],
+    "max": [
+      0.365,
+      0.27,
+      1.75
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Piel_Clara",
+      "M_Herreria",
+      "M_Chile",
+      "M_Acero_Claro",
+      "M_Crema"
+    ],
+    "presupuesto_triangulos": 700,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Cliente_Vecina.fbx"
+  },
+  "SM_Cliente_Joven": {
+    "triangulos": 372,
+    "dimensiones_XxYxZ_m": [
+      0.731,
+      0.438,
+      1.72
+    ],
+    "min": [
+      -0.365,
+      -0.27,
+      0.0
+    ],
+    "max": [
+      0.365,
+      0.168,
+      1.72
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        -0.051
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Piedra_Caliza",
+      "M_Herreria",
+      "M_Crema",
+      "M_Piel_Oscura",
+      "M_Chile"
+    ],
+    "presupuesto_triangulos": 700,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Cliente_Joven.fbx"
+  },
+  "SM_Casa_Vecina_A": {
+    "triangulos": 336,
+    "dimensiones_XxYxZ_m": [
+      6.2,
+      6.24,
+      3.45
+    ],
+    "min": [
+      -3.1,
+      -3.14,
+      0.0
+    ],
+    "max": [
+      3.1,
+      3.1,
+      3.45
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        -0.02
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Cal_Arena",
+      "M_Turquesa",
+      "M_Crema",
+      "M_Caoba",
+      "M_Herreria",
+      "M_Chile"
+    ],
+    "presupuesto_triangulos": 600,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Casa_Vecina_A.fbx"
+  },
+  "SM_Casa_Vecina_B": {
+    "triangulos": 432,
+    "dimensiones_XxYxZ_m": [
+      6.2,
+      6.24,
+      3.45
+    ],
+    "min": [
+      -3.1,
+      -3.14,
+      0.0
+    ],
+    "max": [
+      3.1,
+      3.1,
+      3.45
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        -0.02
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Piedra_Caliza",
+      "M_Chile",
+      "M_Crema",
+      "M_Caoba",
+      "M_Herreria"
+    ],
+    "presupuesto_triangulos": 600,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Casa_Vecina_B.fbx"
+  },
+  "paleta": {
+    "M_Caoba": "#8A5A3C",
+    "M_Herreria": "#2E2538",
+    "M_Chile": "#E4572E",
+    "M_Crema": "#F7EEDD",
+    "M_Turquesa": "#2BA6A0",
+    "M_Mango": "#F4C95D",
+    "M_Piedra_Caliza": "#CDBFA4",
+    "M_Barro": "#B5623B",
+    "M_Vegetacion": "#4F7A3A",
+    "M_Hoja_Clara": "#7BAF4B",
+    "M_Pizarra": "#3B2F4A",
+    "M_Cartel_Texto": "#3B2F4A",
+    "M_Piel_Clara": "#E3B58D",
+    "M_Piel_Media": "#C98B5E",
+    "M_Piel_Oscura": "#6B4530",
+    "M_Cal_Arena": "#E8C4A0",
+    "M_Madera_Clara": "#B88556",
+    "M_Acero_Claro": "#8E9AA0"
+  }
+}

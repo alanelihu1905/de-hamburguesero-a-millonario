@@ -2,6 +2,18 @@
 
 Tres modelos originales para el ciclo comprar → cocinar → vender, hechos con `build_estaciones.py` (Blender 5.2 LTS). Especificación: `Docs/Handoffs/Claude/04_CASA_MAREA_PLANO_Y_LOOK.md`, sección 3. Son geometría con colores planos, sin texturas ni UV pintadas.
 
+> **Tanda de props del barrio** (banco, maceta, farol, cubeta, cartel): ver [`README_PROPS.md`](README_PROPS.md). Script `build_props_barrio.py`, ejecutado y verificado.
+
+> **Interior de la cocina** (refrigerador, hamburguesa modular, tabla, campana, repisa, lámpara, mostrador): ver [`README_INTERIOR.md`](README_INTERIOR.md). Script `build_interior_cocina.py`, ejecutado y verificado.
+
+> **Props, tanda 3** (banco de callejón, cajas de pescado, bolardo, barril, farol de pared, maceta de patio): [`README_PROPS_2.md`](README_PROPS_2.md). Script `build_props_barrio_2.py`, ejecutado y verificado.
+
+> **Paleta única** (25 materiales → 2): [`README_PALETA.md`](README_PALETA.md). Paleta generada y verificada en `Palette/`; `tools/apply_palette.py` ejecutado y verificado: 30 FBX en `Paleta/` sin regresiones y con una sola textura compartida.
+
+> **Clientes y casas vecinas** (tres clientes estáticos, dos variantes de casa vecina): [`README_CLIENTES_VECINAS.md`](README_CLIENTES_VECINAS.md). Script `build_clientes_vecinas.py`, ejecutado y verificado.
+
+> **Clientes con rig, animaciones y expresiones** (Pescador, Vecina y Joven: 16 huesos, Idle, Caminar y Pedir, 6 blend shapes): [`README_ANIMADOS.md`](README_ANIMADOS.md); guía de poses en [`README_POSES.md`](README_POSES.md). Script `build_clientes_animados.py`, ejecutado y verificado en Blender; sin verificar en Unity.
+
 ## Archivos
 
 | Qué | Dónde |
@@ -81,7 +93,7 @@ Sobrescribe los `.blend`, `.fbx`, `.glb`, las capturas y `stats.json`. Si ya hay
 
 # Fachada exterior (`build_fachada.py`)
 
-**Estado:** ejecutado en el host (Blender salió con código 0). Los dos FBX, el `.blend`, `stats_fachada.json` y las vistas existen. Contenido de los FBX comprobado por nombres de objeto y de material; cifras de `stats_fachada.json`, medidas por el script. Tres correcciones pequeñas ya están en el script y esperan una nueva ejecución (ver «Defectos encontrados»).
+**Estado:** ejecutado en el host (Blender salió con código 0). Los dos FBX, el `.blend`, `stats_fachada.json` y las vistas existen. Contenido de los FBX comprobado por nombres de objeto y de material; cifras de `stats_fachada.json`, medidas por el script. El script se volvió a ejecutar con las tres correcciones de «Defectos encontrados» y quedaron verificadas.
 
 ## Qué genera
 
@@ -90,7 +102,7 @@ Sobrescribe los `.blend`, `.fbx`, `.glb`, las capturas y `stats.json`. Si ya hay
 | `Assets/_Game/Models/CasaMarea/SM_Fachada_CasaMarea.fbx` | fachada sur con portón libre, ventanas falsas con reja y postigos, zócalo, pilastras, cornisa, azotea con pretil, chimenea, rótulo, banderín de la esquina SE y banqueta. Incluye el objeto `SM_Letrero_Texto` (2 triángulos) |
 | `Assets/_Game/Models/CasaMarea/SM_Despacho_Este.fbx` | muro este con la ventanilla de despacho, marco, repisa exterior y toldo con festón |
 | `ArtSource/CasaMarea/Fachada_CasaMarea.blend` | fuente, con calle y vecinas solo para las vistas |
-| `ArtSource/CasaMarea/Preview/` | `Fachada_postal`, `Fachada_tres_cuartos`, `Fachada_porton_detalle`, `Despacho_callejon` (más `Despacho_toldo_alto` en la próxima ejecución) |
+| `ArtSource/CasaMarea/Preview/` | `Fachada_postal`, `Fachada_tres_cuartos`, `Fachada_porton_detalle`, `Despacho_callejon`, `Despacho_toldo_alto` |
 | `ArtSource/CasaMarea/stats_fachada.json` | triángulos, dimensiones, materiales y comprobación de la puerta |
 
 Para regenerar, en el host y desde la raíz del proyecto:
@@ -124,7 +136,7 @@ Salen de `stats_fachada.json`. Los triángulos coinciden con una cuenta independ
 
 ### Puerta libre
 
-El script lanzó rayos por el vano del portón: **0 golpes**, altura libre **2.25 m** y ancho libre **1.96 m**. Esas dos cifras son un límite inferior por la resolución del muestreo (5 cm en altura y 2 cm en ancho). Por construcción el vano mide **2.0 × 2.3 m**: el dintel arranca en z = 2.30 y las jambas en x = ±1.0. La próxima ejecución muestrea cada 1 cm en altura y 0.5 cm en ancho, y debería acercarse a esos valores. Las hojas abiertas quedan fuera del vano (x ≥ 1.09 m).
+Con el muestreo fino (1 cm en altura, 0.5 cm en ancho), el script midió: **0 golpes** de rayo, altura libre **2.29 m** y ancho libre **1.99 m**. Coincide con el vano de construcción (2.0 × 2.3 m) dentro de la resolución del muestreo. Las hojas abiertas quedan fuera del vano (x ≥ 1.09 m).
 
 ### Vistas revisadas
 
@@ -133,14 +145,14 @@ El script lanzó rayos por el vano del portón: **0 golpes**, altura libre **2.2
 - `Fachada_porton_detalle`: el vano está despejado y el rótulo libra el dintel.
 - `Despacho_callejon`: ventanilla, marco, repisa y postes correctos. El callejón queda en sombra, como se esperaba del sol del suroeste.
 
-## Defectos encontrados
+## Defectos encontrados (los tres corregidos y verificados tras regenerar)
 
-1. **Pilastras 2 cm por delante de la cornisa.** Medían 3.0 m y la cornisa empieza en 2.9 m, así que asomaban unas muescas pequeñas sobre el rótulo (visibles en `Fachada_postal` y `Fachada_porton_detalle`). **Corregido en el script** (altura 2.9 m); falta regenerar.
-2. **Vista del callejón engañosa.** La cámara quedó casi a la altura del toldo y lo ve de canto, así que solo se distinguen el festón y el riel. Las 8 franjas **sí están en la malla** (332 triángulos = la cuenta con ellas). **Corregido:** nueva vista `Despacho_toldo_alto` desde arriba; falta regenerar.
-3. **Comprobación de la puerta con resolución gruesa** (ver arriba). **Corregido**; falta regenerar.
-4. **Contraste bajo en la vista previa del callejón.** La sombra proyectada de la casa y el relleno lila dejan el callejón casi plano y verdoso. Es de la luz de la vista previa, no del modelo; se evaluará con la iluminación URP en Unity.
+1. **Pilastras 2 cm por delante de la cornisa.** Medían 3.0 m y la cornisa empieza en 2.9 m. Ahora miden 2.9 m; en `Fachada_porton_detalle` ya no aparecen las muescas sobre el rótulo.
+2. **Vista del callejón engañosa.** La cámara veía el toldo de canto. La vista nueva `Despacho_toldo_alto` lo muestra desde arriba: las 8 franjas turquesa y crema, el festón triangular, el riel y los dos postes están bien.
+3. **Puerta con muestreo grueso:** resuelto; ver «Puerta libre».
+4. **Contraste bajo en la vista previa del callejón** (sombra de la casa más relleno lila). Sigue igual: es de la luz de la vista previa, no del modelo; se evaluará con la iluminación URP en Unity.
 
-Regenerar repinta las vistas y vuelve a escribir los dos FBX con las pilastras corregidas; si ya los integraste, Unity los reimporta conservando los GUID.
+Los triángulos no cambiaron con la regeneración (1 376 y 332), ya que las correcciones no añaden ni quitan piezas.
 
 ## Decisiones que se apartan del documento 04
 

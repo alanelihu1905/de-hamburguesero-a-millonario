@@ -1,0 +1,515 @@
+{
+  "rejilla": {
+    "columnas": 8,
+    "filas": 4,
+    "celda_px": 16,
+    "imagen_px": [
+      128,
+      64
+    ],
+    "celdas_libres": 6
+  },
+  "uv_convencion": "origen abajo-izquierda (Unity/Blender); uv = centro de la celda",
+  "excluidos": [
+    "M_Cartel_Texto",
+    "M_Letrero",
+    "M_Preview_Suelo"
+  ],
+  "materiales_nuevos_en_esta_generacion": [
+    "M_Piel_Oscura",
+    "M_Piel_Media",
+    "M_Piel_Clara"
+  ],
+  "conflictos_entre_scripts": [],
+  "materiales": {
+    "M_Acero_Claro": {
+      "hex": "#8E9AA0",
+      "rugosidad": 0.4,
+      "metalico": 0.45,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        0,
+        0
+      ],
+      "uv": [
+        0.0625,
+        0.875
+      ],
+      "usado_en": [
+        "build_clientes_vecinas.py",
+        "build_interior_cocina.py"
+      ]
+    },
+    "M_Crema": {
+      "hex": "#F7EEDD",
+      "rugosidad": 0.6,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        1,
+        0
+      ],
+      "uv": [
+        0.1875,
+        0.875
+      ],
+      "usado_en": [
+        "build_estaciones.py",
+        "build_fachada.py",
+        "build_props_barrio.py"
+      ]
+    },
+    "M_Jitomate": {
+      "hex": "#C0261F",
+      "rugosidad": 0.45,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        2,
+        0
+      ],
+      "uv": [
+        0.3125,
+        0.875
+      ],
+      "usado_en": [
+        "build_estaciones.py",
+        "build_interior_cocina.py"
+      ]
+    },
+    "M_Brasa": {
+      "hex": "#5A2A1E",
+      "rugosidad": 0.5,
+      "metalico": 0.0,
+      "emisivo": true,
+      "emision_hex": "#E4572E",
+      "celda": [
+        3,
+        0
+      ],
+      "uv": [
+        0.4375,
+        0.875
+      ],
+      "usado_en": [
+        "build_estaciones.py"
+      ]
+    },
+    "M_Chile": {
+      "hex": "#E4572E",
+      "rugosidad": 0.55,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        4,
+        0
+      ],
+      "uv": [
+        0.5625,
+        0.875
+      ],
+      "usado_en": [
+        "build_estaciones.py",
+        "build_fachada.py",
+        "build_props_barrio.py"
+      ]
+    },
+    "M_Carne": {
+      "hex": "#5A3524",
+      "rugosidad": 0.7,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        5,
+        0
+      ],
+      "uv": [
+        0.6875,
+        0.875
+      ],
+      "usado_en": [
+        "build_interior_cocina.py"
+      ]
+    },
+    "M_Barro": {
+      "hex": "#B5623B",
+      "rugosidad": 0.85,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        6,
+        0
+      ],
+      "uv": [
+        0.8125,
+        0.875
+      ],
+      "usado_en": [
+        "build_props_barrio.py"
+      ]
+    },
+    "M_Piel_Oscura": {
+      "hex": "#6B4530",
+      "rugosidad": 0.75,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        7,
+        2
+      ],
+      "uv": [
+        0.9375,
+        0.375
+      ],
+      "usado_en": [
+        "build_clientes_vecinas.py"
+      ]
+    },
+    "M_Caoba": {
+      "hex": "#8A5A3C",
+      "rugosidad": 0.65,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        7,
+        0
+      ],
+      "uv": [
+        0.9375,
+        0.875
+      ],
+      "usado_en": [
+        "build_estaciones.py",
+        "build_fachada.py",
+        "build_props_barrio.py"
+      ]
+    },
+    "M_Piel_Media": {
+      "hex": "#C98B5E",
+      "rugosidad": 0.75,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        0,
+        3
+      ],
+      "uv": [
+        0.0625,
+        0.125
+      ],
+      "usado_en": [
+        "build_clientes_vecinas.py"
+      ]
+    },
+    "M_Madera_Clara": {
+      "hex": "#B88556",
+      "rugosidad": 0.7,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        0,
+        1
+      ],
+      "uv": [
+        0.0625,
+        0.625
+      ],
+      "usado_en": [
+        "build_clientes_vecinas.py",
+        "build_interior_cocina.py"
+      ]
+    },
+    "M_Piel_Clara": {
+      "hex": "#E3B58D",
+      "rugosidad": 0.75,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        1,
+        3
+      ],
+      "uv": [
+        0.1875,
+        0.125
+      ],
+      "usado_en": [
+        "build_clientes_vecinas.py"
+      ]
+    },
+    "M_Cal_Arena": {
+      "hex": "#E8C4A0",
+      "rugosidad": 0.85,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        1,
+        1
+      ],
+      "uv": [
+        0.1875,
+        0.625
+      ],
+      "usado_en": [
+        "build_clientes_vecinas.py",
+        "build_fachada.py"
+      ]
+    },
+    "M_Pan": {
+      "hex": "#D99A4E",
+      "rugosidad": 0.6,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        2,
+        1
+      ],
+      "uv": [
+        0.3125,
+        0.625
+      ],
+      "usado_en": [
+        "build_estaciones.py",
+        "build_interior_cocina.py"
+      ]
+    },
+    "M_Piedra_Caliza": {
+      "hex": "#CDBFA4",
+      "rugosidad": 0.9,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        3,
+        1
+      ],
+      "uv": [
+        0.4375,
+        0.625
+      ],
+      "usado_en": [
+        "build_fachada.py",
+        "build_props_barrio.py"
+      ]
+    },
+    "M_Queso": {
+      "hex": "#F2B63A",
+      "rugosidad": 0.45,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        4,
+        1
+      ],
+      "uv": [
+        0.5625,
+        0.625
+      ],
+      "usado_en": [
+        "build_interior_cocina.py"
+      ]
+    },
+    "M_Mango": {
+      "hex": "#F4C95D",
+      "rugosidad": 0.4,
+      "metalico": 0.0,
+      "emisivo": true,
+      "emision_hex": "#F4C95D",
+      "celda": [
+        5,
+        1
+      ],
+      "uv": [
+        0.6875,
+        0.625
+      ],
+      "usado_en": [
+        "build_estaciones.py",
+        "build_fachada.py",
+        "build_props_barrio.py"
+      ]
+    },
+    "M_Hoja_Clara": {
+      "hex": "#7BAF4B",
+      "rugosidad": 0.6,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        6,
+        1
+      ],
+      "uv": [
+        0.8125,
+        0.625
+      ],
+      "usado_en": [
+        "build_props_barrio.py"
+      ]
+    },
+    "M_Lechuga": {
+      "hex": "#6FA83F",
+      "rugosidad": 0.6,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        7,
+        1
+      ],
+      "uv": [
+        0.9375,
+        0.625
+      ],
+      "usado_en": [
+        "build_estaciones.py",
+        "build_interior_cocina.py"
+      ]
+    },
+    "M_Vegetacion": {
+      "hex": "#4F7A3A",
+      "rugosidad": 0.6,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        0,
+        2
+      ],
+      "uv": [
+        0.0625,
+        0.375
+      ],
+      "usado_en": [
+        "build_props_barrio.py"
+      ]
+    },
+    "M_Turquesa": {
+      "hex": "#2BA6A0",
+      "rugosidad": 0.5,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        1,
+        2
+      ],
+      "uv": [
+        0.1875,
+        0.375
+      ],
+      "usado_en": [
+        "build_estaciones.py",
+        "build_fachada.py",
+        "build_props_barrio.py"
+      ]
+    },
+    "M_Plancha_Superficie": {
+      "hex": "#2B3438",
+      "rugosidad": 0.45,
+      "metalico": 0.2,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        2,
+        2
+      ],
+      "uv": [
+        0.3125,
+        0.375
+      ],
+      "usado_en": [
+        "build_estaciones.py"
+      ]
+    },
+    "M_Metal_Plancha": {
+      "hex": "#3E4A50",
+      "rugosidad": 0.5,
+      "metalico": 0.25,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        3,
+        2
+      ],
+      "uv": [
+        0.4375,
+        0.375
+      ],
+      "usado_en": [
+        "build_estaciones.py",
+        "build_fachada.py",
+        "build_interior_cocina.py"
+      ]
+    },
+    "M_Pizarra": {
+      "hex": "#3B2F4A",
+      "rugosidad": 0.8,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        4,
+        2
+      ],
+      "uv": [
+        0.5625,
+        0.375
+      ],
+      "usado_en": [
+        "build_clientes_vecinas.py",
+        "build_props_barrio.py"
+      ]
+    },
+    "M_Herreria": {
+      "hex": "#2E2538",
+      "rugosidad": 0.7,
+      "metalico": 0.1,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        5,
+        2
+      ],
+      "uv": [
+        0.6875,
+        0.375
+      ],
+      "usado_en": [
+        "build_fachada.py",
+        "build_props_barrio.py"
+      ]
+    },
+    "M_Cebolla": {
+      "hex": "#8E4A78",
+      "rugosidad": 0.5,
+      "metalico": 0.0,
+      "emisivo": false,
+      "emision_hex": null,
+      "celda": [
+        6,
+        2
+      ],
+      "uv": [
+        0.8125,
+        0.375
+      ],
+      "usado_en": [
+        "build_interior_cocina.py"
+      ]
+    }
+  }
+}

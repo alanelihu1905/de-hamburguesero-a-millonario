@@ -1,0 +1,253 @@
+{
+  "SM_Banco_Callejon": {
+    "triangulos": 84,
+    "dimensiones_XxYxZ_m": [
+      1.4,
+      0.45,
+      0.4
+    ],
+    "min": [
+      -0.7,
+      -0.225,
+      0.0
+    ],
+    "max": [
+      0.7,
+      0.225,
+      0.4
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Caoba",
+      "M_Piedra_Caliza",
+      "M_Turquesa"
+    ],
+    "presupuesto_triangulos": 120,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Banco_Callejon.fbx"
+  },
+  "SM_Caja_Pescado": {
+    "triangulos": 212,
+    "dimensiones_XxYxZ_m": [
+      0.5,
+      0.302,
+      0.17
+    ],
+    "min": [
+      -0.25,
+      -0.15,
+      0.0
+    ],
+    "max": [
+      0.25,
+      0.152,
+      0.17
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.001
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Turquesa",
+      "M_Crema",
+      "M_Chile"
+    ],
+    "presupuesto_triangulos": 250,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Caja_Pescado.fbx"
+  },
+  "SM_Cajas_Pescado_Pila": {
+    "triangulos": 396,
+    "dimensiones_XxYxZ_m": [
+      0.54,
+      0.302,
+      0.34
+    ],
+    "min": [
+      -0.25,
+      -0.15,
+      0.0
+    ],
+    "max": [
+      0.29,
+      0.152,
+      0.34
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.02,
+        0.001
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Turquesa",
+      "M_Crema",
+      "M_Chile"
+    ],
+    "presupuesto_triangulos": 450,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Cajas_Pescado_Pila.fbx"
+  },
+  "SM_Bolardo": {
+    "triangulos": 176,
+    "dimensiones_XxYxZ_m": [
+      0.3,
+      0.3,
+      0.68
+    ],
+    "min": [
+      -0.15,
+      -0.15,
+      0.0
+    ],
+    "max": [
+      0.15,
+      0.15,
+      0.68
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Piedra_Caliza",
+      "M_Turquesa"
+    ],
+    "presupuesto_triangulos": 200,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Bolardo.fbx"
+  },
+  "SM_Barril": {
+    "triangulos": 308,
+    "dimensiones_XxYxZ_m": [
+      0.532,
+      0.532,
+      0.7
+    ],
+    "min": [
+      -0.266,
+      -0.266,
+      0.0
+    ],
+    "max": [
+      0.266,
+      0.266,
+      0.7
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Caoba",
+      "M_Herreria"
+    ],
+    "presupuesto_triangulos": 350,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Barril.fbx"
+  },
+  "SM_Farol_Pared": {
+    "triangulos": 140,
+    "dimensiones_XxYxZ_m": [
+      0.28,
+      0.34,
+      0.55
+    ],
+    "min": [
+      -0.14,
+      -0.34,
+      0.0
+    ],
+    "max": [
+      0.14,
+      0.0,
+      0.55
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        -0.17
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true,
+      "excepcion": "centro de la placa trasera sobre el muro (y = 0); sobresale hacia -Y"
+    },
+    "materiales": [
+      "M_Herreria",
+      "M_Mango"
+    ],
+    "presupuesto_triangulos": 200,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Farol_Pared.fbx"
+  },
+  "SM_Maceta_Patio": {
+    "triangulos": 260,
+    "dimensiones_XxYxZ_m": [
+      0.404,
+      0.404,
+      0.619
+    ],
+    "min": [
+      -0.202,
+      -0.202,
+      0.0
+    ],
+    "max": [
+      0.202,
+      0.202,
+      0.619
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Barro",
+      "M_Caoba",
+      "M_Vegetacion",
+      "M_Hoja_Clara"
+    ],
+    "presupuesto_triangulos": 300,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Maceta_Patio.fbx"
+  },
+  "paleta": {
+    "M_Caoba": "#8A5A3C",
+    "M_Herreria": "#2E2538",
+    "M_Chile": "#E4572E",
+    "M_Crema": "#F7EEDD",
+    "M_Turquesa": "#2BA6A0",
+    "M_Mango": "#F4C95D",
+    "M_Piedra_Caliza": "#CDBFA4",
+    "M_Barro": "#B5623B",
+    "M_Vegetacion": "#4F7A3A",
+    "M_Hoja_Clara": "#7BAF4B",
+    "M_Pizarra": "#3B2F4A",
+    "M_Cartel_Texto": "#3B2F4A"
+  }
+}

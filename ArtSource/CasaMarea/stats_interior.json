@@ -1,0 +1,502 @@
+{
+  "SM_Refrigerador": {
+    "triangulos": 96,
+    "dimensiones_XxYxZ_m": [
+      0.8,
+      0.7,
+      1.75
+    ],
+    "min": [
+      -0.4,
+      -0.35,
+      0.0
+    ],
+    "max": [
+      0.4,
+      0.35,
+      1.75
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Crema",
+      "M_Herreria",
+      "M_Chile",
+      "M_Turquesa"
+    ],
+    "presupuesto_triangulos": 200,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Refrigerador.fbx"
+  },
+  "SM_Hamburguesa_Piezas": {
+    "piezas": {
+      "SM_Burger_pan_base": {
+        "triangulos": 44,
+        "dimensiones_XxYxZ_m": [
+          0.16,
+          0.16,
+          0.025
+        ],
+        "min": [
+          -0.08,
+          -0.08,
+          0.0
+        ],
+        "max": [
+          0.08,
+          0.08,
+          0.025
+        ],
+        "pivote": {
+          "desfase_centro_XY_m": [
+            0.0,
+            0.0
+          ],
+          "base_z_m": 0.0,
+          "base_en_cero": true
+        },
+        "materiales": [
+          "M_Pan"
+        ]
+      },
+      "SM_Burger_carne": {
+        "triangulos": 44,
+        "dimensiones_XxYxZ_m": [
+          0.156,
+          0.156,
+          0.03
+        ],
+        "min": [
+          -0.078,
+          -0.078,
+          0.0
+        ],
+        "max": [
+          0.078,
+          0.078,
+          0.03
+        ],
+        "pivote": {
+          "desfase_centro_XY_m": [
+            0.0,
+            0.0
+          ],
+          "base_z_m": 0.0,
+          "base_en_cero": true
+        },
+        "materiales": [
+          "M_Carne"
+        ]
+      },
+      "SM_Burger_queso": {
+        "triangulos": 12,
+        "dimensiones_XxYxZ_m": [
+          0.163,
+          0.163,
+          0.006
+        ],
+        "min": [
+          -0.081,
+          -0.081,
+          0.0
+        ],
+        "max": [
+          0.081,
+          0.081,
+          0.006
+        ],
+        "pivote": {
+          "desfase_centro_XY_m": [
+            0.0,
+            0.0
+          ],
+          "base_z_m": 0.0,
+          "base_en_cero": true
+        },
+        "materiales": [
+          "M_Queso"
+        ]
+      },
+      "SM_Burger_lechuga": {
+        "triangulos": 44,
+        "dimensiones_XxYxZ_m": [
+          0.18,
+          0.18,
+          0.01
+        ],
+        "min": [
+          -0.09,
+          -0.09,
+          0.0
+        ],
+        "max": [
+          0.09,
+          0.09,
+          0.01
+        ],
+        "pivote": {
+          "desfase_centro_XY_m": [
+            0.0,
+            0.0
+          ],
+          "base_z_m": 0.0,
+          "base_en_cero": true
+        },
+        "materiales": [
+          "M_Lechuga"
+        ]
+      },
+      "SM_Burger_jitomate": {
+        "triangulos": 56,
+        "dimensiones_XxYxZ_m": [
+          0.15,
+          0.09,
+          0.01
+        ],
+        "min": [
+          -0.075,
+          -0.045,
+          0.0
+        ],
+        "max": [
+          0.075,
+          0.045,
+          0.01
+        ],
+        "pivote": {
+          "desfase_centro_XY_m": [
+            0.0,
+            0.0
+          ],
+          "base_z_m": 0.0,
+          "base_en_cero": true
+        },
+        "materiales": [
+          "M_Jitomate"
+        ]
+      },
+      "SM_Burger_cebolla": {
+        "triangulos": 28,
+        "dimensiones_XxYxZ_m": [
+          0.1,
+          0.1,
+          0.006
+        ],
+        "min": [
+          -0.05,
+          -0.05,
+          0.0
+        ],
+        "max": [
+          0.05,
+          0.05,
+          0.006
+        ],
+        "pivote": {
+          "desfase_centro_XY_m": [
+            0.0,
+            0.0
+          ],
+          "base_z_m": 0.0,
+          "base_en_cero": true
+        },
+        "materiales": [
+          "M_Cebolla"
+        ]
+      },
+      "SM_Burger_pan_tapa": {
+        "triangulos": 132,
+        "dimensiones_XxYxZ_m": [
+          0.17,
+          0.17,
+          0.07
+        ],
+        "min": [
+          -0.085,
+          -0.085,
+          0.0
+        ],
+        "max": [
+          0.085,
+          0.085,
+          0.07
+        ],
+        "pivote": {
+          "desfase_centro_XY_m": [
+            0.0,
+            0.0
+          ],
+          "base_z_m": 0.0,
+          "base_en_cero": true
+        },
+        "materiales": [
+          "M_Pan"
+        ]
+      }
+    },
+    "alturas_apilado_m": {
+      "pan_base": 0.025,
+      "carne": 0.03,
+      "queso": 0.006,
+      "lechuga": 0.01,
+      "jitomate": 0.01,
+      "cebolla": 0.006,
+      "pan_tapa": 0.07
+    },
+    "orden_de_apilado": [
+      "SM_Burger_pan_base",
+      "SM_Burger_carne",
+      "SM_Burger_queso",
+      "SM_Burger_lechuga",
+      "SM_Burger_jitomate",
+      "SM_Burger_cebolla",
+      "SM_Burger_pan_tapa"
+    ],
+    "triangulos_total": 360,
+    "presupuesto_triangulos": 400,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Hamburguesa_Piezas.fbx"
+  },
+  "SM_Hamburguesa_Completa": {
+    "triangulos": 360,
+    "dimensiones_XxYxZ_m": [
+      0.18,
+      0.18,
+      0.157
+    ],
+    "min": [
+      -0.09,
+      -0.09,
+      0.0
+    ],
+    "max": [
+      0.09,
+      0.09,
+      0.157
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Pan",
+      "M_Carne",
+      "M_Queso",
+      "M_Lechuga",
+      "M_Jitomate",
+      "M_Cebolla"
+    ],
+    "presupuesto_triangulos": 400,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Hamburguesa_Completa.fbx"
+  },
+  "SM_Tabla_Corte": {
+    "triangulos": 84,
+    "dimensiones_XxYxZ_m": [
+      0.4,
+      0.28,
+      0.059
+    ],
+    "min": [
+      -0.2,
+      -0.14,
+      0.0
+    ],
+    "max": [
+      0.2,
+      0.14,
+      0.059
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Herreria",
+      "M_Madera_Clara",
+      "M_Acero_Claro",
+      "M_Caoba"
+    ],
+    "presupuesto_triangulos": 150,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Tabla_Corte.fbx"
+  },
+  "SM_Campana_Extraccion": {
+    "triangulos": 48,
+    "dimensiones_XxYxZ_m": [
+      1.52,
+      0.9,
+      0.955
+    ],
+    "min": [
+      -0.76,
+      -0.45,
+      0.0
+    ],
+    "max": [
+      0.76,
+      0.45,
+      0.955
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true,
+      "excepcion": "borde inferior de la campana; colocar a z = 2.10"
+    },
+    "materiales": [
+      "M_Acero_Claro",
+      "M_Chile",
+      "M_Metal_Plancha"
+    ],
+    "presupuesto_triangulos": 150,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Campana_Extraccion.fbx"
+  },
+  "SM_Repisa_Frascos": {
+    "triangulos": 408,
+    "dimensiones_XxYxZ_m": [
+      1.0,
+      0.25,
+      0.74
+    ],
+    "min": [
+      -0.5,
+      -0.125,
+      0.0
+    ],
+    "max": [
+      0.5,
+      0.125,
+      0.74
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Caoba",
+      "M_Herreria",
+      "M_Chile",
+      "M_Crema",
+      "M_Turquesa"
+    ],
+    "presupuesto_triangulos": 450,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Repisa_Frascos.fbx"
+  },
+  "SM_Lampara_Colgante": {
+    "triangulos": 164,
+    "dimensiones_XxYxZ_m": [
+      0.28,
+      0.28,
+      0.635
+    ],
+    "min": [
+      -0.14,
+      -0.14,
+      -0.635
+    ],
+    "max": [
+      0.14,
+      0.14,
+      0.0
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": -0.635,
+      "base_en_cero": false,
+      "excepcion": "anclaje al techo; el modelo cuelga hacia z negativa"
+    },
+    "materiales": [
+      "M_Herreria",
+      "M_Mango"
+    ],
+    "presupuesto_triangulos": 250,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Lampara_Colgante.fbx"
+  },
+  "SM_Mostrador_Modulo": {
+    "triangulos": 60,
+    "dimensiones_XxYxZ_m": [
+      1.0,
+      0.75,
+      0.85
+    ],
+    "min": [
+      -0.5,
+      -0.375,
+      0.0
+    ],
+    "max": [
+      0.5,
+      0.375,
+      0.85
+    ],
+    "pivote": {
+      "desfase_centro_XY_m": [
+        0.0,
+        0.0
+      ],
+      "base_z_m": 0.0,
+      "base_en_cero": true
+    },
+    "materiales": [
+      "M_Herreria",
+      "M_Piedra_Caliza",
+      "M_Caoba",
+      "M_Crema",
+      "M_Turquesa"
+    ],
+    "presupuesto_triangulos": 200,
+    "dentro_de_presupuesto": true,
+    "fbx": "Assets/_Game/Models/CasaMarea/SM_Mostrador_Modulo.fbx"
+  },
+  "paleta": {
+    "M_Caoba": "#8A5A3C",
+    "M_Herreria": "#2E2538",
+    "M_Chile": "#E4572E",
+    "M_Crema": "#F7EEDD",
+    "M_Turquesa": "#2BA6A0",
+    "M_Mango": "#F4C95D",
+    "M_Piedra_Caliza": "#CDBFA4",
+    "M_Barro": "#B5623B",
+    "M_Vegetacion": "#4F7A3A",
+    "M_Hoja_Clara": "#7BAF4B",
+    "M_Pizarra": "#3B2F4A",
+    "M_Cartel_Texto": "#3B2F4A",
+    "M_Pan": "#D99A4E",
+    "M_Carne": "#5A3524",
+    "M_Queso": "#F2B63A",
+    "M_Lechuga": "#6FA83F",
+    "M_Jitomate": "#C0261F",
+    "M_Cebolla": "#8E4A78",
+    "M_Madera_Clara": "#B88556",
+    "M_Acero_Claro": "#8E9AA0",
+    "M_Metal_Plancha": "#3E4A50"
+  }
+}

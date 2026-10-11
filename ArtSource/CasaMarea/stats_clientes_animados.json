@@ -1,0 +1,603 @@
+{
+  "fps": 30,
+  "huesos": [
+    "root",
+    "pelvis",
+    "columna",
+    "cabeza",
+    "brazo_I",
+    "antebrazo_I",
+    "mano_I",
+    "muslo_I",
+    "pantorrilla_I",
+    "pie_I",
+    "brazo_D",
+    "antebrazo_D",
+    "mano_D",
+    "muslo_D",
+    "pantorrilla_D",
+    "pie_D"
+  ],
+  "clientes": {
+    "SM_Cliente_Pescador": {
+      "triangulos": 708,
+      "presupuesto": 1000,
+      "dentro_de_presupuesto": true,
+      "vertices": 418,
+      "vertices_sin_peso": 0,
+      "huesos_con_vertices": [
+        "antebrazo_D",
+        "antebrazo_I",
+        "brazo_D",
+        "brazo_I",
+        "cabeza",
+        "columna",
+        "mano_D",
+        "mano_I",
+        "muslo_D",
+        "muslo_I",
+        "pantorrilla_D",
+        "pantorrilla_I",
+        "pelvis",
+        "pie_D",
+        "pie_I"
+      ],
+      "huesos_sin_vertices": [
+        "root"
+      ],
+      "dimensiones_reposo_m": [
+        0.731,
+        0.54,
+        1.8
+      ],
+      "min_z_reposo_m": 0.0,
+      "materiales": [
+        "M_Pizarra",
+        "M_Herreria",
+        "M_Turquesa",
+        "M_Piel_Media",
+        "M_Madera_Clara",
+        "M_Chile"
+      ],
+      "expresiones": {
+        "Feliz": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.02
+        },
+        "Triste": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.016
+        },
+        "Sorpresa": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.03
+        },
+        "Enojado": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.026
+        },
+        "Hablar": {
+          "vertices_movidos": 24,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.018
+        },
+        "Parpadeo": {
+          "vertices_movidos": 16,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.0158
+        }
+      },
+      "clips": {
+        "Idle": {
+          "fotogramas": 61,
+          "fps": 30,
+          "duracion_s": 2.0,
+          "bucle": true,
+          "llaves": [
+            1,
+            16,
+            31,
+            46,
+            61
+          ],
+          "muestreo": {
+            "min_z_peor_caso_m": -0.0,
+            "min_z_mejor_caso_m": -0.0,
+            "altura_max_m": 1.801,
+            "extension_m": {
+              "x": [
+                -0.366,
+                0.366
+              ],
+              "y": [
+                -0.28,
+                0.28
+              ],
+              "z": [
+                -0.0,
+                1.801
+              ]
+            }
+          }
+        },
+        "Caminar": {
+          "fotogramas": 33,
+          "fps": 30,
+          "duracion_s": 1.067,
+          "bucle": true,
+          "llaves": [
+            1,
+            3,
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27,
+            29,
+            31,
+            33
+          ],
+          "muestreo": {
+            "min_z_peor_caso_m": -0.0026,
+            "min_z_mejor_caso_m": 0.0019,
+            "altura_max_m": 1.8079,
+            "extension_m": {
+              "x": [
+                -0.385,
+                0.385
+              ],
+              "y": [
+                -0.473,
+                0.53
+              ],
+              "z": [
+                -0.003,
+                1.808
+              ]
+            }
+          }
+        },
+        "Pedir": {
+          "fotogramas": 91,
+          "fps": 30,
+          "duracion_s": 3.0,
+          "bucle": false,
+          "llaves": [
+            1,
+            11,
+            25,
+            37,
+            49,
+            61,
+            75,
+            91
+          ],
+          "muestreo": {
+            "min_z_peor_caso_m": -0.0,
+            "min_z_mejor_caso_m": -0.0,
+            "altura_max_m": 1.82,
+            "extension_m": {
+              "x": [
+                -0.386,
+                0.412
+              ],
+              "y": [
+                -0.651,
+                0.304
+              ],
+              "z": [
+                -0.0,
+                1.82
+              ]
+            }
+          }
+        }
+      },
+      "fbx": {
+        "modelo": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Pescador.fbx",
+        "Idle": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Pescador@Idle.fbx",
+        "Caminar": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Pescador@Caminar.fbx",
+        "Pedir": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Pescador@Pedir.fbx"
+      }
+    },
+    "SM_Cliente_Vecina": {
+      "triangulos": 752,
+      "presupuesto": 1000,
+      "dentro_de_presupuesto": true,
+      "vertices": 440,
+      "vertices_sin_peso": 0,
+      "huesos_con_vertices": [
+        "antebrazo_D",
+        "antebrazo_I",
+        "brazo_D",
+        "brazo_I",
+        "cabeza",
+        "columna",
+        "mano_D",
+        "mano_I",
+        "muslo_D",
+        "muslo_I",
+        "pantorrilla_D",
+        "pantorrilla_I",
+        "pelvis",
+        "pie_D",
+        "pie_I"
+      ],
+      "huesos_sin_vertices": [
+        "root"
+      ],
+      "dimensiones_reposo_m": [
+        0.731,
+        0.54,
+        1.75
+      ],
+      "min_z_reposo_m": 0.0,
+      "materiales": [
+        "M_Piel_Clara",
+        "M_Herreria",
+        "M_Chile",
+        "M_Acero_Claro",
+        "M_Crema"
+      ],
+      "expresiones": {
+        "Feliz": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.02
+        },
+        "Triste": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.016
+        },
+        "Sorpresa": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.03
+        },
+        "Enojado": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.026
+        },
+        "Hablar": {
+          "vertices_movidos": 24,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.018
+        },
+        "Parpadeo": {
+          "vertices_movidos": 16,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.0158
+        }
+      },
+      "clips": {
+        "Idle": {
+          "fotogramas": 61,
+          "fps": 30,
+          "duracion_s": 2.0,
+          "bucle": true,
+          "llaves": [
+            1,
+            16,
+            31,
+            46,
+            61
+          ],
+          "muestreo": {
+            "min_z_peor_caso_m": -0.0,
+            "min_z_mejor_caso_m": -0.0,
+            "altura_max_m": 1.751,
+            "extension_m": {
+              "x": [
+                -0.366,
+                0.366
+              ],
+              "y": [
+                -0.278,
+                0.278
+              ],
+              "z": [
+                -0.0,
+                1.751
+              ]
+            }
+          }
+        },
+        "Caminar": {
+          "fotogramas": 33,
+          "fps": 30,
+          "duracion_s": 1.067,
+          "bucle": true,
+          "llaves": [
+            1,
+            3,
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27,
+            29,
+            31,
+            33
+          ],
+          "muestreo": {
+            "min_z_peor_caso_m": -0.0026,
+            "min_z_mejor_caso_m": 0.0019,
+            "altura_max_m": 1.7574,
+            "extension_m": {
+              "x": [
+                -0.385,
+                0.385
+              ],
+              "y": [
+                -0.473,
+                0.53
+              ],
+              "z": [
+                -0.003,
+                1.757
+              ]
+            }
+          }
+        },
+        "Pedir": {
+          "fotogramas": 91,
+          "fps": 30,
+          "duracion_s": 3.0,
+          "bucle": false,
+          "llaves": [
+            1,
+            11,
+            25,
+            37,
+            49,
+            61,
+            75,
+            91
+          ],
+          "muestreo": {
+            "min_z_peor_caso_m": -0.0,
+            "min_z_mejor_caso_m": -0.0,
+            "altura_max_m": 1.7691,
+            "extension_m": {
+              "x": [
+                -0.386,
+                0.412
+              ],
+              "y": [
+                -0.651,
+                0.303
+              ],
+              "z": [
+                -0.0,
+                1.769
+              ]
+            }
+          }
+        }
+      },
+      "fbx": {
+        "modelo": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Vecina.fbx",
+        "Idle": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Vecina@Idle.fbx",
+        "Caminar": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Vecina@Caminar.fbx",
+        "Pedir": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Vecina@Pedir.fbx"
+      }
+    },
+    "SM_Cliente_Joven": {
+      "triangulos": 684,
+      "presupuesto": 1000,
+      "dentro_de_presupuesto": true,
+      "vertices": 404,
+      "vertices_sin_peso": 0,
+      "huesos_con_vertices": [
+        "antebrazo_D",
+        "antebrazo_I",
+        "brazo_D",
+        "brazo_I",
+        "cabeza",
+        "columna",
+        "mano_D",
+        "mano_I",
+        "muslo_D",
+        "muslo_I",
+        "pantorrilla_D",
+        "pantorrilla_I",
+        "pelvis",
+        "pie_D",
+        "pie_I"
+      ],
+      "huesos_sin_vertices": [
+        "root"
+      ],
+      "dimensiones_reposo_m": [
+        0.731,
+        0.438,
+        1.72
+      ],
+      "min_z_reposo_m": 0.0,
+      "materiales": [
+        "M_Piedra_Caliza",
+        "M_Herreria",
+        "M_Crema",
+        "M_Piel_Oscura",
+        "M_Chile"
+      ],
+      "expresiones": {
+        "Feliz": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.02
+        },
+        "Triste": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.016
+        },
+        "Sorpresa": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.03
+        },
+        "Enojado": {
+          "vertices_movidos": 56,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.026
+        },
+        "Hablar": {
+          "vertices_movidos": 24,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.018
+        },
+        "Parpadeo": {
+          "vertices_movidos": 16,
+          "solo_cara": true,
+          "desplazamiento_max_m": 0.0158
+        }
+      },
+      "clips": {
+        "Idle": {
+          "fotogramas": 61,
+          "fps": 30,
+          "duracion_s": 2.0,
+          "bucle": true,
+          "llaves": [
+            1,
+            16,
+            31,
+            46,
+            61
+          ],
+          "muestreo": {
+            "min_z_peor_caso_m": -0.0,
+            "min_z_mejor_caso_m": -0.0,
+            "altura_max_m": 1.72,
+            "extension_m": {
+              "x": [
+                -0.366,
+                0.366
+              ],
+              "y": [
+                -0.28,
+                0.178
+              ],
+              "z": [
+                -0.0,
+                1.72
+              ]
+            }
+          }
+        },
+        "Caminar": {
+          "fotogramas": 33,
+          "fps": 30,
+          "duracion_s": 1.067,
+          "bucle": true,
+          "llaves": [
+            1,
+            3,
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27,
+            29,
+            31,
+            33
+          ],
+          "muestreo": {
+            "min_z_peor_caso_m": -0.0026,
+            "min_z_mejor_caso_m": 0.0019,
+            "altura_max_m": 1.721,
+            "extension_m": {
+              "x": [
+                -0.385,
+                0.385
+              ],
+              "y": [
+                -0.473,
+                0.53
+              ],
+              "z": [
+                -0.003,
+                1.721
+              ]
+            }
+          }
+        },
+        "Pedir": {
+          "fotogramas": 91,
+          "fps": 30,
+          "duracion_s": 3.0,
+          "bucle": false,
+          "llaves": [
+            1,
+            11,
+            25,
+            37,
+            49,
+            61,
+            75,
+            91
+          ],
+          "muestreo": {
+            "min_z_peor_caso_m": -0.0,
+            "min_z_mejor_caso_m": -0.0,
+            "altura_max_m": 1.72,
+            "extension_m": {
+              "x": [
+                -0.386,
+                0.412
+              ],
+              "y": [
+                -0.651,
+                0.198
+              ],
+              "z": [
+                -0.0,
+                1.72
+              ]
+            }
+          }
+        }
+      },
+      "fbx": {
+        "modelo": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Joven.fbx",
+        "Idle": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Joven@Idle.fbx",
+        "Caminar": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Joven@Caminar.fbx",
+        "Pedir": "Assets/_Game/Models/CasaMarea/Animados/SM_Cliente_Joven@Pedir.fbx"
+      }
+    }
+  },
+  "ciclo_de_caminar": {
+    "recorrido_pie_D_0_a_16_m": 0.758,
+    "velocidad_referencia_m_s": 1.422,
+    "longitud_de_paso_m": 0.758
+  },
+  "huesos_total": 16
+}

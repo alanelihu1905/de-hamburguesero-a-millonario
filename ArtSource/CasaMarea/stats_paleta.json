@@ -1,0 +1,1001 @@
+{
+  "fbx": {
+    "SM_Huacal_Ingredientes": {
+      "origen": "Huacal_Ingredientes.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Huacal_Ingredientes.fbx",
+      "piezas": {
+        "SM_Huacal_Ingredientes": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 628,
+          "triangulos_despues": 628,
+          "dimensiones_antes": [
+            0.899702,
+            0.549702,
+            0.499648
+          ],
+          "dimensiones_despues": [
+            0.899702,
+            0.549702,
+            0.499648
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Plancha_Tubo": {
+      "origen": "Plancha_Tubo.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Plancha_Tubo.fbx",
+      "piezas": {
+        "SM_Plancha_Tubo": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 332,
+          "triangulos_despues": 332,
+          "dimensiones_antes": [
+            1.1,
+            0.6,
+            0.75
+          ],
+          "dimensiones_despues": [
+            1.1,
+            0.6,
+            0.75
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 6,
+          "materiales": [
+            "M_Casa_Marea",
+            "M_Casa_Marea_Emisivo"
+          ]
+        }
+      }
+    },
+    "SM_PuntoVenta_Feston": {
+      "origen": "PuntoVenta_Feston.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_PuntoVenta_Feston.fbx",
+      "piezas": {
+        "SM_PuntoVenta_Feston": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 416,
+          "triangulos_despues": 416,
+          "dimensiones_antes": [
+            0.9,
+            0.548,
+            0.8
+          ],
+          "dimensiones_despues": [
+            0.9,
+            0.548,
+            0.8
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 54,
+          "materiales": [
+            "M_Casa_Marea",
+            "M_Casa_Marea_Emisivo"
+          ]
+        }
+      }
+    },
+    "SM_Fachada_CasaMarea": {
+      "origen": "Fachada_CasaMarea.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Fachada_CasaMarea.fbx",
+      "piezas": {
+        "SM_Fachada_CasaMarea": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 1376,
+          "triangulos_despues": 1376,
+          "dimensiones_antes": [
+            18.0,
+            7.4,
+            4.45
+          ],
+          "dimensiones_despues": [
+            18.0,
+            7.4,
+            4.45
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 68,
+          "materiales": [
+            "M_Casa_Marea",
+            "M_Casa_Marea_Emisivo"
+          ]
+        },
+        "SM_Letrero_Texto": {
+          "decal_sin_cambios": true,
+          "triangulos_antes": 2,
+          "triangulos_despues": 2,
+          "dimensiones_antes": [
+            1.9,
+            0.0,
+            0.34
+          ],
+          "dimensiones_despues": [
+            1.9,
+            0.0,
+            0.34
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Letrero"
+          ]
+        }
+      }
+    },
+    "SM_Despacho_Este": {
+      "origen": "Fachada_CasaMarea.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Despacho_Este.fbx",
+      "piezas": {
+        "SM_Despacho_Este": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 332,
+          "triangulos_despues": 332,
+          "dimensiones_antes": [
+            1.81,
+            6.2,
+            3.1
+          ],
+          "dimensiones_despues": [
+            1.81,
+            6.2,
+            3.1
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Banco_Calle": {
+      "origen": "Props_Barrio.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Banco_Calle.fbx",
+      "piezas": {
+        "SM_Banco_Calle": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 180,
+          "triangulos_despues": 180,
+          "dimensiones_antes": [
+            1.5,
+            0.49,
+            0.85
+          ],
+          "dimensiones_despues": [
+            1.5,
+            0.49,
+            0.85
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Maceta_Tropical": {
+      "origen": "Props_Barrio.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Maceta_Tropical.fbx",
+      "piezas": {
+        "SM_Maceta_Tropical": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 456,
+          "triangulos_despues": 456,
+          "dimensiones_antes": [
+            0.701297,
+            0.705854,
+            0.842832
+          ],
+          "dimensiones_despues": [
+            0.701297,
+            0.705854,
+            0.842832
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Farol_Calle": {
+      "origen": "Props_Barrio.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Farol_Calle.fbx",
+      "piezas": {
+        "SM_Farol_Calle": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 308,
+          "triangulos_despues": 308,
+          "dimensiones_antes": [
+            0.42,
+            0.42,
+            2.78
+          ],
+          "dimensiones_despues": [
+            0.42,
+            0.42,
+            2.78
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 10,
+          "materiales": [
+            "M_Casa_Marea",
+            "M_Casa_Marea_Emisivo"
+          ]
+        }
+      }
+    },
+    "SM_Cubeta": {
+      "origen": "Props_Barrio.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Cubeta.fbx",
+      "piezas": {
+        "SM_Cubeta": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 260,
+          "triangulos_despues": 260,
+          "dimensiones_antes": [
+            0.37,
+            0.35,
+            0.425895
+          ],
+          "dimensiones_despues": [
+            0.37,
+            0.35,
+            0.425895
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Cartel_Precios": {
+      "origen": "Props_Barrio.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Cartel_Precios.fbx",
+      "piezas": {
+        "SM_Cartel_Precios": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 308,
+          "triangulos_despues": 308,
+          "dimensiones_antes": [
+            0.62,
+            0.449517,
+            0.965
+          ],
+          "dimensiones_despues": [
+            0.62,
+            0.449517,
+            0.965
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 56,
+          "materiales": [
+            "M_Casa_Marea",
+            "M_Casa_Marea_Emisivo"
+          ]
+        },
+        "SM_Cartel_Texto": {
+          "decal_sin_cambios": true,
+          "triangulos_antes": 4,
+          "triangulos_despues": 4,
+          "dimensiones_antes": [
+            0.44,
+            0.435818,
+            0.5282
+          ],
+          "dimensiones_despues": [
+            0.44,
+            0.435818,
+            0.5282
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Cartel_Texto"
+          ]
+        }
+      }
+    },
+    "SM_Refrigerador": {
+      "origen": "Interior_Cocina.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Refrigerador.fbx",
+      "piezas": {
+        "SM_Refrigerador": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 96,
+          "triangulos_despues": 96,
+          "dimensiones_antes": [
+            0.8,
+            0.7,
+            1.75
+          ],
+          "dimensiones_despues": [
+            0.8,
+            0.7,
+            1.75
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Hamburguesa_Piezas": {
+      "origen": "Interior_Cocina.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Hamburguesa_Piezas.fbx",
+      "piezas": {
+        "SM_Burger_pan_base": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 44,
+          "triangulos_despues": 44,
+          "dimensiones_antes": [
+            0.16,
+            0.16,
+            0.025
+          ],
+          "dimensiones_despues": [
+            0.16,
+            0.16,
+            0.025
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        },
+        "SM_Burger_carne": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 44,
+          "triangulos_despues": 44,
+          "dimensiones_antes": [
+            0.156,
+            0.156,
+            0.03
+          ],
+          "dimensiones_despues": [
+            0.156,
+            0.156,
+            0.03
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        },
+        "SM_Burger_queso": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 12,
+          "triangulos_despues": 12,
+          "dimensiones_antes": [
+            0.162635,
+            0.162635,
+            0.006
+          ],
+          "dimensiones_despues": [
+            0.162635,
+            0.162635,
+            0.006
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        },
+        "SM_Burger_lechuga": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 44,
+          "triangulos_despues": 44,
+          "dimensiones_antes": [
+            0.18,
+            0.18,
+            0.01
+          ],
+          "dimensiones_despues": [
+            0.18,
+            0.18,
+            0.01
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        },
+        "SM_Burger_jitomate": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 56,
+          "triangulos_despues": 56,
+          "dimensiones_antes": [
+            0.15,
+            0.09,
+            0.01
+          ],
+          "dimensiones_despues": [
+            0.15,
+            0.09,
+            0.01
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        },
+        "SM_Burger_cebolla": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 28,
+          "triangulos_despues": 28,
+          "dimensiones_antes": [
+            0.1,
+            0.1,
+            0.006
+          ],
+          "dimensiones_despues": [
+            0.1,
+            0.1,
+            0.006
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        },
+        "SM_Burger_pan_tapa": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 132,
+          "triangulos_despues": 132,
+          "dimensiones_antes": [
+            0.17,
+            0.17,
+            0.07
+          ],
+          "dimensiones_despues": [
+            0.17,
+            0.17,
+            0.07
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Hamburguesa_Completa": {
+      "origen": "Interior_Cocina.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Hamburguesa_Completa.fbx",
+      "piezas": {
+        "SM_Hamburguesa_Completa": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 360,
+          "triangulos_despues": 360,
+          "dimensiones_antes": [
+            0.18,
+            0.18,
+            0.157
+          ],
+          "dimensiones_despues": [
+            0.18,
+            0.18,
+            0.157
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Tabla_Corte": {
+      "origen": "Interior_Cocina.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Tabla_Corte.fbx",
+      "piezas": {
+        "SM_Tabla_Corte": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 84,
+          "triangulos_despues": 84,
+          "dimensiones_antes": [
+            0.4,
+            0.28,
+            0.059
+          ],
+          "dimensiones_despues": [
+            0.4,
+            0.28,
+            0.059
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Campana_Extraccion": {
+      "origen": "Interior_Cocina.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Campana_Extraccion.fbx",
+      "piezas": {
+        "SM_Campana_Extraccion": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 48,
+          "triangulos_despues": 48,
+          "dimensiones_antes": [
+            1.52,
+            0.9,
+            0.955
+          ],
+          "dimensiones_despues": [
+            1.52,
+            0.9,
+            0.955
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Repisa_Frascos": {
+      "origen": "Interior_Cocina.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Repisa_Frascos.fbx",
+      "piezas": {
+        "SM_Repisa_Frascos": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 408,
+          "triangulos_despues": 408,
+          "dimensiones_antes": [
+            1.0,
+            0.25,
+            0.74
+          ],
+          "dimensiones_despues": [
+            1.0,
+            0.25,
+            0.74
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Lampara_Colgante": {
+      "origen": "Interior_Cocina.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Lampara_Colgante.fbx",
+      "piezas": {
+        "SM_Lampara_Colgante": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 164,
+          "triangulos_despues": 164,
+          "dimensiones_antes": [
+            0.28,
+            0.28,
+            0.635
+          ],
+          "dimensiones_despues": [
+            0.28,
+            0.28,
+            0.635
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 48,
+          "materiales": [
+            "M_Casa_Marea",
+            "M_Casa_Marea_Emisivo"
+          ]
+        }
+      }
+    },
+    "SM_Mostrador_Modulo": {
+      "origen": "Interior_Cocina.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Mostrador_Modulo.fbx",
+      "piezas": {
+        "SM_Mostrador_Modulo": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 60,
+          "triangulos_despues": 60,
+          "dimensiones_antes": [
+            1.0,
+            0.75,
+            0.85
+          ],
+          "dimensiones_despues": [
+            1.0,
+            0.75,
+            0.85
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Banco_Callejon": {
+      "origen": "Props_Barrio_2.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Banco_Callejon.fbx",
+      "piezas": {
+        "SM_Banco_Callejon": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 84,
+          "triangulos_despues": 84,
+          "dimensiones_antes": [
+            1.4,
+            0.45,
+            0.4
+          ],
+          "dimensiones_despues": [
+            1.4,
+            0.45,
+            0.4
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Caja_Pescado": {
+      "origen": "Props_Barrio_2.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Caja_Pescado.fbx",
+      "piezas": {
+        "SM_Caja_Pescado": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 212,
+          "triangulos_despues": 212,
+          "dimensiones_antes": [
+            0.5,
+            0.301708,
+            0.17
+          ],
+          "dimensiones_despues": [
+            0.5,
+            0.301708,
+            0.17
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Cajas_Pescado_Pila": {
+      "origen": "Props_Barrio_2.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Cajas_Pescado_Pila.fbx",
+      "piezas": {
+        "SM_Cajas_Pescado_Pila": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 396,
+          "triangulos_despues": 396,
+          "dimensiones_antes": [
+            0.54,
+            0.301708,
+            0.34
+          ],
+          "dimensiones_despues": [
+            0.54,
+            0.301708,
+            0.34
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Bolardo": {
+      "origen": "Props_Barrio_2.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Bolardo.fbx",
+      "piezas": {
+        "SM_Bolardo": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 176,
+          "triangulos_despues": 176,
+          "dimensiones_antes": [
+            0.3,
+            0.3,
+            0.68
+          ],
+          "dimensiones_despues": [
+            0.3,
+            0.3,
+            0.68
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Barril": {
+      "origen": "Props_Barrio_2.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Barril.fbx",
+      "piezas": {
+        "SM_Barril": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 308,
+          "triangulos_despues": 308,
+          "dimensiones_antes": [
+            0.532,
+            0.532,
+            0.7
+          ],
+          "dimensiones_despues": [
+            0.532,
+            0.532,
+            0.7
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Farol_Pared": {
+      "origen": "Props_Barrio_2.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Farol_Pared.fbx",
+      "piezas": {
+        "SM_Farol_Pared": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 140,
+          "triangulos_despues": 140,
+          "dimensiones_antes": [
+            0.28,
+            0.34,
+            0.55
+          ],
+          "dimensiones_despues": [
+            0.28,
+            0.34,
+            0.55
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 10,
+          "materiales": [
+            "M_Casa_Marea",
+            "M_Casa_Marea_Emisivo"
+          ]
+        }
+      }
+    },
+    "SM_Maceta_Patio": {
+      "origen": "Props_Barrio_2.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Maceta_Patio.fbx",
+      "piezas": {
+        "SM_Maceta_Patio": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 260,
+          "triangulos_despues": 260,
+          "dimensiones_antes": [
+            0.404251,
+            0.404251,
+            0.619026
+          ],
+          "dimensiones_despues": [
+            0.404251,
+            0.404251,
+            0.619026
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Cliente_Pescador": {
+      "origen": "Clientes_Vecinas.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Cliente_Pescador.fbx",
+      "piezas": {
+        "SM_Cliente_Pescador": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 396,
+          "triangulos_despues": 396,
+          "dimensiones_antes": [
+            0.730827,
+            0.54,
+            1.8
+          ],
+          "dimensiones_despues": [
+            0.730827,
+            0.54,
+            1.8
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Cliente_Vecina": {
+      "origen": "Clientes_Vecinas.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Cliente_Vecina.fbx",
+      "piezas": {
+        "SM_Cliente_Vecina": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 440,
+          "triangulos_despues": 440,
+          "dimensiones_antes": [
+            0.730827,
+            0.54,
+            1.75
+          ],
+          "dimensiones_despues": [
+            0.730827,
+            0.54,
+            1.75
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Cliente_Joven": {
+      "origen": "Clientes_Vecinas.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Cliente_Joven.fbx",
+      "piezas": {
+        "SM_Cliente_Joven": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 372,
+          "triangulos_despues": 372,
+          "dimensiones_antes": [
+            0.730827,
+            0.438,
+            1.72
+          ],
+          "dimensiones_despues": [
+            0.730827,
+            0.438,
+            1.72
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Casa_Vecina_A": {
+      "origen": "Clientes_Vecinas.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Casa_Vecina_A.fbx",
+      "piezas": {
+        "SM_Casa_Vecina_A": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 336,
+          "triangulos_despues": 336,
+          "dimensiones_antes": [
+            6.2,
+            6.24,
+            3.45
+          ],
+          "dimensiones_despues": [
+            6.2,
+            6.24,
+            3.45
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    },
+    "SM_Casa_Vecina_B": {
+      "origen": "Clientes_Vecinas.blend",
+      "ruta": "Assets/_Game/Models/CasaMarea/Paleta/SM_Casa_Vecina_B.fbx",
+      "piezas": {
+        "SM_Casa_Vecina_B": {
+          "decal_sin_cambios": false,
+          "triangulos_antes": 432,
+          "triangulos_despues": 432,
+          "dimensiones_antes": [
+            6.2,
+            6.24,
+            3.45
+          ],
+          "dimensiones_despues": [
+            6.2,
+            6.24,
+            3.45
+          ],
+          "sin_regresion": true,
+          "uv_en_centro_de_celda": true,
+          "caras_emisivas": 0,
+          "materiales": [
+            "M_Casa_Marea"
+          ]
+        }
+      }
+    }
+  },
+  "errores": [],
+  "texturas_compartidas": [
+    "Palette_CasaMarea_Albedo.png",
+    "Palette_CasaMarea_MetalSuavidad.png"
+  ],
+  "carpetas_fbm_restantes": [],
+  "resumen": {
+    "fbx_exportados": 30,
+    "objetos": 38,
+    "objetos_con_problema": [],
+    "errores": 0
+  }
+}
