@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Tycoon3D.Economy;
@@ -231,6 +232,29 @@ Check(ledger.Matches(wallet.Pesos, 0) && ledger.Entries.Count == 5, "Libro regis
         for (int b = a + 1; b < All.Length; b++)
             Check(!Tycoon3D.Restaurant.PaletteVariants.BuildPixels(a).SequenceEqual(Tycoon3D.Restaurant.PaletteVariants.BuildPixels(b)), "variantes: " + All[a].Name + " y " + All[b].Name + " se ven distintas");
     Check(Throws(() => Tycoon3D.Restaurant.PaletteVariants.BuildPixels(-1)) && Throws(() => Tycoon3D.Restaurant.PaletteVariants.BuildPixels(All.Length)), "variantes: un índice fuera de rango se rechaza");
+}
+
+// ---- estadísticas de la medición de rendimiento ------------------------------------------------------------------------------
+{
+    var constantes = Enumerable.Repeat(1f / 60f, 600).ToList();
+    var r = Tycoon3D.Dev.PerfStats.Compute(constantes);
+    Check(r.Frames == 600 && Math.Abs(r.Seconds - 10.0) < .001, "rendimiento: 600 fotogramas a 60 fps duran 10 s");
+    Check(Math.Abs(r.AverageFps - 60.0) < .01 && Math.Abs(r.OnePercentLowFps - 60.0) < .01 && Math.Abs(r.MinFps - 60.0) < .01, "rendimiento: fotogramas parejos dan 60 fps en todas las cifras");
+    Check(Math.Abs(r.MedianFrameMs - 16.67) < .01 && Math.Abs(r.MaxFrameMs - 16.67) < .01, "rendimiento: 16.67 ms por fotograma");
+
+    // 990 fotogramas a 100 fps y 10 tirones de 100 ms: la media se ve bien, el peor 1 % delata los tirones
+    var tirones = Enumerable.Repeat(.01f, 990).Concat(Enumerable.Repeat(.1f, 10)).ToList();
+    var t = Tycoon3D.Dev.PerfStats.Compute(tirones);
+    Check(t.Frames == 1000 && Math.Abs(t.AverageFps - 1000.0 / 10.9) < .01, "rendimiento: la media de fotogramas por segundo (" + t.AverageFps.ToString("F1") + ")");
+    Check(Math.Abs(t.OnePercentLowFps - 10.0) < .01, "rendimiento: el peor 1 % son los diez tirones de 100 ms = 10 fps (" + t.OnePercentLowFps.ToString("F1") + ")");
+    Check(Math.Abs(t.MinFps - 10.0) < .01 && Math.Abs(t.MaxFrameMs - 100.0) < .01 && Math.Abs(t.MedianFrameMs - 10.0) < .01, "rendimiento: mínimo, máximo y mediana");
+
+    var invalidos = new List<float> { 0f, -1f, float.NaN, float.PositiveInfinity, .02f, .02f };
+    var v = Tycoon3D.Dev.PerfStats.Compute(invalidos);
+    Check(v.Frames == 2 && Math.Abs(v.AverageFps - 50.0) < .01, "rendimiento: se ignoran los tiempos inválidos");
+    Check(Tycoon3D.Dev.PerfStats.Compute(new List<float>()).Frames == 0 && Tycoon3D.Dev.PerfStats.Compute(null).Frames == 0 && Tycoon3D.Dev.PerfStats.Compute(new List<float> { 0f, -2f }).AverageFps == 0.0,
+        "rendimiento: sin datos no hay cifras ni errores");
+    Check(r.ToString().Contains("fps_medio=60.0") && r.ToString().Contains("fps_peor1pct=60.0") && r.ToString().Contains("frames=600"), "rendimiento: el texto del resultado");
 }
 
 Console.WriteLine("EconomySmoke: {0} comprobaciones aprobadas.", Counter.Checks);

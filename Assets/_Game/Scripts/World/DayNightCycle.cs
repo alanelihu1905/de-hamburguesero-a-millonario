@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using Tycoon3D.Core;
+using Tycoon3D.Dev;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -45,11 +46,13 @@ namespace Tycoon3D.World
         private float skyExposure = 1f;
         private float nextApply;
         private bool captured;
+        private bool disabledByFlag;
 
         private void Awake()
         {
             Current = this;
             ReadArguments();
+            if (LaunchFlags.Has("-no-daynight")) { Frozen = true; disabledByFlag = true; }       // para medir el rendimiento sin el ciclo
             SceneManager.sceneLoaded += OnSceneLoaded;
             Capture();
         }
@@ -123,7 +126,7 @@ namespace Tycoon3D.World
 
         public void Apply()
         {
-            if (!captured) return;
+            if (!captured || disabledByFlag) return;
             AppliedCount++;
             float hour = Clock.Hour;
             float d = GameClock.Daylight(hour);

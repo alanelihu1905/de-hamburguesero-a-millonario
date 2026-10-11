@@ -115,7 +115,7 @@ namespace Tycoon3D.Core
             wallet = FindFirstObjectByType<Wallet>();
             burger = FindFirstObjectByType<BurgerLoop>();
             casino = FindFirstObjectByType<CasinoService>();
-            if (AnimatedCustomer.All.Count > 0 && FindFirstObjectByType<CustomerVariety>() == null)     // más ropa y dos paseantes más en la calle
+            if (AnimatedCustomer.All.Count > 0 && !Tycoon3D.Dev.LaunchFlags.Has("-no-variety") && FindFirstObjectByType<CustomerVariety>() == null)     // más ropa y dos paseantes más en la calle
                 new GameObject("Variedad de clientes").AddComponent<CustomerVariety>();
             if (burger != null)                                                // los clientes de la fila piden y pagan con cada venta
             {
