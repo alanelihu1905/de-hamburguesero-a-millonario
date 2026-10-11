@@ -17,14 +17,16 @@ Una escena de vista previa **aislada** con trazado de calles para Puerto Alba: u
 | `Assets/Editor/PuertoAlbaCallesBuilder.cs` | Constructor y verificación (`Build`, `Verify`) |
 | `Assets/_Game/Scenes/PuertoAlba_CallesPreview.unity` | Escena de vista previa |
 | `Assets/_Game/Models/PuertoAlba/Calles/Materiales/*.mat` | 6 materiales de calle (asfalto, acera, bordillo, pintura, poste, luz) y terreno |
-| `ArtSource/PuertoAlba/unity_calles_check.txt` | Informe: 94 OK, 0 FALLO |
+| `ArtSource/PuertoAlba/unity_calles_check.txt` | Informe: 106 OK, 0 FALLO |
 | `ArtSource/PuertoAlba/Preview/Unity/Calles_calle_unity.png` | Captura a nivel de calle |
 | `ArtSource/PuertoAlba/Preview/Unity/Calles_general_unity.png` | Captura general |
+| `ArtSource/PuertoAlba/Preview/Unity/Calles_casino_unity.png` | Captura del casino desde la calle cruzada |
+| `ArtSource/PuertoAlba/validar_calles.py` | Validador sin Unity del trazado (ver handoff 15) |
 
 ## 3. Marcadores (Unity 6000.0.84f1, batch)
 
 - `CALLES_BUILD_OK: escena Assets/_Game/Scenes/PuertoAlba_CallesPreview.unity` (código 0).
-- `TYCOON_CALLES_PREVIEW_OK: avenida, cruce, cebras, edificios fuera de la vía, frente a la calle y capturas comprobados.` (código 0). Informe: **94 OK, 0 FALLO**.
+- `TYCOON_CALLES_PREVIEW_OK: avenida, cruce, cebras, edificios fuera de la vía, frente a la calle y capturas comprobados.` (código 0). Informe de la versión actual: **106 OK, 0 FALLO**.
 
 Comprobaciones:
 - avenida 120 × 8 m y calle cruzada 8 × 80 m, ambas con colisión;
@@ -53,3 +55,11 @@ Comprobaciones:
 - La calle está ocupada en el cruce por la fila de edificios de cruce; no se probó caminar por ella.
 - Iluminación de vista previa, no la de la build.
 - Ubicación del casino y cuadrícula 21×21: pendientes (handoffs 09 y 11). Esta escena no las decide.
+
+## 7. Actualización: casino y casas rediseñadas (verificado en Unity)
+
+- **Casino colocado en la escena de calles**, por decisión delegada del usuario («donde tú quieras, un poquito alejado del centro»): lado este de la calle cruzada, centro en (16, 0, −20), a unos 26 m del centro, mirando a la calle (−X). La plaza de entrada (x 6…14, z −26…−14) queda libre. Es solo vista previa: no cambia `CityMap`, `CityLayout` ni el casino del barrio (ver handoff 11, sección 7).
+- **Tres casas rediseñadas** (`PF_Casa_Colonial`, `PF_Casa_Moderna`, `PF_Casa_Cabana`, handoff 15) colocadas en la avenida y en el cruce.
+- Pruebas en Unity 6000.0.84f1 (batch): `CALLES_BUILD_OK` y `TYCOON_CALLES_PREVIEW_OK` con **106 OK y 0 FALLO**. Entre otras: tamaño exacto de los tres prefabs de casa frente a Blender, casino centrado en (16, −20) con producto punto 1.000 hacia la calle, plaza de entrada libre y captura del casino.
+- **Dos fallos previos de la verificación eran míos:** el criterio de asfalto buscaba un gris puro y la luz del cielo lo tiñe de azul; ahora se muestrea el color real del asfalto en un punto conocido de la avenida (21.7 % de la captura). Y, antes, un bloqueo de Unity por el editor del usuario abierto sobre el proyecto, que ya se cerró.
+- **No verificado:** caminar por las calles; colisiones del porche y del balcón de las casas (el prefab solo tiene el volumen principal); iluminación de la build.

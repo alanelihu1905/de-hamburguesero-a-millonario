@@ -27,6 +27,8 @@ namespace Tycoon3D.Editor
         private const string PreviewDir = "ArtSource/PuertoAlba/Preview/Unity";
         private const string ReportPath = "ArtSource/PuertoAlba/unity_calles_check.txt";
         private const string Root = "Calles y edificios";
+        private const string CasinoNombre = "Casino FOX (hito)";
+        private static readonly Rect PlazaCasino = new Rect(6f, -26f, 8f, 12f);   // x 6…14, z −26…−14
 
         // zonas libres de la vía: la calzada más las aceras. Ningún edificio puede entrar en ellas.
         private static readonly Rect AvenidaLibre = new Rect(-60f, -6f, 120f, 12f);   // x −60…60, z −6…6
@@ -37,7 +39,7 @@ namespace Tycoon3D.Editor
         // edificios: norte (z > 0, frente a −Z), sur (z < 0, frente a +Z), y los de la calle cruzada (frente hacia la calle)
         private static readonly Pieza[] Edificios =
         {
-            new Pieza { Prefab = "PF_Casa_Dos_Plantas", Nombre = "Edif avenida norte 1", Tipo = "Avenida", Pos = new Vector3(-44, 0, 9.7f), Yaw = 180 },
+            new Pieza { Prefab = "PF_Casa_Colonial", Nombre = "Edif avenida norte 1", Tipo = "Avenida", Pos = new Vector3(-44, 0, 9.7f), Yaw = 180 },
             new Pieza { Prefab = "PF_Fachada_Residencial", Nombre = "Edif avenida norte 2", Tipo = "Avenida", Pos = new Vector3(-34, 0, 6.56f), Yaw = 180 },
             new Pieza { Prefab = "PF_Tienda_Barrio", Nombre = "Edif avenida norte 3", Tipo = "Avenida", Pos = new Vector3(-24, 0, 8.7f), Yaw = 180 },
             new Pieza { Prefab = "PF_Fachada_Residencial_B", Nombre = "Edif avenida norte 4", Tipo = "Avenida", Pos = new Vector3(-12, 0, 6.7f), Yaw = 180 },
@@ -46,13 +48,13 @@ namespace Tycoon3D.Editor
             new Pieza { Prefab = "PF_Gasolinera_Completa", Nombre = "Edif avenida norte 7", Tipo = "Avenida", Pos = new Vector3(46, 0, 10.2f), Yaw = 180 },
             new Pieza { Prefab = "PF_Fachada_Residencial_B", Nombre = "Edif avenida sur 1", Tipo = "Avenida", Pos = new Vector3(-46, 0, -6.7f), Yaw = 0 },
             new Pieza { Prefab = "PF_Tienda_Barrio", Nombre = "Edif avenida sur 2", Tipo = "Avenida", Pos = new Vector3(-36, 0, -8.7f), Yaw = 0 },
-            new Pieza { Prefab = "PF_Casa_Dos_Plantas", Nombre = "Edif avenida sur 3", Tipo = "Avenida", Pos = new Vector3(-24, 0, -9.7f), Yaw = 0 },
+            new Pieza { Prefab = "PF_Casa_Moderna", Nombre = "Edif avenida sur 3", Tipo = "Avenida", Pos = new Vector3(-24, 0, -9.7f), Yaw = 0 },
             new Pieza { Prefab = "PF_Fachada_Residencial", Nombre = "Edif avenida sur 4", Tipo = "Avenida", Pos = new Vector3(-14, 0, -6.56f), Yaw = 0 },
             new Pieza { Prefab = "PF_Fachada_Residencial_B", Nombre = "Edif avenida sur 5", Tipo = "Avenida", Pos = new Vector3(12, 0, -6.7f), Yaw = 0 },
             new Pieza { Prefab = "PF_Tienda_Barrio", Nombre = "Edif avenida sur 6", Tipo = "Avenida", Pos = new Vector3(24, 0, -8.7f), Yaw = 0 },
-            new Pieza { Prefab = "PF_Casa_Dos_Plantas", Nombre = "Edif avenida sur 7", Tipo = "Avenida", Pos = new Vector3(36, 0, -9.7f), Yaw = 0 },
+            new Pieza { Prefab = "PF_Casa_Colonial", Nombre = "Edif avenida sur 7", Tipo = "Avenida", Pos = new Vector3(36, 0, -9.7f), Yaw = 0 },
             new Pieza { Prefab = "PF_Fachada_Residencial", Nombre = "Edif avenida sur 8", Tipo = "Avenida", Pos = new Vector3(48, 0, -6.56f), Yaw = 0 },
-            new Pieza { Prefab = "PF_Casa_Dos_Plantas", Nombre = "Edif cruce este 1", Tipo = "Cruce", Pos = new Vector3(11.5f, 0, 24), Yaw = -90 },
+            new Pieza { Prefab = "PF_Casa_Cabana", Nombre = "Edif cruce este 1", Tipo = "Cruce", Pos = new Vector3(11.5f, 0, 24), Yaw = -90 },
             new Pieza { Prefab = "PF_Taller_Brisa", Nombre = "Edif cruce oeste 1", Tipo = "Cruce", Pos = new Vector3(-11.5f, 0, 24), Yaw = 90 },
             new Pieza { Prefab = "PF_Tienda_Barrio", Nombre = "Edif cruce oeste 2", Tipo = "Cruce", Pos = new Vector3(-11.5f, 0, -24), Yaw = 90 },
             new Pieza { Prefab = "PF_Mercado_Pabellon_Reloj", Nombre = "Edif cruce este 2", Tipo = "Cruce", Pos = new Vector3(11.5f, 0, -36), Yaw = -90 },
@@ -68,6 +70,7 @@ namespace Tycoon3D.Editor
             {
                 if (!AssetDatabase.IsValidFolder("Assets/_Game/Models/PuertoAlba/Calles")) AssetDatabase.CreateFolder("Assets/_Game/Models/PuertoAlba", "Calles");
                 if (!AssetDatabase.IsValidFolder(MatDir)) AssetDatabase.CreateFolder("Assets/_Game/Models/PuertoAlba/Calles", "Materiales");
+                CrearPrefabsCasas();
                 var asfalto = Mat("Calle asfalto", new Color(.25f, .25f, .27f));
                 var acera = Mat("Calle acera", new Color(.72f, .70f, .66f));
                 var bordillo = Mat("Calle bordillo", new Color(.92f, .92f, .9f));
@@ -121,7 +124,13 @@ namespace Tycoon3D.Editor
                     Apoyar(go, e.Tipo, e.Yaw);
                 }
 
+                // Casino FOX (hito): lado este de la calle cruzada, a unos 26 m del centro; mira a la calle (−X).
+                // La plaza de entrada (x 6…14, z −26…−14) queda libre. Solo en esta escena de vista previa.
+                var casino = Place("PF_Hito_Casino", calles.transform, new Vector3(16f, 0, -20f), -90f, CasinoNombre);
+                CentrarXZ(casino, new Vector3(16f, 0, -20f));
+
                 var camCalle = Camara("Camara calle (no build)", new Vector3(-30, 1.7f, -2.5f), new Vector3(10, 2.5f, 1.5f), 60f);
+                Camara("Camara casino (no build)", new Vector3(1.5f, 1.7f, -12f), new Vector3(16f, 4f, -20f), 55f);
                 camCalle.tag = "MainCamera";
                 Camara("Camara general (no build)", new Vector3(0, 70, -90), new Vector3(0, 0, 4), 60f);
 
@@ -134,6 +143,52 @@ namespace Tycoon3D.Editor
             {
                 Debug.LogException(e);
                 if (Application.isBatchMode) EditorApplication.delayCall += () => EditorApplication.Exit(1);
+            }
+        }
+
+        private const string CasasDir = "Assets/_Game/Models/PuertoAlba/Casas";
+
+        /// <summary>Prefabs de las tres casas rediseñadas (SM_Casa_*), con colisión simple del volumen principal.</summary>
+        private static void CrearPrefabsCasas()
+        {
+            AssetDatabase.Refresh();
+            CasaPrefab("PF_Casa_Colonial", "SM_Casa_Colonial", new[]
+            {
+                new[] { 0f, 3.5f, 0f, 8f, 7f, 7f },                 // cuerpo de dos plantas (centro xyz, tamaño xyz)
+            });
+            CasaPrefab("PF_Casa_Moderna", "SM_Casa_Moderna", new[]
+            {
+                new[] { 0f, 1.75f, 0f, 7f, 3.5f, 8f },              // planta baja
+                new[] { 0f, 5.1f, 1.0f, 6f, 3.0f, 6f },             // planta alta
+                new[] { 0f, 5.1f, 4.5f, 6f, 3.0f, 1.0f },           // voladizo sobre el acceso
+            });
+            CasaPrefab("PF_Casa_Cabana", "SM_Casa_Cabana", new[]
+            {
+                new[] { 0f, 1.65f, 0f, 5f, 3.3f, 7f },              // paredes
+            });
+        }
+
+        private static void CasaPrefab(string prefabName, string fbxName, float[][] colisiones)
+        {
+            string fbx = CasasDir + "/" + fbxName + ".fbx";
+            AssetDatabase.ImportAsset(fbx, ImportAssetOptions.ForceUpdate);
+            var src = AssetDatabase.LoadAssetAtPath<GameObject>(fbx);
+            if (src == null) throw new InvalidOperationException("Falta el FBX " + fbx);
+            var root = new GameObject(prefabName);
+            try
+            {
+                PrefabUtility.InstantiatePrefab(src, root.transform);
+                foreach (var c in colisiones)
+                {
+                    var bc = root.AddComponent<BoxCollider>();
+                    bc.center = new Vector3(c[0], c[1], c[2]);
+                    bc.size = new Vector3(c[3], c[4], c[5]);
+                }
+                PrefabUtility.SaveAsPrefabAsset(root, PrefabDir + "/" + prefabName + ".prefab");
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(root);
             }
         }
 
@@ -157,6 +212,19 @@ namespace Tycoon3D.Editor
             go.transform.position = pos;
             go.transform.rotation = Quaternion.Euler(0, yaw, 0);
             return go;
+        }
+
+        /// <summary>Centra la caja del prefab en x y z sobre el punto indicado (la altura no cambia).</summary>
+        private static void CentrarXZ(GameObject go, Vector3 punto)
+        {
+            var rs = go.GetComponentsInChildren<MeshRenderer>(true);
+            if (rs.Length == 0) return;
+            Bounds b = rs[0].bounds;
+            foreach (var r in rs) b.Encapsulate(r.bounds);
+            Vector3 p = go.transform.position;
+            p.x += punto.x - b.center.x;
+            p.z += punto.z - b.center.z;
+            go.transform.position = p;
         }
 
         /// <summary>
@@ -271,6 +339,46 @@ namespace Tycoon3D.Editor
                     }
                 }
 
+                // casas rediseñadas: tamaño de su prefab igual al medido por Blender (X, alto, fondo)
+                foreach (var (pf, esp) in new[] { ("PF_Casa_Colonial", new Vector3(8.6f, 9.62f, 10.5f)), ("PF_Casa_Moderna", new Vector3(7.2f, 7.3f, 10.73f)), ("PF_Casa_Cabana", new Vector3(5.6f, 6.5f, 9.575f)) })
+                {
+                    var prefabCasa = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabDir + "/" + pf + ".prefab");
+                    Check(prefabCasa != null && prefabCasa.GetComponents<BoxCollider>().Length >= 1, pf + ": prefab con colisión");
+                    if (prefabCasa == null) continue;
+                    var rsC = prefabCasa.GetComponentsInChildren<MeshRenderer>(true);
+                    Bounds bc = rsC[0].bounds;
+                    foreach (var r in rsC) bc.Encapsulate(r.bounds);
+                    Check(Mathf.Abs(bc.size.x - esp.x) < .05f && Mathf.Abs(bc.size.y - esp.y) < .05f && Mathf.Abs(bc.size.z - esp.z) < .05f,
+                        pf + ": tamaño " + bc.size.ToString("F2") + " esperado " + esp.ToString("F2"));
+                }
+
+                // casino: instancia de prefab, frente hacia la calle cruzada (−X), plaza de entrada libre
+                var hito = GameObject.Find(CasinoNombre);
+                Check(hito != null && PrefabUtility.GetPrefabInstanceStatus(hito) == PrefabInstanceStatus.Connected, "casino (hito) es instancia de prefab");
+                if (hito != null)
+                {
+                    float d = Vector3.Dot(hito.transform.forward, new Vector3(-1, 0, 0));
+                    Check(d > .99f, "casino mira a la calle cruzada (producto punto " + d.ToString("F3") + ")");
+                    var rs = hito.GetComponentsInChildren<MeshRenderer>(true);
+                    Bounds hb = rs[0].bounds;
+                    foreach (var r in rs) hb.Encapsulate(r.bounds);
+                    Check(Mathf.Abs(hb.center.x - 16f) < .05f && Mathf.Abs(hb.center.z + 20f) < .05f, "casino centrado en (16, −20) (" + hb.center.x.ToString("F2") + ", " + hb.center.z.ToString("F2") + ")");
+                    Check(Mathf.Abs(hb.size.x) > 0 && hb.size.y > 9f, "casino de altura de torres (" + hb.size.y.ToString("F2") + " m)");
+                    // plaza de entrada: nada de la escena (salvo el casino y el terreno) ocupa ese rectángulo
+                    string ocupa = "";
+                    foreach (var r in GameObject.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None))
+                    {
+                        if (r.transform.IsChildOf(hito.transform) || r.name.StartsWith("Terreno")) continue;
+                        Bounds rb = r.bounds;
+                        if (rb.max.x > PlazaCasino.xMin && rb.min.x < PlazaCasino.xMax && rb.max.z > PlazaCasino.yMin && rb.min.z < PlazaCasino.yMax)
+                        { ocupa = r.transform.root.name + "/" + r.name; break; }
+                    }
+                    Check(ocupa == "", "plaza de entrada del casino libre" + (ocupa == "" ? "" : " (ocupa " + ocupa + ")"));
+                }
+                var camCasino = GameObject.Find("Camara casino (no build)")?.GetComponent<Camera>();
+                if (camCasino != null)
+                    Check(Capture(camCasino, PreviewDir + "/Calles_casino_unity.png", 1600, 900), "captura del casino generada");
+
                 // cámara de calle: capturas tras calentar shaders (dos renders)
                 Shader.WarmupAllShaders();
                 Directory.CreateDirectory(PreviewDir);
@@ -286,9 +394,15 @@ namespace Tycoon3D.Editor
                         var tex = new Texture2D(2, 2, TextureFormat.RGB24, false);
                         tex.LoadImage(File.ReadAllBytes(ruta));
                         Color[] px = tex.GetPixels();
-                        int asfalto = px.Count(c => c.r > .15f && c.r < .42f && Mathf.Abs(c.r - c.g) < .05f && Mathf.Abs(c.g - c.b) < .06f);
+                        // color real del asfalto en la captura: se muestrea en un punto conocido de la avenida (la luz del cielo lo tiñe)
+                        float aspectoAntes = cam.aspect;
+                        cam.aspect = (float)tex.width / tex.height;
+                        Vector3 vp = cam.WorldToViewportPoint(new Vector3(-20f, .02f, 0f));
+                        cam.aspect = aspectoAntes;
+                        Color muestra = tex.GetPixel(Mathf.Clamp(Mathf.RoundToInt(vp.x * tex.width), 0, tex.width - 1), Mathf.Clamp(Mathf.RoundToInt(vp.y * tex.height), 0, tex.height - 1));
+                        int asfalto = px.Count(c => Mathf.Abs(c.r - muestra.r) < .08f && Mathf.Abs(c.g - muestra.g) < .08f && Mathf.Abs(c.b - muestra.b) < .08f);
                         float f = (float)asfalto / px.Length;
-                        Check(f >= .05f, "la captura de calle muestra asfalto (" + (f * 100f).ToString("F1") + "%)");
+                        Check(vp.z > 0 && f >= .05f, "la captura de calle muestra asfalto (" + (f * 100f).ToString("F1") + "% del color muestreado en la avenida)");
                         UnityEngine.Object.DestroyImmediate(tex);
                     }
                 }

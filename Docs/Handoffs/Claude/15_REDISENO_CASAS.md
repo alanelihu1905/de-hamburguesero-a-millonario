@@ -2,7 +2,7 @@
 
 **Fecha:** 2026-10-11
 **Autor:** Claude Code (Sonnet 5.5), rama `ciudad/fase-1-modelo`
-**Estado:** modelos y vistas **verificados en Blender**. La importación en Unity y la escena de calles con las casas nuevas **no están verificadas**: Unity estaba bloqueado por otro proceso (ver sección 5).
+**Estado:** modelos y vistas verificados en Blender, y **verificados también en Unity** (importación, prefabs, escena de calles; ver sección 7).
 
 ## 1. Qué cambió
 
@@ -58,3 +58,14 @@ Cuando se libere:
 - Las colisiones previstas son cajas del volumen principal; el porche y el balcón no las tienen.
 - No hay prueba en Unity de importación, escala ni colisiones de las casas nuevas.
 - No se han colocado en la ciudad real (`PuertoAlba.unity`), solo en la escena de calles de vista previa, y todavía sin verificar.
+
+## 7. Actualización: verificación en Unity (Unity 6000.0.84f1, batch)
+
+El editor de Unity que bloqueaba el proyecto se cerró (los `.meta` de las casas aparecieron al importarse desde el editor). Con el proyecto libre ejecuté `PuertoAlbaCallesBuilder.Build` y `Verify`:
+
+- `CALLES_BUILD_OK` y `TYCOON_CALLES_PREVIEW_OK`: **106 OK, 0 FALLO**.
+- Prefabs `PF_Casa_Colonial`, `PF_Casa_Moderna` y `PF_Casa_Cabana`: con colisión y con el tamaño exacto de Blender (8.60 × 9.62 × 10.50; 7.20 × 7.30 × 10.73; 5.60 × 6.50 × 9.58 m, X × alto × fondo).
+- Las casas nuevas, con el resto de la tabla, no invaden la avenida ni el cruce y miran a la calle (producto punto 1.000).
+- Los `.meta` de los FBX de `Casas/` quedan commiteados con esta actualización.
+
+Lo que sigue **sin verificar**: caminar por la calle, colisiones del porche y el balcón, y la iluminación de la build. Las casas siguen sin colocarse en la ciudad real (`PuertoAlba.unity`).

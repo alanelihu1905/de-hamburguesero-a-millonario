@@ -64,3 +64,9 @@ Hasta entonces no muevo nada: ni el casino del barrio, ni `CityLayout`, ni `City
 - Que el casino del barrio (E6) realmente esté en x = 14.5, z = 1 en la escena actual. Solo consta en los documentos; no comprobé la escena `BarrioResidencial.unity`.
 - Que la propuesta 08 sea la visión vigente: es un documento de Claude sin fecha de aprobación en `DECISIONS.md`.
 - Impacto de la opción A sobre el HUD de zona y los smokes de Play Mode: no ejecutados, porque no hay cambio de código.
+
+## 7. Actualización: ubicación elegida para la vista previa
+
+El usuario delegó la ubicación («pon el casino donde tú quieras, un poquito alejado del centro»). En la **escena de calles de vista previa** (`PuertoAlba_CallesPreview.unity`) el casino (hito) está en el lado este de la calle cruzada, centrado en (16, 0, −20), a unos 26 m del centro de las calles, con la entrada hacia la calle y su plaza despejada. Verificado en Unity (handoff 14, sección 7).
+
+**Esto no resuelve el conflicto del juego real.** Esa posición queda fuera de la caja de Casa Marea (x −10…10, z −10…10), así que sigue incumpliendo la regla de `CityMap.cs` (el casino debe estar en la zona de inicio). Para llevarla al juego haría falta cambiar `CityMap`/`CityLayout` y el casino del barrio, y eso no está hecho ni aprobado. La opción A de la sección 3 (ampliar Casa Marea) sigue siendo la recomendación si se quiere esa posición.

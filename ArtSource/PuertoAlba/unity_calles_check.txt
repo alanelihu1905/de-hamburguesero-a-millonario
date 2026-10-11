@@ -88,7 +88,19 @@ OK    Torre de oficinas [Libre]: base en el suelo
 OK    Quiosco de plaza [Libre]: es instancia de prefab
 OK    Quiosco de plaza [Libre]: fuera de la avenida y del cruce
 OK    Quiosco de plaza [Libre]: base en el suelo
+OK    PF_Casa_Colonial: prefab con colisión
+OK    PF_Casa_Colonial: tamaño (8.60, 9.62, 10.50) esperado (8.60, 9.62, 10.50)
+OK    PF_Casa_Moderna: prefab con colisión
+OK    PF_Casa_Moderna: tamaño (7.20, 7.30, 10.73) esperado (7.20, 7.30, 10.73)
+OK    PF_Casa_Cabana: prefab con colisión
+OK    PF_Casa_Cabana: tamaño (5.60, 6.50, 9.58) esperado (5.60, 6.50, 9.58)
+OK    casino (hito) es instancia de prefab
+OK    casino mira a la calle cruzada (producto punto 1.000)
+OK    casino centrado en (16, −20) (16.00, -20.00)
+OK    casino de altura de torres (10.30 m)
+OK    plaza de entrada del casino libre
+OK    captura del casino generada
 OK    cámara de calle presente
 OK    captura de calle generada
-OK    la captura de calle muestra asfalto (6.7%)
+OK    la captura de calle muestra asfalto (21.7% del color muestreado en la avenida)
 OK    captura general generada
