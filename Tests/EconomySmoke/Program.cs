@@ -106,6 +106,88 @@ Check(ledger.Matches(wallet.Pesos, 0) && ledger.Entries.Count == 5, "Libro regis
     Check(Tycoon3D.Core.GameClock.SunHeight(12f) > 0.99f && Tycoon3D.Core.GameClock.SunHeight(0f) < -0.99f && Math.Abs(Tycoon3D.Core.GameClock.SunHeight(6f)) < 0.001f, "luz: el sol cruza el horizonte a las 06:00");
 }
 
+// ---- clientes de la fila: pedido, paciencia, pago y regreso (el dinero lo mueve solo BurgerLoop) -------------------------------
+{
+    var f = new Tycoon3D.Restaurant.CustomerOrderFlow(1f);
+    int empezo = 0, pago = 0, seCanso = 0;
+    f.OrderStarted += () => empezo++;
+    f.Paid += () => pago++;
+    f.GaveUpWaiting += () => seCanso++;
+    Check(f.State == Tycoon3D.Restaurant.OrderState.Idle && !f.HasOrder && !f.TryPay(), "pedidos: un cliente sin pedido no puede pagar");
+    int pasos = 0;
+    while (f.State == Tycoon3D.Restaurant.OrderState.Idle && pasos++ < 2000) f.Update(.1f, false);
+    Check(f.State == Tycoon3D.Restaurant.OrderState.Ordering && empezo == 1 && pasos * .1f >= Tycoon3D.Restaurant.CustomerOrderFlow.FirstOrderMinSeconds - .15f && pasos * .1f <= Tycoon3D.Restaurant.CustomerOrderFlow.FirstOrderMaxSeconds + .15f,
+        "pedidos: pide por primera vez entre 3 y 9 segundos (" + pasos * .1f + " s)");
+    f.Update(22.5f, false);
+    Check(f.HasOrder && Math.Abs(f.PatienceLeft - .5f) < .01f && Math.Abs(f.WaitingSeconds - 22.5f) < .01f, "pedidos: a mitad de la paciencia le queda la mitad");
+    Check(f.TryPay() && f.State == Tycoon3D.Restaurant.OrderState.Leaving && f.Served == 1 && pago == 1 && f.LeftHappy, "pedidos: al servirle paga y se va contento");
+    Check(!f.TryPay() && f.Served == 1 && pago == 1, "pedidos: no se puede cobrar dos veces el mismo pedido");
+    f.Update(1f, false);
+    Check(f.State == Tycoon3D.Restaurant.OrderState.Leaving, "pedidos: sigue yéndose hasta llegar a la calle");
+    f.Update(.1f, true);
+    Check(f.State == Tycoon3D.Restaurant.OrderState.Away, "pedidos: al llegar a la calle desaparece");
+    f.Update(Tycoon3D.Restaurant.CustomerOrderFlow.AwayAfterPaidSeconds - .5f, false);
+    Check(f.State == Tycoon3D.Restaurant.OrderState.Away, "pedidos: sigue ausente antes de tiempo");
+    f.Update(1f, false);
+    Check(f.State == Tycoon3D.Restaurant.OrderState.Returning, "pedidos: tras 8 segundos vuelve");
+    f.Update(5f, false);
+    Check(f.State == Tycoon3D.Restaurant.OrderState.Returning, "pedidos: vuelve caminando");
+    f.Update(.1f, true);
+    Check(f.State == Tycoon3D.Restaurant.OrderState.Idle && !f.HasOrder, "pedidos: al llegar a su sitio espera un pedido nuevo");
+    pasos = 0;
+    while (f.State == Tycoon3D.Restaurant.OrderState.Idle && pasos++ < 2000) f.Update(.1f, false);
+    Check(f.State == Tycoon3D.Restaurant.OrderState.Ordering && empezo == 2 && pasos * .1f >= Tycoon3D.Restaurant.CustomerOrderFlow.NextOrderMinSeconds - .15f, "pedidos: vuelve a pedir tras 5 a 12 segundos");
+
+    // se cansa de esperar: se va sin pagar y no pasa nada más
+    f.Update(Tycoon3D.Restaurant.CustomerOrderFlow.PatienceSeconds - 1f, false);
+    Check(f.HasOrder && seCanso == 0, "pedidos: con un segundo de paciencia todavía espera");
+    f.Update(1.5f, false);
+    Check(f.State == Tycoon3D.Restaurant.OrderState.Leaving && f.GaveUp == 1 && seCanso == 1 && !f.LeftHappy && f.Served == 1 && pago == 1, "pedidos: sin paciencia se va sin pagar");
+    f.Update(.1f, true);
+    f.Update(Tycoon3D.Restaurant.CustomerOrderFlow.AwayAfterGivingUpSeconds + .1f, false);
+    Check(f.State == Tycoon3D.Restaurant.OrderState.Returning, "pedidos: el que se cansó tarda más en volver");
+
+    // atascado al caminar: el flujo sigue solo
+    var g = new Tycoon3D.Restaurant.CustomerOrderFlow(2f);
+    g.ForceOrder();
+    Check(g.HasOrder && g.TryPay(), "pedidos: ForceOrder abre un pedido ya");
+    g.Update(Tycoon3D.Restaurant.CustomerOrderFlow.WalkTimeoutSeconds + .1f, false);
+    Check(g.State == Tycoon3D.Restaurant.OrderState.Away, "pedidos: si no llega a la calle, pasados 40 s sigue su ciclo");
+    g.Update(-5f, false); g.Update(float.NaN, false); g.Update(float.PositiveInfinity, false);
+    Check(g.State == Tycoon3D.Restaurant.OrderState.Away, "pedidos: un tiempo inválido no mueve el flujo");
+
+    // dos clientes con otra semilla no piden al mismo tiempo
+    var uno = new Tycoon3D.Restaurant.CustomerOrderFlow(1f);
+    var dos = new Tycoon3D.Restaurant.CustomerOrderFlow(2f);
+    float t1 = 0, t2 = 0;
+    while (!uno.HasOrder) { uno.Update(.05f, false); t1 += .05f; }
+    while (!dos.HasOrder) { dos.Update(.05f, false); t2 += .05f; }
+    Check(Math.Abs(t1 - t2) > .2f, "pedidos: dos clientes piden en momentos distintos (" + t1 + " s y " + t2 + " s)");
+
+    // el dinero no depende de los clientes: la venta de paso y la venta con cliente pagan lo mismo y el libro cuadra
+    var cartera = new Wallet();
+    typeof(Wallet).GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(cartera, null);
+    var hamburguesas = new BurgerLoop();
+    typeof(BurgerLoop).GetField("wallet", BindingFlags.Instance | BindingFlags.NonPublic)!.SetValue(hamburguesas, cartera);
+    var libro = new MovementLedger();
+    libro.Restore(new SaveData(), cartera.Pesos, 0);
+    var cliente = new Tycoon3D.Restaurant.CustomerOrderFlow(3f);
+    int ventas = 0;
+    hamburguesas.MovementRecorded += (kind, amount, from, to) =>
+    {
+        libro.Record(kind, amount, from, to);
+        if (kind == MovementKind.Sale) { ventas++; cliente.TryPay(); }       // la conexión: una venta le da el pedido al cliente que espera
+    };
+    for (int i = 0; i < 2; i++) { hamburguesas.BuyIngredients(); hamburguesas.Cook(); hamburguesas.Sell(); }
+    Check(cartera.Pesos == 100 + 2 * 35 && ventas == 2 && cliente.Served == 0, "pedidos: sin cliente esperando la venta paga igual ($70 de ganancia)");
+    cliente.ForceOrder();
+    hamburguesas.BuyIngredients(); hamburguesas.Cook(); hamburguesas.Sell();
+    Check(cartera.Pesos == 100 + 3 * 35 && cliente.Served == 1 && !cliente.HasOrder, "pedidos: con cliente esperando la venta paga lo mismo y el cliente se va");
+    hamburguesas.Sell();
+    Check(cartera.Pesos == 100 + 3 * 35 && cliente.Served == 1 && ventas == 3, "pedidos: no hay cobro doble si se repite la venta");
+    Check(libro.Matches(cartera.Pesos, 0), "pedidos: el libro común cuadra");
+}
+
 Console.WriteLine("EconomySmoke: {0} comprobaciones aprobadas.", Counter.Checks);
 
 static void Check(bool condition, string description)

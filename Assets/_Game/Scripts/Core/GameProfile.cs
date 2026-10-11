@@ -115,6 +115,12 @@ namespace Tycoon3D.Core
             wallet = FindFirstObjectByType<Wallet>();
             burger = FindFirstObjectByType<BurgerLoop>();
             casino = FindFirstObjectByType<CasinoService>();
+            if (burger != null)                                                // los clientes de la fila piden y pagan con cada venta
+            {
+                var orders = burger.GetComponent<CustomerOrders>();
+                if (orders == null) orders = burger.gameObject.AddComponent<CustomerOrders>();
+                orders.Bind(burger);
+            }
             int recovered = 0;
             RestoreClock();
             var prices = EconomyConfigSource.Current;
