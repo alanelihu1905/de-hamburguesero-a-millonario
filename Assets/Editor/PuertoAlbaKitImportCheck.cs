@@ -20,7 +20,7 @@ namespace Tycoon3D.Editor
         // piezas cuyo frente (toldo, visera o pistola) sobresale hacia la cara de frente de Blender (-Y)
         private static readonly string[] FrontProtruding =
         {
-            "SM_Tienda_Barrio", "SM_Puerta_Residencial", "SM_Gasolinera_Surtidor", "SM_Casa_Dos_Plantas", "SM_Hito_Casino", "SM_Boulevard_Terraza", "SM_Parque_Quiosco", "SM_Centro_Torre"
+            "SM_Tienda_Barrio", "SM_Puerta_Residencial", "SM_Casa_Dos_Plantas", "SM_Hito_Casino", "SM_Boulevard_Terraza", "SM_Parque_Quiosco", "SM_Centro_Torre"
         };
 
         public static void Run()

@@ -42,10 +42,42 @@ PIEZAS = {
     "SM_Mercado_Pabellon_Reloj": (900, (10.6, 8.6, 9.4)),
     "SM_Muelle_Almacen_Grua": (900, (14.1, 6.4, 9.6)),   # alero hasta x = -7.2; viga de la grúa hasta x = 6.9
     "SM_Boulevard_Terraza": (700, (6.2, 4.0, 3.11)),
-    "SM_Taller_Brisa": (700, (8.4, 6.4, 7.5)),
+    "SM_Taller_Brisa": (900, (8.4, 6.4, 7.5)),   # 700 + rótulo TALLER en bloques (~710 tris)
     "SM_Parque_Quiosco": (600, (4.6, 5.45, 4.0)),   # alero r = 2.3; banco hasta y = -3.15
     "SM_Centro_Torre": (900, (8.0, 9.0, 28.3)),          # marquesina de acceso hasta y = -5.0
 }
+
+
+# glifos 5 × 7 para los rótulos de estas piezas (mismo estilo que el kit)
+GLIFOS = {
+    "T": ["#####", "..#..", "..#..", "..#..", "..#..", "..#..", "..#.."],
+    "A": [".###.", "#...#", "#...#", "#####", "#...#", "#...#", "#...#"],
+    "L": ["#....", "#....", "#....", "#....", "#....", "#....", "#####"],
+    "E": ["#####", "#....", "#....", "####.", "#....", "#....", "#####"],
+    "R": ["####.", "#...#", "#...#", "####.", "#.#..", "#..#.", "#...#"],
+}
+
+
+def rotulo(texto, cx, cz, celda, y, depth, mat):
+    """Texto en bloques centrado en (cx, cz) sobre un plano de normal −Y. Cada racha de celdas es una caja."""
+    cols = 5 * len(texto) + (len(texto) - 1)
+    x0 = cx - cols * celda / 2.0
+    z_top = cz + 7 * celda / 2.0
+    cajas = []
+    for i, letra in enumerate(texto):
+        ox = i * 6
+        for r, fila in enumerate(GLIFOS[letra]):
+            c = 0
+            while c < 5:
+                if fila[c] != "#":
+                    c += 1
+                    continue
+                ini = c
+                while c < 5 and fila[c] == "#":
+                    c += 1
+                ancho = (c - ini) * celda
+                cajas.append(box((ancho, depth, celda), (x0 + (ox + ini) * celda + ancho / 2.0, y, z_top - (r + .5) * celda), mat))
+    return cajas
 
 
 def _lin(c):
@@ -132,7 +164,13 @@ def build_mercado():
     p.append(box((2.2, 2.2, 9.0), (0, 3.0, 4.5), "M_Muro_Base"))          # 0–9
     p.append(box((2.6, 2.6, 0.4), (0, 3.0, 9.2), "M_Tejado"))              # remate 9.0–9.4
     p.append(cyl(0.9, 0.12, (0, 1.85, 6.8), "M_Marco", verts=16, rot=(math.radians(90), 0, 0)))  # esfera
-    p.append(box((0.08, 0.05, 0.6), (0, 1.8, 6.9), "M_Metal_Oscuro"))     # manecilla
+    p.append(box((0.08, 0.05, 0.6), (0, 1.8, 6.9), "M_Metal_Oscuro"))     # manecilla de horas
+    p.append(box((0.05, 0.03, 0.8), (0.25, 1.76, 6.95), "M_Metal_Oscuro"))  # manecilla de minutos
+    for h in range(12):
+        ang = 2 * math.pi * h / 12.0
+        # marca radial en la cara de la esfera (plano XZ, frente −Y): gira alrededor de Y
+        p.append(box((0.05, 0.02, 0.12), (0.74 * math.sin(ang), 1.77, 6.8 + 0.74 * math.cos(ang)), "M_Letrero_Fondo",
+                     rot=(0, ang, 0)))
     return join(p, "SM_Mercado_Pabellon_Reloj")
 
 
@@ -172,9 +210,9 @@ def build_taller():
         box((8.4, 6.4, 0.3), (0, 0, 4.35), "M_Tejado"),                   # cubierta 4.2–4.5
         box((3.5, 0.08, 3.0), (-1.5, -3.04, 1.5), "M_Metal_Oscuro"),      # puerta de rodillo
         box((5.0, 0.1, 0.6), (0, -3.05, 3.6), "M_Letrero_Fondo"),         # rótulo
-        box((4.6, 0.02, 0.4), (0, -3.11, 3.6), "M_Letrero_Texto"),
         cyl(0.35, 3.0, (2.8, 2.0, 6.0), "M_Muro_Base", verts=10),          # chimenea 4.5–7.5
     ]
+    p += rotulo("TALLER", 0, 3.6, 0.055, -3.11, 0.02, "M_Letrero_Texto")  # rótulo en bloques sobre el panel
     return join(p, "SM_Taller_Brisa")
 
 

@@ -40,7 +40,7 @@ Transform:
   m_Children:
   - {fileID: 6953997804971072212}
   - {fileID: 2290700744372772246}
-  - {fileID: 8541586306050647977}
+  - {fileID: 2293948640620006739}
   - {fileID: 4566486287637909942}
   - {fileID: 9161330691932259343}
   m_Father: {fileID: 0}
@@ -148,8 +148,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9, y: 1.6, z: 0.65}
-  m_Center: {x: -2.5, y: 0.8, z: 0}
+  m_Size: {x: 1.6, y: 1.55, z: 1}
+  m_Center: {x: -2.5, y: 0.78, z: 0}
 --- !u!65 &6475448543065111179
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -169,8 +169,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9, y: 1.6, z: 0.65}
-  m_Center: {x: 2.5, y: 0.8, z: 0}
+  m_Size: {x: 1.6, y: 1.55, z: 1}
+  m_Center: {x: 2.5, y: 0.78, z: 0}
 --- !u!65 &6478036561247908147
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -296,6 +296,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
   m_PrefabInstance: {fileID: 1747552020588575357}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1756130488589232824
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2902930176325283187}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+      propertyPath: m_Name
+      value: SM_Gasolinera_Surtidor
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+--- !u!4 &2293948640620006739 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
+  m_PrefabInstance: {fileID: 1756130488589232824}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4095410784189085277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -419,68 +481,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 16b0849270a3440569f697c620c6b764, type: 3}
   m_PrefabInstance: {fileID: 7425073858259516735}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &8143482293734867010
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2902930176325283187}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071067
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-      propertyPath: m_Name
-      value: SM_Gasolinera_Surtidor
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
---- !u!4 &8541586306050647977 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f7eb12dffd8b14ce7856142d47c89e42, type: 3}
-  m_PrefabInstance: {fileID: 8143482293734867010}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8694529779232990180
 PrefabInstance:

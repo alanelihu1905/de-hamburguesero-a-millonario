@@ -48,6 +48,16 @@ OK    PF_Centro_Torre: tiene mallas (1)
 OK    PF_Centro_Torre: tiene colisiones
 OK    PF_Centro_Torre: base en y = 0 (0.000)
 OK    PF_Centro_Torre: tamaño (8.00, 28.30, 9.00) esperado (8.00, 28.30, 9.00)
+OK    prefab PF_Fachada_Residencial existe
+OK    PF_Fachada_Residencial: tiene mallas (1)
+OK    PF_Fachada_Residencial: tiene colisiones
+OK    PF_Fachada_Residencial: base en y = 0 (0.000)
+OK    PF_Fachada_Residencial: tamaño (4.20, 3.38, 0.52) esperado (4.20, 3.38, 0.52)
+OK    prefab PF_Fachada_Residencial_B existe
+OK    PF_Fachada_Residencial_B: tiene mallas (1)
+OK    PF_Fachada_Residencial_B: tiene colisiones
+OK    PF_Fachada_Residencial_B: base en y = 0 (0.000)
+OK    PF_Fachada_Residencial_B: tamaño (4.20, 3.38, 0.76) esperado (4.20, 3.38, 0.76)
 OK    la escena de vista previa abre
 OK    la escena de vista previa no está en la build
 OK    hito Casino FOX presente
@@ -70,35 +80,35 @@ OK    muestra MercadoDelSol tiene casa y tienda (2)
 OK    material Zona_MercadoDelSol_muro pertenece a MercadoDelSol
 OK    material Zona_MercadoDelSol_tejado pertenece a MercadoDelSol
 OK    material Zona_MercadoDelSol_zocalo pertenece a MercadoDelSol
+OK    material Zona_MercadoDelSol_acento pertenece a MercadoDelSol
 OK    material Zona_MercadoDelSol_vidrio pertenece a MercadoDelSol
-OK    material Zona_MercadoDelSol_toldo pertenece a MercadoDelSol
 OK    material Zona_MercadoDelSol_muro pertenece a MercadoDelSol
 OK    material Zona_MercadoDelSol_tejado pertenece a MercadoDelSol
 OK    material Zona_MercadoDelSol_zocalo pertenece a MercadoDelSol
-OK    material Zona_MercadoDelSol_acento pertenece a MercadoDelSol
 OK    material Zona_MercadoDelSol_vidrio pertenece a MercadoDelSol
+OK    material Zona_MercadoDelSol_toldo pertenece a MercadoDelSol
 OK    muestra MuelleFarol tiene casa y tienda (2)
-OK    material Zona_MuelleFarol_muro pertenece a MuelleFarol
-OK    material Zona_MuelleFarol_tejado pertenece a MuelleFarol
-OK    material Zona_MuelleFarol_zocalo pertenece a MuelleFarol
-OK    material Zona_MuelleFarol_vidrio pertenece a MuelleFarol
-OK    material Zona_MuelleFarol_toldo pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_muro pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_tejado pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_zocalo pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_acento pertenece a MuelleFarol
 OK    material Zona_MuelleFarol_vidrio pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_muro pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_tejado pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_zocalo pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_vidrio pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_toldo pertenece a MuelleFarol
 OK    muestra CentroDelFaro tiene casa y tienda (2)
-OK    material Zona_CentroDelFaro_muro pertenece a CentroDelFaro
-OK    material Zona_CentroDelFaro_tejado pertenece a CentroDelFaro
-OK    material Zona_CentroDelFaro_zocalo pertenece a CentroDelFaro
-OK    material Zona_CentroDelFaro_vidrio pertenece a CentroDelFaro
-OK    material Zona_CentroDelFaro_toldo pertenece a CentroDelFaro
 OK    material Zona_CentroDelFaro_muro pertenece a CentroDelFaro
 OK    material Zona_CentroDelFaro_tejado pertenece a CentroDelFaro
 OK    material Zona_CentroDelFaro_zocalo pertenece a CentroDelFaro
 OK    material Zona_CentroDelFaro_acento pertenece a CentroDelFaro
 OK    material Zona_CentroDelFaro_vidrio pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_muro pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_tejado pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_zocalo pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_vidrio pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_toldo pertenece a CentroDelFaro
 OK    muestra TalleresBrisa tiene casa y tienda (2)
 OK    material Zona_TalleresBrisa_muro pertenece a TalleresBrisa
 OK    material Zona_TalleresBrisa_tejado pertenece a TalleresBrisa
@@ -136,13 +146,13 @@ OK    muestra EstacionSur tiene casa y tienda (2)
 OK    material Zona_EstacionSur_muro pertenece a EstacionSur
 OK    material Zona_EstacionSur_tejado pertenece a EstacionSur
 OK    material Zona_EstacionSur_zocalo pertenece a EstacionSur
-OK    material Zona_EstacionSur_acento pertenece a EstacionSur
 OK    material Zona_EstacionSur_vidrio pertenece a EstacionSur
+OK    material Zona_EstacionSur_toldo pertenece a EstacionSur
 OK    material Zona_EstacionSur_muro pertenece a EstacionSur
 OK    material Zona_EstacionSur_tejado pertenece a EstacionSur
 OK    material Zona_EstacionSur_zocalo pertenece a EstacionSur
+OK    material Zona_EstacionSur_acento pertenece a EstacionSur
 OK    material Zona_EstacionSur_vidrio pertenece a EstacionSur
-OK    material Zona_EstacionSur_toldo pertenece a EstacionSur
 OK    48 materiales de zona distintos en las muestras (48)
 OK    pieza de zona 'Zona Mercado' es instancia de prefab
 OK    pieza 'Zona Mercado' usa materiales de zona (4)

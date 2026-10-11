@@ -53,6 +53,8 @@ namespace Tycoon3D.Editor
             { "PF_Taller_Brisa", new Vector3(8.4f, 7.5f, 6.4f) },
             { "PF_Parque_Quiosco", new Vector3(4.6f, 4.0f, 5.45f) },
             { "PF_Centro_Torre", new Vector3(8.0f, 28.3f, 9.0f) },
+            { "PF_Fachada_Residencial", new Vector3(4.2f, 3.38f, .52f) },
+            { "PF_Fachada_Residencial_B", new Vector3(4.2f, 3.38f, .76f) },
         };
 
         // ------------------------------------------------------------------ construcción
@@ -67,6 +69,11 @@ namespace Tycoon3D.Editor
                 MakePrefab("PF_Tienda_Barrio", new[] { ("SM_Tienda_Barrio", Vector3.zero) },
                     new[] { Box(new Vector3(0, 2.1f, 0), new Vector3(6f, 4.2f, 4f)) });
                 // canopy: cuatro pilares; el techo no bloquea. Surtidores y caseta/letrero con su colisión.
+                // fachadas residenciales A y B (misma huella; B tiene toldos y alféizares)
+                MakePrefab("PF_Fachada_Residencial", new[] { ("SM_Fachada_Residencial", Vector3.zero) },
+                    new[] { Box(new Vector3(0, 1.6f, 0), new Vector3(4f, 3.2f, .4f)) });
+                MakePrefab("PF_Fachada_Residencial_B", new[] { ("SM_Fachada_Residencial_B", Vector3.zero) },
+                    new[] { Box(new Vector3(0, 1.6f, 0), new Vector3(4f, 3.2f, .4f)) });
                 MakePrefab("PF_Gasolinera_Completa",
                     new[]
                     {
@@ -82,8 +89,8 @@ namespace Tycoon3D.Editor
                         Box(new Vector3(5.4f, 2.45f, -3.4f), new Vector3(.4f, 4.9f, .4f)),
                         Box(new Vector3(-5.4f, 2.45f, 3.4f), new Vector3(.4f, 4.9f, .4f)),
                         Box(new Vector3(5.4f, 2.45f, 3.4f), new Vector3(.4f, 4.9f, .4f)),
-                        Box(new Vector3(-2.5f, .8f, 0), new Vector3(.9f, 1.6f, .65f)),
-                        Box(new Vector3(2.5f, .8f, 0), new Vector3(.9f, 1.6f, .65f)),
+                        Box(new Vector3(-2.5f, .78f, 0), new Vector3(1.6f, 1.55f, 1f)),     // surtidor sobre su isla
+                        Box(new Vector3(2.5f, .78f, 0), new Vector3(1.6f, 1.55f, 1f)),
                         Box(new Vector3(8.5f, 1.5f, 0), new Vector3(3.3f, 3f, 2.8f)),
                         Box(new Vector3(-9.4f, 1.8f, 0), new Vector3(.2f, 3.6f, .2f)),
                         Box(new Vector3(-7.6f, 1.8f, 0), new Vector3(.2f, 3.6f, .2f)),
@@ -212,6 +219,13 @@ namespace Tycoon3D.Editor
                 ("PF_Parque_Quiosco", new Vector3(-40, 0, 40), "PaseoArena", "Zona Paseo Arena quiosco"),
                 ("PF_Centro_Torre", new Vector3(46, 0, 42), "CentroDelFaro", "Zona Centro del Faro torre"),
             };
+            // variación de fachadas: A y B alternadas en una fila detrás de la gasolinera (vista de comparación)
+            for (int i = 0; i < 4; i++)
+            {
+                bool b = i % 2 == 1;
+                Place(b ? "PF_Fachada_Residencial_B" : "PF_Fachada_Residencial", raiz.transform,
+                    new Vector3(30f + i * 8f, 0, -14f), 180f, (b ? "Fachada B " : "Fachada A ") + (i + 1));
+            }
             foreach (var pz in piezasZona)
                 ApplyZone(Place(pz.prefab, raiz.transform, pz.pos, 180f, pz.nombre), pz.zona);
 

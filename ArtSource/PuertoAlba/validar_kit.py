@@ -25,7 +25,7 @@ MODEL_DIR = os.path.join(PROJECT, "Assets", "_Game", "Models", "PuertoAlba")
 ZONAS_DIR = os.path.join(MODEL_DIR, "Zonas")
 PREVIEW = os.path.join(HERE, "Preview")
 CAMPOS = ["muro", "zocalo", "acento", "tejado", "toldo", "vidrio"]
-PIEZAS_ESPERADAS = 9   # kit base; las seis de zona se añaden desde stats_zonas_hitos.json
+PIEZAS_ESPERADAS = 10   # kit base (incluye fachada B); las seis de zona se añaden desde stats_zonas_hitos.json
 
 fallos = []
 ok = []

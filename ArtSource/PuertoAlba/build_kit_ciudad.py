@@ -57,12 +57,13 @@ MATS = {
 # presupuesto de triángulos por pieza (propuesta del documento 09; el script avisa si se pasa)
 BUDGET = {
     "SM_Fachada_Residencial": 400,
+    "SM_Fachada_Residencial_B": 400,
     "SM_Puerta_Residencial": 300,
-    "SM_Tienda_Barrio": 700,
+    "SM_Tienda_Barrio": 1000,   # 700 + rótulo TIENDA en bloques (~150 tris)
     "SM_Gasolinera_Marquesina": 300,
     "SM_Gasolinera_Surtidor": 300,
     "SM_Gasolinera_Caseta": 300,
-    "SM_Gasolinera_Letrero": 200,
+    "SM_Gasolinera_Letrero": 500,   # 200 + rótulo GAS en bloques (~200 tris)
     "SM_Casa_Dos_Plantas": 500,
     "SM_Hito_Casino": 2000,   # incluye las letras: más cajas que el resto del hito
 }
@@ -150,6 +151,23 @@ def build_fachada():
     return join(p, "SM_Fachada_Residencial")
 
 
+def build_fachada_b():
+    """Segunda variante del tramo residencial: toldos sobre las ventanas, alféizares y un solo postigo.
+    Misma huella que la fachada A (4.2 m de ancho, 3.38 m de alto) pero con 0.76 m de saliente por los toldos."""
+    p = [
+        box((4.0, 0.4, 3.2), (0, 0, 1.6), "M_Muro_Base"),
+        box((4.0, 0.44, 0.35), (0, 0, 0.175), "M_Zocalo"),
+        box((4.2, 0.52, 0.18), (0, 0, 3.29), "M_Cornisa"),
+    ]
+    for cx in (-0.9, 0.9):
+        p += frame(1.0, 1.0, 0.07, 0.06, cx, -0.21, 1.9, "M_Marco")
+        p.append(box((0.9, 0.03, 0.9), (cx, -0.23, 1.9), "M_Vidrio"))
+        p.append(box((1.2, 0.3, 0.06), (cx, -0.35, 2.5), "M_Toldo"))          # toldo sobre la ventana, 0.3 m de saliente
+        p.append(box((1.1, 0.1, 0.05), (cx, -0.22, 1.35), "M_Marco"))         # alféizar
+    p.append(box((0.32, 0.03, 1.1), (-1.6, -0.21, 1.9), "M_Madera"))          # un solo postigo, a la izquierda
+    return join(p, "SM_Fachada_Residencial_B")
+
+
 def build_puerta():
     """Puerta residencial de 1.1 m con marco, capialzado y visera. Pivote en el centro de la huella."""
     p = [
@@ -175,8 +193,8 @@ def build_tienda():
         box((6.2, 0.9, 0.08), (0, -2.45, 2.85), "M_Toldo"),               # toldo
         box((1.0, 0.06, 2.2), (2.1, -2.02, 1.1), "M_Madera"),             # puerta
         box((5.0, 0.12, 0.7), (0, -2.06, 3.7), "M_Letrero_Fondo"),        # rótulo
-        box((4.6, 0.02, 0.45), (0, -2.13, 3.7), "M_Letrero_Texto"),       # plano del texto
     ]
+    p += rotulo("TIENDA", 0, 3.7, 0.06, -2.13, 0.02, "M_Letrero_Texto")   # rótulo en bloques, centrado en el panel
     p += frame(4.2, 1.6, 0.08, 0.1, -0.6, -2.06, 1.2, "M_Marco")
     return join(p, "SM_Tienda_Barrio")
 
@@ -194,8 +212,9 @@ def build_marquesina():
 
 
 def build_surtidor():
-    """Surtidor de dos mangueras de 0.9 × 0.6 × 1.6 m con pantalla y pistola."""
+    """Surtidor de dos mangueras sobre una isla de 1.6 × 1.0 × 0.15 m con bordillo (el surtidor mide 0.9 × 0.6 m)."""
     p = [
+        box((1.6, 1.0, 0.15), (0, 0, 0.075), "M_Cornisa"),                # isla con bordillo 0–0.15
         box((0.9, 0.6, 0.25), (0, 0, 0.125), "M_Metal_Oscuro"),           # base
         box((0.8, 0.5, 1.2), (0, 0, 0.85), "M_Surtidor"),                 # cuerpo
         box((0.8, 0.5, 0.1), (0, 0, 1.5), "M_Marquesina"),                # tapa
@@ -223,8 +242,8 @@ def build_letrero():
         box((0.2, 0.2, 3.6), (-0.9, 0, 1.8), "M_Metal_Oscuro"),
         box((0.2, 0.2, 3.6), (0.9, 0, 1.8), "M_Metal_Oscuro"),
         box((2.4, 0.16, 1.2), (0, 0, 3.6), "M_Letrero_Fondo"),
-        box((2.2, 0.02, 0.7), (0, -0.09, 3.6), "M_Letrero_Texto"),
     ]
+    p += rotulo("GAS", 0, 3.6, 0.09, -0.09, 0.02, "M_Letrero_Texto")
     return join(p, "SM_Gasolinera_Letrero")
 
 
@@ -281,11 +300,39 @@ GLIFOS = {
     "O": [".###.", "#...#", "#...#", "#...#", "#...#", "#...#", ".###."],
     "F": ["#####", "#....", "#....", "####.", "#....", "#....", "#...."],
     "X": ["#...#", "#...#", ".#.#.", "..#..", ".#.#.", "#...#", "#...#"],
+    "E": ["#####", "#....", "#....", "####.", "#....", "#....", "#####"],
+    "D": ["####.", "#...#", "#...#", "#...#", "#...#", "#...#", "####."],
+    "L": ["#....", "#....", "#....", "#....", "#....", "#....", "#####"],
+    "R": ["####.", "#...#", "#...#", "####.", "#.#..", "#..#.", "#...#"],
+    "G": [".###.", "#...#", "#....", "#.###", "#...#", "#...#", ".####"],
+    "T": ["#####", "..#..", "..#..", "..#..", "..#..", "..#..", "..#.."],
 }
 TEXTO_CASINO = ["CASINO", "FOX"]
 CELDA = 0.125          # lado de cada celda del texto (m); 9 letras caben en 6.9 m de los 8 m del rótulo
 LETRAS_Z_CENTRO = 7.0  # centro vertical del rótulo (ver build_hito_casino)
 LETRAS_Y = -2.44       # cara de las letras, delante del fondo del rótulo (−2.40)
+
+
+def rotulo(texto, cx, cz, celda, y, depth, mat):
+    """Texto en bloques centrado en (cx, cz). Igual que letras_casino, para un texto cualquiera de GLIFOS."""
+    cols = 5 * len(texto) + (len(texto) - 1)
+    x0 = cx - cols * celda / 2.0
+    z_top = cz + 7 * celda / 2.0
+    cajas = []
+    for i, letra in enumerate(texto):
+        ox = i * 6
+        for r, fila in enumerate(GLIFOS[letra]):
+            c = 0
+            while c < 5:
+                if fila[c] != "#":
+                    c += 1
+                    continue
+                ini = c
+                while c < 5 and fila[c] == "#":
+                    c += 1
+                ancho = (c - ini) * celda
+                cajas.append(box((ancho, depth, celda), (x0 + (ox + ini) * celda + ancho / 2.0, y, z_top - (r + .5) * celda), mat))
+    return cajas
 
 
 def letras_casino():
@@ -323,7 +370,7 @@ def letras_casino():
     return cajas
 
 
-BUILDERS = [build_fachada, build_puerta, build_tienda, build_marquesina, build_surtidor, build_caseta, build_letrero,
+BUILDERS = [build_fachada, build_fachada_b, build_puerta, build_tienda, build_marquesina, build_surtidor, build_caseta, build_letrero,
             build_casa_dos_plantas, build_hito_casino]
 
 
@@ -453,10 +500,11 @@ def main():
     # medidas de diseño (documento 09, sección 3); incluyen los salientes (toldo, visera, pistola)
     expect = {
         "SM_Fachada_Residencial": (4.2, 0.52, 3.38),
+        "SM_Fachada_Residencial_B": (4.2, 0.76, 3.38),   # toldos hasta y = −0.5; cornisa hasta y = +0.26
         "SM_Puerta_Residencial": (1.7, 0.58, 2.65),
         "SM_Tienda_Barrio": (6.2, 4.95, 4.45),     # toldo hasta y = -2.9; losa de azotea hasta y = +2.05
         "SM_Gasolinera_Marquesina": (12.0, 8.0, 5.5),
-        "SM_Gasolinera_Surtidor": (0.9, 0.65, 1.55),
+        "SM_Gasolinera_Surtidor": (1.6, 1.0, 1.55),      # isla de 1.6 × 1.0 m
         "SM_Gasolinera_Caseta": (3.3, 2.8, 3.0),
         "SM_Gasolinera_Letrero": (2.4, 0.2, 4.2),
         "SM_Casa_Dos_Plantas": (5.3, 7.05, 6.45),   # balcón hasta y = -3.9; alero hasta y = +3.15; techo a z = 6.45

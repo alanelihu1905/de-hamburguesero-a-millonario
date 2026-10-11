@@ -24,6 +24,32 @@
     "pivote_correcto": true,
     "fbx": "Assets/_Game/Models/PuertoAlba/SM_Fachada_Residencial.fbx"
   },
+  "SM_Fachada_Residencial_B": {
+    "triangulos": 216,
+    "presupuesto_triangulos": 400,
+    "dentro_de_presupuesto": true,
+    "dimensiones_XxYxZ_m": [
+      4.2,
+      0.76,
+      3.38
+    ],
+    "centro_huella_xy": [
+      0.0,
+      -0.12
+    ],
+    "base_z": 0.0,
+    "materiales": [
+      "M_Cornisa",
+      "M_Madera",
+      "M_Marco",
+      "M_Muro_Base",
+      "M_Toldo",
+      "M_Vidrio",
+      "M_Zocalo"
+    ],
+    "pivote_correcto": true,
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Fachada_Residencial_B.fbx"
+  },
   "SM_Puerta_Residencial": {
     "triangulos": 108,
     "presupuesto_triangulos": 300,
@@ -48,8 +74,8 @@
     "fbx": "Assets/_Game/Models/PuertoAlba/SM_Puerta_Residencial.fbx"
   },
   "SM_Tienda_Barrio": {
-    "triangulos": 144,
-    "presupuesto_triangulos": 700,
+    "triangulos": 852,
+    "presupuesto_triangulos": 1000,
     "dentro_de_presupuesto": true,
     "dimensiones_XxYxZ_m": [
       6.2,
@@ -97,20 +123,21 @@
     "fbx": "Assets/_Game/Models/PuertoAlba/SM_Gasolinera_Marquesina.fbx"
   },
   "SM_Gasolinera_Surtidor": {
-    "triangulos": 72,
+    "triangulos": 84,
     "presupuesto_triangulos": 300,
     "dentro_de_presupuesto": true,
     "dimensiones_XxYxZ_m": [
-      0.9,
-      0.65,
+      1.6,
+      1.0,
       1.55
     ],
     "centro_huella_xy": [
       0.0,
-      -0.025
+      0.0
     ],
     "base_z": 0.0,
     "materiales": [
+      "M_Cornisa",
       "M_Marquesina",
       "M_Metal_Oscuro",
       "M_Pantalla",
@@ -143,8 +170,8 @@
     "fbx": "Assets/_Game/Models/PuertoAlba/SM_Gasolinera_Caseta.fbx"
   },
   "SM_Gasolinera_Letrero": {
-    "triangulos": 48,
-    "presupuesto_triangulos": 200,
+    "triangulos": 396,
+    "presupuesto_triangulos": 500,
     "dentro_de_presupuesto": true,
     "dimensiones_XxYxZ_m": [
       2.4,
