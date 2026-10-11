@@ -335,6 +335,26 @@ Check(Throws(() => SlotMachineLogic.Play(0, false, new SystemRandomSource(1))), 
     Console.WriteLine("  HUD: {0} combinaciones de pantalla y tamaño de texto sin choques.", casos);
 }
 
+// Horario de la cajera: el turno nunca bloquea el casino
+{
+    Check(CashierSchedule.OnDuty(8f) && CashierSchedule.OnDuty(12f) && CashierSchedule.OnDuty(21.99f), "turno: de 08:00 a 22:00 está en turno");
+    Check(!CashierSchedule.OnDuty(7.99f) && !CashierSchedule.OnDuty(22f) && !CashierSchedule.OnDuty(0f) && !CashierSchedule.OnDuty(3f), "turno: de 22:00 a 08:00 está en descanso");
+    Check(CashierSchedule.OnDuty(32f) && !CashierSchedule.OnDuty(31f) && !CashierSchedule.OnDuty(-2f) && CashierSchedule.OnDuty(-12f), "turno: las horas fuera de 0..24 dan la vuelta");
+    Check(CashierSchedule.ShiftText == "Turno 08:00–22:00", "turno: rótulo del horario");
+    Check(CashierSchedule.StatusText(12f) == "En turno hasta las 22:00" && CashierSchedule.StatusText(23f) == "En descanso · vuelve a las 08:00", "turno: estado visible");
+    Check(Math.Abs(CashierSchedule.HoursUntilChange(12f) - 10f) < .001f && Math.Abs(CashierSchedule.HoursUntilChange(23f) - 9f) < .001f && Math.Abs(CashierSchedule.HoursUntilChange(5f) - 3f) < .001f, "turno: horas hasta el próximo cambio");
+    int horasEnTurno = 0;
+    for (int minuto = 0; minuto < 1440; minuto++) if (CashierSchedule.OnDuty(minuto / 60f)) horasEnTurno++;
+    Check(horasEnTurno == 14 * 60, "turno: son 14 horas en turno y 10 de descanso al día");
+    // la sesión no depende del horario: con la cajera en descanso las máquinas siguen aceptando giros y el canje de fichas funciona
+    int saldo = 500;
+    var s = Nueva(() => saldo, v => { if (saldo < v) return false; saldo -= v; return true; }, v => saldo += v, new Scripted(0));
+    Check(s.BuyChips(4), "turno: la sesión compra fichas (el horario lo aplica el servicio, no la sesión)");
+    Check(s.Begin(out _) == SpinStatus.Started, "turno: se puede girar con fichas");
+    s.Complete();
+    Check(s.CashOutChips(s.Chips) > 0, "turno: las fichas se pueden canjear en cualquier momento");
+}
+
 Console.WriteLine("CasinoSmoke: {0} comprobaciones aprobadas.", checks);
 
 void Check(bool condition, string description)

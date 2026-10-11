@@ -8,13 +8,13 @@ namespace Tycoon3D.Core
     /// <summary>
     /// Reloj del juego (sin Unity, para probarlo con dotnet y, a futuro, para que lo marque el anfitrión). El tiempo avanza solo
     /// con <see cref="Advance"/>; un día del juego dura <see cref="RealSecondsPerDay"/> segundos reales. Empieza el día 1 a las
-    /// 08:00. La luz del día (<see cref="Daylight"/>) es una curva suave de la hora, sin saltos, que usan la iluminación y los
+    /// 10:00. La luz del día (<see cref="Daylight"/>) es una curva suave de la hora, sin saltos, que usan la iluminación y los
     /// turnos de la cajera.
     /// </summary>
     public sealed class GameClock
     {
         public const int MinutesPerDay = 1440;
-        public const double StartMinutes = 8 * 60;
+        public const double StartMinutes = 10 * 60;
         public const float DefaultRealSecondsPerDay = 480f;     // 8 minutos reales = 24 horas del juego
         public const float MinRealSecondsPerDay = 10f;
 

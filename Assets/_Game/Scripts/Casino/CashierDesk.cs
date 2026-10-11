@@ -21,6 +21,15 @@ namespace Tycoon3D.Casino
             cashier = npc;
         }
 
+        public CashierShiftView View { get; private set; }
+
+        private void Start()
+        {
+            View = GetComponent<CashierShiftView>();
+            if (View == null) View = gameObject.AddComponent<CashierShiftView>();
+            View.Bind(this, service);
+        }
+
         public string Prompt
         {
             get
@@ -28,6 +37,8 @@ namespace Tycoon3D.Casino
                 if (service == null) return string.Empty;
                 var s = service.Session;
                 int buy = service.ChipsToBuy;
+                if (!service.CashierOnDuty)
+                    return "Cajera en descanso (" + CashierSchedule.ShiftText + ") · " + InputBindings.SecondaryLabel + " - Canjear " + (s.Chips > 0 ? s.Chips + " fichas por $" + s.ChipsValue : "(sin fichas)") + " en la ventanilla automática";
                 string left = buy > 0 ? InputBindings.InteractLabel + " - Cambiar $" + buy * CasinoSession.ChipValue + " por " + buy + " fichas" : InputBindings.InteractLabel + " - Sin pesos para fichas";
                 string right = s.Chips > 0 ? InputBindings.SecondaryLabel + " - Canjear " + s.Chips + " fichas por $" + s.ChipsValue : InputBindings.SecondaryLabel + " - Canjear (sin fichas)";
                 return "Cajera FOX · " + left + " · " + right + " · 1 ficha = $" + CasinoSession.ChipValue;

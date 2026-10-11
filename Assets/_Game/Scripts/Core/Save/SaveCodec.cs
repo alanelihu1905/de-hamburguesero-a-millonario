@@ -83,7 +83,7 @@ namespace Tycoon3D.Save
             },
             // v2 -> v3: la caja del casino no existía; sin cashboxInit empieza con su fondo inicial y sin deudas
             [2] = values => { values["cashboxInit"] = 0; },
-            // v3 -> v4: el reloj del juego no existía; sin clockMinutes arranca a las 08:00 del día 1
+            // v3 -> v4: el reloj del juego no existía; sin clockMinutes arranca a las 10:00 del día 1
             [3] = values => { values["clockMinutes"] = -1; },
             // v4 -> v5: los ajustes no existían; sin sus claves toman los valores de siempre (texto al 100 %, teclas E, Q y F)
             [4] = values => { }

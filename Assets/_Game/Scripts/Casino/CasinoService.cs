@@ -34,6 +34,8 @@ namespace Tycoon3D.Casino
         public event Action Started;
         public event Action<SlotRound> Revealed;
         public event Action<MovementKind, int, MovementAccount, MovementAccount, int> MovementRecorded;
+        /// <summary>La cajera cambió o canjeó fichas: número de fichas y si fue una compra (true) o un canje (false).</summary>
+        public event Action<int, bool> ChipsExchanged;
 
         public string Message { get; private set; } = "Casino FOX abierto siempre.";
         public SlotSymbol[] DisplayReels { get; } = { SlotSymbol.Chile, SlotSymbol.Mango, SlotSymbol.Concha };
@@ -89,16 +91,28 @@ namespace Tycoon3D.Casino
         /// <summary>Fichas que compraría el siguiente canje: un lote de 20 (o lo que alcance, mínimo una).</summary>
         public int ChipsToBuy { get { Ensure(); return Mathf.Min(ChipLot, wallet.Pesos / CasinoSession.ChipValue); } }
 
+        /// <summary>Hora del reloj del juego (12 si no hay ciclo de día y noche, como en las pruebas sin escena).</summary>
+        public float HourOfDay { get { var cycle = Tycoon3D.World.DayNightCycle.Current; return cycle != null ? cycle.Clock.Hour : 12f; } }
+
+        /// <summary>La cajera cambia pesos por fichas solo en su turno; las máquinas y el canje de fichas no dependen de ella.</summary>
+        public bool CashierOnDuty => CashierSchedule.OnDuty(HourOfDay);
+
         public bool BuyChips()
         {
             Ensure();
             if (session.Busy) { Toast("Espera: los rodillos siguen girando."); return false; }
+            if (!CashierOnDuty)
+            {
+                Toast("La cajera está en descanso (" + CashierSchedule.ShiftText + "). Las máquinas siguen abiertas: juega con pesos.", 6f);
+                return false;
+            }
             int n = ChipsToBuy;
             if (n <= 0) { Toast("Una ficha cuesta $" + CasinoSession.ChipValue + ". Con menos, las máquinas te dan giros de cortesía."); return false; }
             int cost = n * CasinoSession.ChipValue;
             if (!session.BuyChips(n)) { Toast("No se pudo completar el cambio."); return false; }
             Toast("Cajera: cambiaste $" + cost + " por " + n + (n == 1 ? " ficha" : " fichas") + ". 1 ficha = $" + CasinoSession.ChipValue + ".");
             PlayCoin();
+            ChipsExchanged?.Invoke(n, true);
             return true;
         }
 
@@ -110,8 +124,9 @@ namespace Tycoon3D.Casino
             if (n <= 0) { Toast("No tienes fichas que canjear."); return false; }
             int pesos = session.CashOutChips(n);
             if (pesos <= 0) { Toast("No se pudo completar el canje."); return false; }
-            Toast("Cajera: canjeaste " + n + (n == 1 ? " ficha" : " fichas") + " por $" + pesos + ".");
+            Toast((CashierOnDuty ? "Cajera: canjeaste " : "Ventanilla automática: canjeaste ") + n + (n == 1 ? " ficha" : " fichas") + " por $" + pesos + ".");
             PlayCoin();
+            ChipsExchanged?.Invoke(n, false);
             return true;
         }
 
