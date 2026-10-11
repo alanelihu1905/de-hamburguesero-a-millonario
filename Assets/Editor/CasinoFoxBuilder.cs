@@ -5,6 +5,7 @@ using Tycoon3D.Economy;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Tycoon3D.Editor
 {
@@ -20,6 +21,7 @@ namespace Tycoon3D.Editor
         private const string RootName = "Casino FOX";
         private const string ServiceName = "Casino FOX - servicio y HUD";
         private const string BarrioName = "Casino FOX - plaza y señalética";
+        private const string MixerPath = "Assets/_Game/Art/Casino/Audio/CasinoFOX.mixer";
 
         // edificio (coordenadas de escena): entrada hacia -Z, hacia la calle
         private static readonly Vector3 C = new Vector3(16f, 0f, 1.6f);
@@ -75,6 +77,15 @@ namespace Tycoon3D.Editor
             var service = new GameObject(ServiceName);
             var casino = service.AddComponent<CasinoService>();
             var sounds = service.AddComponent<CasinoSounds>();
+            var mixer = AssetDatabase.LoadAssetAtPath<AudioMixer>(MixerPath);
+            if (mixer == null) throw new InvalidOperationException("Falta el mixer del casino: " + MixerPath);
+            AudioMixerGroup Group(string name)
+            {
+                var matches = mixer.FindMatchingGroups(name);
+                foreach (var group in matches) if (group.name == name) return group;
+                throw new InvalidOperationException("Falta el bus " + name + " en " + MixerPath);
+            }
+            sounds.ConfigureMixer(Group("Musica"), Group("Efectos"), Group("Ambiente"));
             sounds.spinLoop = CasinoArt.Clip("slot_spin_loop"); sounds.spinStart = CasinoArt.Clip("slot_start");
             sounds.reelStop = CasinoArt.Clip("reel_stop"); sounds.betChange = CasinoArt.Clip("bet_change");
             sounds.lose = CasinoArt.Clip("lose"); sounds.winSmall = CasinoArt.Clip("win_small");
@@ -89,8 +100,17 @@ namespace Tycoon3D.Editor
             ambient.transform.SetParent(root, false);
             ambient.transform.position = new Vector3(C.x, 2.5f, C.z);
             ambient.clip = CasinoArt.Clip("casino_ambient");
+            ambient.outputAudioMixerGroup = sounds.AmbienceGroup;
             ambient.loop = true; ambient.playOnAwake = true; ambient.spatialBlend = 1f; ambient.volume = .4f;
             ambient.minDistance = 5f; ambient.maxDistance = 26f; ambient.rolloffMode = AudioRolloffMode.Linear;
+
+            var music = new GameObject("Musica del casino").AddComponent<AudioSource>();
+            music.transform.SetParent(root, false);
+            music.transform.position = new Vector3(C.x, 2.5f, C.z);
+            music.clip = CasinoArt.Clip("casino_music");
+            music.outputAudioMixerGroup = sounds.MusicGroup;
+            music.loop = true; music.playOnAwake = true; music.spatialBlend = 1f; music.volume = .35f;
+            music.minDistance = 5f; music.maxDistance = 26f; music.rolloffMode = AudioRolloffMode.Linear;
 
             BuildMachines(root, casino, m);
             BuildDecor(root, m);
@@ -352,6 +372,7 @@ namespace Tycoon3D.Editor
             winLight.shadows = LightShadows.None;
             var coins = CasinoArt.CoinBurst(go, go.position + new Vector3(0, 1.0f, -.5f), m.gold);
             var audio = go.gameObject.AddComponent<AudioSource>();
+            audio.outputAudioMixerGroup = casino.Sounds.EffectsGroup;
             audio.playOnAwake = false; audio.loop = true; audio.spatialBlend = 1f; audio.minDistance = 1.5f; audio.maxDistance = 14f;
             audio.rolloffMode = AudioRolloffMode.Linear;
 
