@@ -31,6 +31,14 @@ Repositorio público compartido para tres personas con sus agentes. Preparado: `
 - Escena de blockout separada; el casino jugable con máquinas sigue en `BarrioResidencial.unity`. No hay interiores ni arte final en la cuadrícula.
 - `dotnet run --project Tests/CitySmoke`: 67 comprobaciones aprobadas. Tres avisos de nulabilidad preexistentes en `CityMap.cs`.
 - Antigravity creó la escena en Unity y el log registró `TYCOON_CITY_GRID_BUILT blocks=441 diameter=1776m`. Su smoke de Play Mode no llegó al marcador requerido; interacción E y vista en Play Mode siguen sin verificar.
+
+## Puerto Alba — expansión visual de ciudad (2026-10-11)
+
+- Sigue siendo 21 × 21 cuadras / diez cuadras de radio, ahora con identidad visual por barrio: centro financiero con dos torres y plaza, apartamentos, mercado, terminal de autobuses, parque, puerto con grúa y carga, bodegas y zona industrial.
+- Dos avenidas marcadas cruzan la ciudad; incluye cruces peatonales, alumbrado, palmeras y 16 vehículos que recorren circuitos urbanos.
+- Fachadas reciben variación reproducible y escaparates; la densidad de detalles se mantuvo acotada para el blockout.
+- `dotnet run --project Tests/CitySmoke`: 72 comprobaciones aprobadas. Humo de Unity ampliado para exigir torres, terminal, carga y los 16 vehículos; el marcador sigue pendiente de ejecución en Play Mode.
+- La ciudad aún usa geometría procedural sencilla. No declarar iluminación final, arte final ni escala de rendimiento confirmados hasta verla y medirla en Unity.
 ## Puerto Alba — cuadrícula urbana (2026-10-11)
 
 - Ciudad determinista 21 × 21: diez cuadras desde centro y huella de 1,776 m por lado.

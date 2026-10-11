@@ -60,6 +60,14 @@ namespace Tycoon3D.Editor
                     throw new InvalidOperationException("Falta casino permanente en el centro.");
                 if (city.GetComponentsInChildren<Transform>().Count(item => item.name == "Gas station shop") != 2)
                     throw new InvalidOperationException("No hay exactamente dos gasolineras visibles.");
+                if (city.GetComponentsInChildren<Transform>().Count(item => item.name == "OfficeTower") != 2)
+                    throw new InvalidOperationException("Faltan las dos torres del Centro del Faro.");
+                if (city.GetComponentsInChildren<Transform>().Count(item => item.name == "Estacion Sur terminal") != 1)
+                    throw new InvalidOperationException("Falta la terminal de Estación Sur.");
+                if (city.GetComponentsInChildren<Transform>().Count(item => item.name == "Harbor cargo container") < 3)
+                    throw new InvalidOperationException("Falta carga visible en el muelle.");
+                var traffic = city.GetComponentsInChildren<CityTrafficVehicle>();
+                if (traffic.Length != 16) throw new InvalidOperationException($"Tránsito incompleto: {traffic.Length}/16 vehículos.");
                 var doors = UnityEngine.Object.FindObjectsByType<DoorVisitorSpawner>(FindObjectsSortMode.None);
                 if (doors.Length < 50) throw new InvalidOperationException("Faltan puertas interactivas escasas.");
                 if (Camera.main == null || UnityEngine.Object.FindFirstObjectByType<CharacterController>() == null)
@@ -71,7 +79,7 @@ namespace Tycoon3D.Editor
                 door.Interact();
                 if (!door.Prompt.Contains("Tocar")) throw new InvalidOperationException("La puerta no retira visitante.");
 
-                Debug.Log($"TYCOON_PUERTO_ALBA_GRID_SMOKE_OK blocks=441 radiusBlocks=10 casino=1 gasStations=2 doors={doors.Length} objects={city.transform.childCount}");
+                Debug.Log($"TYCOON_PUERTO_ALBA_GRID_SMOKE_OK blocks=441 radiusBlocks=10 zones=8 casino=1 gasStations=2 towers=2 transit=1 cargo=3 traffic=16 doors={doors.Length} objects={city.transform.childCount}");
                 EditorApplication.ExitPlaymode();
             }
             catch (Exception exception) { Fail(exception); }

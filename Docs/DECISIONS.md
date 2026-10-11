@@ -48,3 +48,9 @@
 - Alcance: blockout de primitivas en escena separada. Arte final, NPC con IA y streaming quedan para fases posteriores.
 - Validación requerida: CitySmoke y prueba Play Mode en Unity 6000.0.84f1 con marcador visible.
 - ID de zona y punto de inicio deben venir de `CityMap`: casino en Casa Marea `(0,0)`, sin alterar el casino jugable de `BarrioResidencial`. La cuadrícula es solo exterior de blockout.
+
+## 2026-10-11 — Identidad urbana de Puerto Alba
+
+- Mantener las 441 cuadras y asignar siluetas a las zonas para que la escala se lea como ciudad: torres, vivienda, comercio, puerto, industria, terminal, parques y plazas.
+- Añadir dos avenidas con orientación, alumbrado, palmeras, tráfico de circuito sencillo y cruces peatonales. Casino en el centro y dos gasolineras siguen disponibles.
+- Implementación inicial continúa como blockout procedural. Sustituir por módulos de arte después de validar cámara, recorrido y rendimiento en Unity; no vender la geometría actual como arte final.

@@ -27,6 +27,11 @@ Check(!grid.TryGetBlock(-11, 0, out _), "cuadrícula rechaza exterior del radio"
 Check(grid.Blocks.Select(block => block.Zone).Distinct().Count() == CityMap.Zones.Length, "las ocho zonas ocupan bloques");
 Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.Casino) == 1, "casino siempre existe en el inicio");
 Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.GasStation) == 2, "ciudad contiene dos gasolineras");
+Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.OfficeTower) == 2, "centro financiero tiene dos torres de silueta distinta");
+Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.TransitHub) == 1, "Estación Sur tiene terminal de transporte");
+Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.Warehouse) >= 10, "puerto y zona industrial tienen bodegas");
+Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.Apartment) >= 8, "Colina Cobalto tiene edificios de vivienda");
+Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.Park) >= 6, "Paseo Arena conserva un parque de varias cuadras");
 Check(grid.Blocks.Count(block => block.HasNpcDoor) >= 50, "hay puertas tocables en varios edificios");
 Check(grid.Blocks.Where(block => block.HasNpcDoor).All(block => block.Feature == CityBlockFeature.Building), "puertas NPC solo aparecen en fachadas sencillas");
 Check(grid.Blocks.Where(block => block.Feature == CityBlockFeature.GasStation).Select(block => block.Zone).Distinct().Count() == 2,
@@ -35,4 +40,4 @@ Check(new CityGridLayout().Blocks.Select(block => block.HasNpcDoor).SequenceEqua
     "las posiciones de puertas son reproducibles");
 Check(grid.TryGetBlock(0, 0, out var center) && center.Feature == CityBlockFeature.Casino && center.Zone == CityMap.CasinoZone,
     "casino está en cuadra inicial Casa Marea");
-Console.WriteLine($"CitySmoke: {checks} comprobaciones aprobadas. Cuadrícula 21x21, casino central, gasolineras y puertas NPC.");
+Console.WriteLine($"CitySmoke: {checks} comprobaciones aprobadas. Puerto Alba 21x21 con 8 zonas, casino, torres, viviendas, estación, bodegas y parques.");

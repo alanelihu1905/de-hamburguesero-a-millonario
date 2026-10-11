@@ -4,7 +4,11 @@ using Tycoon3D.City;
 
 namespace Tycoon3D.World
 {
-    public enum CityBlockFeature { Building, Park, GasStation, Casino, Market, Port, Restaurant, IndustrialYard }
+    public enum CityBlockFeature
+    {
+        Building, Park, GasStation, Casino, Market, Port, Restaurant, IndustrialYard,
+        OfficeTower, Apartment, Warehouse, TransitHub, Plaza
+    }
 
     /// <summary>Deterministic 21 by 21 block layout. Coordinate (0,0) is city center.</summary>
     public sealed class CityGridLayout
@@ -53,8 +57,16 @@ namespace Tycoon3D.World
             else if (x == 0 && z == 9) feature = CityBlockFeature.Port;
             else if (x == 6 && z == 2) feature = CityBlockFeature.Restaurant;
             else if (x == 8 && z == -5) feature = CityBlockFeature.IndustrialYard;
+            else if (x == 0 && z == -9) feature = CityBlockFeature.TransitHub;
+            else if ((x == 2 || x == 4) && z == -4) feature = CityBlockFeature.OfficeTower;
+            else if ((x == -1 || x == 1) && z == 9 || (x == 0 && z == 8)) feature = CityBlockFeature.Warehouse;
+            else if (zone == ZoneId.TalleresBrisa && x >= 7 && x <= 9 && z >= -7 && z <= -3)
+                feature = CityBlockFeature.Warehouse;
+            else if (zone == ZoneId.ColinaCobalto && StableHash(x, z) % 4 == 0) feature = CityBlockFeature.Apartment;
             else if ((Math.Abs(x + 2) <= 1 && Math.Abs(z - 6) <= 1) ||
                      (Math.Abs(x - 1) <= 1 && Math.Abs(z - 6) <= 1)) feature = CityBlockFeature.Park;
+            else if (zone == ZoneId.CentroDelFaro && Math.Abs(x - 3) <= 1 && Math.Abs(z + 4) <= 1)
+                feature = CityBlockFeature.Plaza;
 
             // A few front doors are usable. Most buildings remain exterior-only blockout.
             bool hasDoor = feature == CityBlockFeature.Building && StableHash(x, z) % 5 == 0;
