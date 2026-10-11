@@ -23,3 +23,10 @@ El saldo, las ventas, el libro del casino, las fichas y una ronda pendiente sobr
 
 ## Preparación para GitHub (2026-10-10, solo local; nada publicado)
 Repositorio público compartido para tres personas con sus agentes. Preparado: `README.md` de arranque, `CONTRIBUTING.md`, `Docs/COLABORACION.md` (áreas, tablero, decisiones), plantillas de PR e issues, flujo de pruebas `dotnet`, 15 issues iniciales en `tools/github/issues.tsv` (script en simulación), `.gitignore` y `.gitattributes` reforzados. Pendiente de confirmar con el usuario: propietario, nombre, usuarios de las dos personas, licencia y si se publica la especificación. Sin commits ni remotos todavía.
+## Puerto Alba — cuadrícula urbana (2026-10-11)
+
+- Ciudad determinista 21 × 21: diez cuadras desde centro y huella de 1,776 m por lado.
+- Ocho zonas, casino central siempre presente, dos gasolineras, puntos de interés escasos y puertas de visitante deterministas.
+- Blockout de primitivas y menú de editor para escena separada `PuertoAlba_Grid`.
+- `dotnet run --project Tests/CitySmoke`: pasan 66 comprobaciones.
+- Unity Play Mode aún pendiente. Render, colisión e interacción de puertas requieren marcador real.

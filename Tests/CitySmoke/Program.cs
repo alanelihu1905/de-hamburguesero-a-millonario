@@ -22,4 +22,14 @@ var casinoRoute = graph.FindRoute(CityZoneId.LasAcacias, CityZoneId.AvenidaCentr
 Check(graph.RouteDistanceMeters(casinoRoute) == 1790, "la ruta más corta inicial al casino suma 1790 m");
 Check(graph.FindRoute(CityZoneId.AvenidaCentral, CityZoneId.AvenidaCentral).Count == 1, "ruta consigo misma");
 Check(graph.TryGetZone(CityZoneId.Muelle, out var port) && port.Name == "Muelle", "metadatos de zona consultables");
-Console.WriteLine($"CitySmoke: {checks} comprobaciones aprobadas. Ocho zonas con propósito y rutas por distancia; casino alcanzable desde Las Acacias.");
+var grid = new CityGridLayout();
+Check(grid.Blocks.Count == 441, "ciudad cubre 21 x 21 cuadras");
+Check(grid.DiameterMeters == 1776f, "huella urbana mide 1,776 m por lado");
+Check(grid.TryGetBlock(-10, -10, out _) && grid.TryGetBlock(10, 10, out _), "cuadrícula incluye radio de diez cuadras");
+Check(!grid.TryGetBlock(-11, 0, out _), "cuadrícula rechaza exterior del radio");
+Check(grid.Blocks.Select(block => block.Zone).Distinct().Count() == 8, "las ocho zonas ocupan bloques");
+Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.Casino) == 1, "casino siempre existe en centro");
+Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.GasStation) == 2, "ciudad contiene dos gasolineras");
+Check(grid.Blocks.Count(block => block.HasNpcDoor) >= 50, "hay puertas tocables en varios edificios");
+Check(grid.TryGetBlock(0, 0, out var center) && center.Feature == CityBlockFeature.Casino, "casino está en bloque central");
+Console.WriteLine($"CitySmoke: {checks} comprobaciones aprobadas. Cuadrícula 21x21, casino central, gasolineras y puertas NPC.");

@@ -40,3 +40,10 @@
 - Fichas: 1 ficha = $25, canje sin comisión, opcional y sin bloqueo (el casino sigue abierto sin ellas). La apuesta se paga con fichas si alcanzan y, si no, con pesos; el premio vuelve en la misma moneda. Giro de cortesía solo sin pesos ni fichas.
 - Cajera: interacción mínima y visible (E cambia un lote de 20 fichas, Q canjea todo). Sin turnos ni salario hasta que exista un libro de movimientos común.
 - Los smokes de Play Mode usan un perfil temporal propio y nunca el real.
+## 2026-10-11 — Cuadrícula inicial de Puerto Alba
+
+- Fecha: 2026-10-11
+- Decisión: ampliar ciudad con cuadrícula determinista de 21 × 21 cuadras (radio de diez desde centro), mantener ocho zonas, casino permanente central, dos gasolineras y puertas interactivas escasas.
+- Motivo: dar escala urbana navegable y puntos de interés sin hacer interactivos todos los interiores.
+- Alcance: blockout de primitivas en escena separada. Arte final, NPC con IA y streaming quedan para fases posteriores.
+- Validación requerida: CitySmoke y prueba Play Mode en Unity 6000.0.84f1 con marcador visible.

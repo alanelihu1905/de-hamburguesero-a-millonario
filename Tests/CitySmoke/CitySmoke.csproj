@@ -7,5 +7,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../../Assets/_Game/Scripts/World/CityGraph.cs" Link="CityGraph.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/World/CityGridLayout.cs" Link="CityGridLayout.cs" />
   </ItemGroup>
 </Project>
