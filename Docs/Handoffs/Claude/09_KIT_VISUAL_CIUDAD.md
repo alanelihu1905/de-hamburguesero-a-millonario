@@ -110,6 +110,29 @@ Esta fachada residencial es genérica. La fachada propia de Casa Marea ya existe
 - Aplicación de los materiales por zona a instancias en escena.
 - Ubicación definitiva del casino (sigue abierta entre el plan, que lo pone en Casa Marea, y la propuesta 08, que lo pone en la zona 8).
 
+## 4 quater. Prefabs y escena de vista previa en Unity (verificado en batch)
+
+**Qué existe**
+- Prefabs ensamblados en `Assets/_Game/Models/PuertoAlba/Prefabs/` con colisión en el raíz: `PF_Casa_Dos_Plantas`, `PF_Tienda_Barrio`, `PF_Gasolinera_Completa` (canopy, dos surtidores, caseta y letrero, con colisión de pilares, surtidores, caseta y postes), `PF_Hito_Casino` (basamento y dos torres).
+- Escena de vista previa `Assets/_Game/Scenes/PuertoAlba_KitPreview.unity`. No está en la lista de escenas de build. Contiene luz, suelo de 200×80 m, la fila frontal (hito centrado en x = 0, z = 0; casa, tienda y gasolinera), la fila trasera con muestras de las ocho zonas (casa y tienda, con los materiales `Zona_<id>_*`) y dos cámaras de captura marcadas como «no build».
+- Todos los frentes miran a −Z, hacia la calle y la cámara; la calle está en z entre −30 y 0.
+
+**Marcadores (Unity 6000.0.84f1, batch)**
+- `KIT_PREVIEW_BUILD_OK: prefabs y escena Assets/_Game/Scenes/PuertoAlba_KitPreview.unity` (código 0).
+- `TYCOON_KIT_PREVIEW_OK: prefabs, escena, muestras de zona y capturas comprobados.` (código 0), con 117 comprobaciones OK y 0 FALLO en `ArtSource/PuertoAlba/unity_preview_check.txt`.
+- Comprobaciones: cada prefab tiene malla y colisión, base en y = 0 y tamaño igual al de Blender (con ejes intercambiados); la escena abre, no está en la build, tiene el hito centrado, las casas y el hito son instancias de prefab y la cámara existe; cada muestra de zona usa solo sus materiales, y entre las ocho zonas aparecen los 48 materiales.
+
+**Capturas (renders reales, no mockups)**
+- `ArtSource/PuertoAlba/Preview/Unity/Kit_hito_casino_unity.png`: hito centrado, con la casa de dos plantas a la izquierda y la tienda a la derecha. Se renderiza dos veces antes de leer el buffer, porque el primer fotograma salía casi blanco por carga de shaders.
+- `ArtSource/PuertoAlba/Preview/Unity/Kit_vista_general_unity.png`: fila completa con las ocho muestras de zona, el hito, la tienda y la gasolinera.
+
+**NO VERIFICADO (marcador explícito):**
+- Iluminación y materiales en build (solo se ha visto la escena de vista previa).
+- Colisiones probadas caminando: solo existen; no hay prueba de movimiento del jugador.
+- Colocación en la cuadrícula 21×21: no hay `CityGridLayout` en esta rama, y esta escena no es integración.
+- Ubicación final del casino: sigue abierta entre el plan (Casa Marea) y la propuesta 08 (zona 8). El hito es un marcador, no el edificio real.
+- Materiales de zona aplicados en la ciudad real.
+
 ## 5. Casino central, permanente y visible
 
 - El kit **no contiene piezas del casino** y ninguna pieza supera 5.5 m de altura, para no competir con su letrero.

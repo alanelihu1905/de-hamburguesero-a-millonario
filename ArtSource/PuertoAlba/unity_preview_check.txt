@@ -1,0 +1,117 @@
+OK    prefab PF_Casa_Dos_Plantas existe
+OK    PF_Casa_Dos_Plantas: tiene mallas (1)
+OK    PF_Casa_Dos_Plantas: tiene colisiones
+OK    PF_Casa_Dos_Plantas: base en y = 0 (0.000)
+OK    PF_Casa_Dos_Plantas: tamaño (5.30, 6.45, 7.05) esperado (5.30, 6.45, 7.05)
+OK    prefab PF_Tienda_Barrio existe
+OK    PF_Tienda_Barrio: tiene mallas (1)
+OK    PF_Tienda_Barrio: tiene colisiones
+OK    PF_Tienda_Barrio: base en y = 0 (0.000)
+OK    PF_Tienda_Barrio: tamaño (6.20, 4.45, 4.95) esperado (6.20, 4.45, 4.95)
+OK    prefab PF_Gasolinera_Completa existe
+OK    PF_Gasolinera_Completa: tiene mallas (5)
+OK    PF_Gasolinera_Completa: tiene colisiones
+OK    PF_Gasolinera_Completa: base en y = 0 (0.000)
+OK    PF_Gasolinera_Completa: tamaño (19.85, 5.50, 8.00) esperado (19.85, 5.50, 8.00)
+OK    prefab PF_Hito_Casino existe
+OK    PF_Hito_Casino: tiene mallas (1)
+OK    PF_Hito_Casino: tiene colisiones
+OK    PF_Hito_Casino: base en y = 0 (0.000)
+OK    PF_Hito_Casino: tamaño (12.00, 10.30, 4.43) esperado (12.00, 10.30, 4.43)
+OK    la escena de vista previa abre
+OK    la escena de vista previa no está en la build
+OK    hito Casino FOX presente
+OK    hito centrado en x = 0, z = 0
+OK    hito es instancia de prefab
+OK    casa es instancia de prefab
+OK    cámara de vista previa presente
+OK    muestra CasaMarea tiene casa y tienda (2)
+OK    material Zona_CasaMarea_muro pertenece a CasaMarea
+OK    material Zona_CasaMarea_tejado pertenece a CasaMarea
+OK    material Zona_CasaMarea_zocalo pertenece a CasaMarea
+OK    material Zona_CasaMarea_acento pertenece a CasaMarea
+OK    material Zona_CasaMarea_vidrio pertenece a CasaMarea
+OK    material Zona_CasaMarea_muro pertenece a CasaMarea
+OK    material Zona_CasaMarea_tejado pertenece a CasaMarea
+OK    material Zona_CasaMarea_zocalo pertenece a CasaMarea
+OK    material Zona_CasaMarea_vidrio pertenece a CasaMarea
+OK    material Zona_CasaMarea_toldo pertenece a CasaMarea
+OK    muestra MercadoDelSol tiene casa y tienda (2)
+OK    material Zona_MercadoDelSol_muro pertenece a MercadoDelSol
+OK    material Zona_MercadoDelSol_tejado pertenece a MercadoDelSol
+OK    material Zona_MercadoDelSol_zocalo pertenece a MercadoDelSol
+OK    material Zona_MercadoDelSol_vidrio pertenece a MercadoDelSol
+OK    material Zona_MercadoDelSol_toldo pertenece a MercadoDelSol
+OK    material Zona_MercadoDelSol_muro pertenece a MercadoDelSol
+OK    material Zona_MercadoDelSol_tejado pertenece a MercadoDelSol
+OK    material Zona_MercadoDelSol_zocalo pertenece a MercadoDelSol
+OK    material Zona_MercadoDelSol_acento pertenece a MercadoDelSol
+OK    material Zona_MercadoDelSol_vidrio pertenece a MercadoDelSol
+OK    muestra MuelleFarol tiene casa y tienda (2)
+OK    material Zona_MuelleFarol_muro pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_tejado pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_zocalo pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_acento pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_vidrio pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_muro pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_tejado pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_zocalo pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_vidrio pertenece a MuelleFarol
+OK    material Zona_MuelleFarol_toldo pertenece a MuelleFarol
+OK    muestra CentroDelFaro tiene casa y tienda (2)
+OK    material Zona_CentroDelFaro_muro pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_tejado pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_zocalo pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_vidrio pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_toldo pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_muro pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_tejado pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_zocalo pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_acento pertenece a CentroDelFaro
+OK    material Zona_CentroDelFaro_vidrio pertenece a CentroDelFaro
+OK    muestra TalleresBrisa tiene casa y tienda (2)
+OK    material Zona_TalleresBrisa_muro pertenece a TalleresBrisa
+OK    material Zona_TalleresBrisa_tejado pertenece a TalleresBrisa
+OK    material Zona_TalleresBrisa_zocalo pertenece a TalleresBrisa
+OK    material Zona_TalleresBrisa_vidrio pertenece a TalleresBrisa
+OK    material Zona_TalleresBrisa_toldo pertenece a TalleresBrisa
+OK    material Zona_TalleresBrisa_muro pertenece a TalleresBrisa
+OK    material Zona_TalleresBrisa_tejado pertenece a TalleresBrisa
+OK    material Zona_TalleresBrisa_zocalo pertenece a TalleresBrisa
+OK    material Zona_TalleresBrisa_acento pertenece a TalleresBrisa
+OK    material Zona_TalleresBrisa_vidrio pertenece a TalleresBrisa
+OK    muestra PaseoArena tiene casa y tienda (2)
+OK    material Zona_PaseoArena_muro pertenece a PaseoArena
+OK    material Zona_PaseoArena_tejado pertenece a PaseoArena
+OK    material Zona_PaseoArena_zocalo pertenece a PaseoArena
+OK    material Zona_PaseoArena_vidrio pertenece a PaseoArena
+OK    material Zona_PaseoArena_toldo pertenece a PaseoArena
+OK    material Zona_PaseoArena_muro pertenece a PaseoArena
+OK    material Zona_PaseoArena_tejado pertenece a PaseoArena
+OK    material Zona_PaseoArena_zocalo pertenece a PaseoArena
+OK    material Zona_PaseoArena_acento pertenece a PaseoArena
+OK    material Zona_PaseoArena_vidrio pertenece a PaseoArena
+OK    muestra ColinaCobalto tiene casa y tienda (2)
+OK    material Zona_ColinaCobalto_muro pertenece a ColinaCobalto
+OK    material Zona_ColinaCobalto_tejado pertenece a ColinaCobalto
+OK    material Zona_ColinaCobalto_zocalo pertenece a ColinaCobalto
+OK    material Zona_ColinaCobalto_vidrio pertenece a ColinaCobalto
+OK    material Zona_ColinaCobalto_toldo pertenece a ColinaCobalto
+OK    material Zona_ColinaCobalto_muro pertenece a ColinaCobalto
+OK    material Zona_ColinaCobalto_tejado pertenece a ColinaCobalto
+OK    material Zona_ColinaCobalto_zocalo pertenece a ColinaCobalto
+OK    material Zona_ColinaCobalto_acento pertenece a ColinaCobalto
+OK    material Zona_ColinaCobalto_vidrio pertenece a ColinaCobalto
+OK    muestra EstacionSur tiene casa y tienda (2)
+OK    material Zona_EstacionSur_muro pertenece a EstacionSur
+OK    material Zona_EstacionSur_tejado pertenece a EstacionSur
+OK    material Zona_EstacionSur_zocalo pertenece a EstacionSur
+OK    material Zona_EstacionSur_vidrio pertenece a EstacionSur
+OK    material Zona_EstacionSur_toldo pertenece a EstacionSur
+OK    material Zona_EstacionSur_muro pertenece a EstacionSur
+OK    material Zona_EstacionSur_tejado pertenece a EstacionSur
+OK    material Zona_EstacionSur_zocalo pertenece a EstacionSur
+OK    material Zona_EstacionSur_acento pertenece a EstacionSur
+OK    material Zona_EstacionSur_vidrio pertenece a EstacionSur
+OK    48 materiales de zona distintos en las muestras (48)
+OK    capturas generadas: hito general
