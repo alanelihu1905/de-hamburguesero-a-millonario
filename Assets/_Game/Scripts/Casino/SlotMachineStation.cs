@@ -113,7 +113,30 @@ namespace Tycoon3D.Casino
                 }
                 for (int i = 0; i < 3; i++)
                     StartCoroutine(DelayedClip(service.Sounds.reelStop, seconds * stops[i]));
+                ReportAudioStatus();
+                StartCoroutine(LogAudioStatus());
             }
+        }
+
+        private System.Collections.IEnumerator LogAudioStatus()
+        {
+            yield return new WaitForSeconds(.2f);
+            ReportAudioStatus();
+        }
+
+        private void ReportAudioStatus()
+        {
+            var sounds = service != null ? service.Sounds : null;
+            if (sounds == null) return;
+            int music = 0, effects = 0, ambience = 0;
+            foreach (var source in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
+            {
+                if (!source.isPlaying) continue;
+                if (source.outputAudioMixerGroup == sounds.MusicGroup) music++;
+                if (source.outputAudioMixerGroup == sounds.EffectsGroup) effects++;
+                if (source.outputAudioMixerGroup == sounds.AmbienceGroup) ambience++;
+            }
+            Debug.Log($"CASINO_AUDIO giro={spinningNow} musica={music} efectos={effects} ambiente={ambience} bucle={loopSource != null && loopSource.isPlaying}");
         }
 
         private System.Collections.IEnumerator DelayedClip(AudioClip clip, float delay)
