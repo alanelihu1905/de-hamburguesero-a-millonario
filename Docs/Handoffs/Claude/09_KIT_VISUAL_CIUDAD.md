@@ -10,7 +10,7 @@
 | Punto | Estado |
 | --- | --- |
 | Generación en Blender 5.2 (`build_kit_ciudad.py`) | **Verificado:** el script termina con código 0 y muestra `LISTO`. |
-| Dimensiones y pivote de las siete piezas | **Verificado en Blender:** cada medida coincide con la tabla de la sección 2 (comprobación dentro del script). |
+| Dimensiones y pivote de las nueve piezas | **Verificado en Blender:** cada medida coincide con la tabla de la sección 2 (comprobación dentro del script). |
 | Presupuesto de triángulos | **Verificado en Blender:** todas las piezas quedan por debajo de su tope (`stats_kit.json`). |
 | Vistas de previsualización | **Verificado visualmente:** `Preview/Kit_residencial_tienda.png` y `Preview/Kit_gasolinera.png`. |
 | Importación en Unity 6000.0.84f1 | **Verificado en batch:** `Assets/Editor/PuertoAlbaKitImportCheck.cs` importa los siete FBX sin errores y genera sus `.meta`. Informe: `ArtSource/PuertoAlba/unity_import_check.txt`; marcador `TYCOON_KIT_IMPORT_OK`. |
@@ -27,6 +27,8 @@
 | `ArtSource/PuertoAlba/Kit_Ciudad.blend` | Fuente con el kit alineado para las vistas. |
 | `ArtSource/PuertoAlba/stats_kit.json` | Triángulos, dimensiones, pivote y materiales medidos por Blender. |
 | `ArtSource/PuertoAlba/Preview/*.png` | Vistas frontales del kit. |
+| `ArtSource/PuertoAlba/validar_kit.py` | Validador sin Blender ni Unity: FBX reales, metas, presupuesto, medidas, referencias y materiales. |
+| `ArtSource/PuertoAlba/render_variantes_zonas.py` | Vistas por zona (hoja de contacto). |
 | `ArtSource/PuertoAlba/zonas_variacion.json` | Colores y piezas preferentes por zona (ocho zonas). |
 | `ArtSource/PuertoAlba/LICENCIA.md` | Licencia propia: obra del proyecto, sin material de terceros. |
 | `Assets/_Game/Models/PuertoAlba/SM_*.fbx` (+ `.meta`) | Siete piezas importables, con el pivote en el origen. |
@@ -54,8 +56,10 @@ Medidas en metros, X × Y × Z, según `stats_kit.json`. Las medidas incluyen sa
 | `SM_Gasolinera_Surtidor` | Surtidor con pantalla, manguera y pistola | 0.90 × 0.65 × 1.55 | 72 (300) |
 | `SM_Gasolinera_Caseta` | Caseta de cajas de 3 × 2.5 m con escaparate y techo | 3.30 × 2.80 × 3.00 | 84 (300) |
 | `SM_Gasolinera_Letrero` | Letrero de poste, cara inferior a 3.0 m | 2.40 × 0.20 × 4.20 | 48 (200) |
+| `SM_Casa_Dos_Plantas` | Casa de dos plantas: puerta y dos ventanas por planta, balcón con barandilla y tejado | 5.30 × 7.05 × 6.45 | 468 (500) |
+| `SM_Hito_Casino` | Hito propio del casino, visible desde la calle: basamento, dos torres con remate y rótulo ámbar entre ellas | 12.00 × 4.43 × 10.30 | 120 (500) |
 
-Presupuesto: el kit completo suma 732 triángulos. Cada pieza tiene su tope en `build_kit_ciudad.py`.
+Presupuesto: el kit completo suma 1320 triángulos (nueve piezas). Cada pieza tiene su tope en `build_kit_ciudad.py`.
 
 La banda luminosa de la marquesina (`M_Marquesina_Luz`) tiene emisión con intensidad 0, como los materiales de la casa de hamburguesas. Unity la encenderá en el estado de noche.
 
@@ -90,6 +94,21 @@ Esta fachada residencial es genérica. La fachada propia de Casa Marea ya existe
 - Vistas individuales: `Preview/Zonas/<id>_residencial_tienda.png` y `<id>_gasolinera.png`.
 - Verificado: el script termina con `LISTO_VARIANTES 8 zonas` y las ocho zonas muestran colores distintos.
 - No verificado: que Unity aplique estos colores (ver sección 9).
+
+## 4 ter. Piezas nuevas, materiales por zona y validación (esta tanda)
+
+- **Casas:** `SM_Casa_Dos_Plantas` cubre el encargo de «casas» junto con la fachada de tramo.
+- **Casino:** `SM_Hito_Casino` es un hito propio, de geometría simple y sin texturas. **No reproduce** el edificio del casino de `Assets/_Game/Models/CasaMarea` ni `Assets/_Game/Art/Casino`, y no sustituye al casino real. Su función es marcar la posición del casino en la propuesta: visible, permanente, sin tapar nada del kit.
+- **Materiales por zona:** `Assets/_Game/Models/PuertoAlba/Zonas/Zona_<id>_<campo>.mat`, 48 materiales (8 zonas × 6 campos: muro, zócalo, acento, tejado, toldo, vidrio). Los crea `PuertoAlbaKitImportCheck` a partir de `zonas_variacion.json`. Cada uno tiene solo el color base; ninguna escena los usa todavía.
+- **Validación sin Unity ni Blender:** `ArtSource/PuertoAlba/validar_kit.py`. Comprueba FBX binarios reales (no punteros de Git LFS), `.meta` con GUID único, presupuesto de triángulos, medidas de Blender frente a las de Unity con los ejes intercambiados, referencias del JSON contra `ZoneId` de `CityMap.cs`, y los 48 materiales.
+- **Resultado:** `OK (242)`, `FALLOS (0)`, código de salida 0. Log de Unity: `TYCOON_KIT_IMPORT_OK: 9 FBX importados y 48 materiales de zona creados`.
+- **Vista previa:** `Preview/Zonas/hoja_zonas.png` ahora tiene tres columnas por zona: residencial y tienda, gasolinera, y casa con hito de casino.
+
+**NO VERIFICADO (marcador explícito):**
+- Aspecto de las piezas dentro de una escena de Unity. La importación y las medidas sí están verificadas; la mirada no.
+- Colocación en la cuadrícula 21×21: no hay `CityGridLayout` en esta rama.
+- Aplicación de los materiales por zona a instancias en escena.
+- Ubicación definitiva del casino (sigue abierta entre el plan, que lo pone en Casa Marea, y la propuesta 08, que lo pone en la zona 8).
 
 ## 5. Casino central, permanente y visible
 

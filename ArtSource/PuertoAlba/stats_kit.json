@@ -163,5 +163,56 @@
     ],
     "pivote_correcto": true,
     "fbx": "Assets/_Game/Models/PuertoAlba/SM_Gasolinera_Letrero.fbx"
+  },
+  "SM_Casa_Dos_Plantas": {
+    "triangulos": 468,
+    "presupuesto_triangulos": 500,
+    "dentro_de_presupuesto": true,
+    "dimensiones_XxYxZ_m": [
+      5.3,
+      7.05,
+      6.45
+    ],
+    "centro_huella_xy": [
+      0.0,
+      -0.375
+    ],
+    "base_z": 0.0,
+    "materiales": [
+      "M_Cornisa",
+      "M_Madera",
+      "M_Marco",
+      "M_Muro_Base",
+      "M_Puerta",
+      "M_Tejado",
+      "M_Vidrio",
+      "M_Zocalo"
+    ],
+    "pivote_correcto": true,
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Casa_Dos_Plantas.fbx"
+  },
+  "SM_Hito_Casino": {
+    "triangulos": 120,
+    "presupuesto_triangulos": 500,
+    "dentro_de_presupuesto": true,
+    "dimensiones_XxYxZ_m": [
+      12.0,
+      4.43,
+      10.3
+    ],
+    "centro_huella_xy": [
+      0.0,
+      -0.215
+    ],
+    "base_z": 0.0,
+    "materiales": [
+      "M_Casino_Neon",
+      "M_Casino_Oro",
+      "M_Casino_Rojo",
+      "M_Letrero_Fondo",
+      "M_Letrero_Texto"
+    ],
+    "pivote_correcto": true,
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Hito_Casino.fbx"
   }
 }

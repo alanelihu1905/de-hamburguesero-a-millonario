@@ -1,6 +1,6 @@
 # Licencia del kit visual de Puerto Alba
 
-**Alcance:** `build_kit_ciudad.py`, `zonas_variacion.json`, `Kit_Ciudad.blend`, `stats_kit.json`, las vistas de `Preview/` y los FBX de `Assets/_Game/Models/PuertoAlba/` (`SM_Fachada_Residencial`, `SM_Puerta_Residencial`, `SM_Tienda_Barrio`, `SM_Gasolinera_Marquesina`, `SM_Gasolinera_Surtidor`, `SM_Gasolinera_Caseta`, `SM_Gasolinera_Letrero`).
+**Alcance:** `build_kit_ciudad.py`, `zonas_variacion.json`, `Kit_Ciudad.blend`, `stats_kit.json`, las vistas de `Preview/` y los FBX de `Assets/_Game/Models/PuertoAlba/` (`SM_Fachada_Residencial`, `SM_Puerta_Residencial`, `SM_Tienda_Barrio`, `SM_Gasolinera_Marquesina`, `SM_Gasolinera_Surtidor`, `SM_Gasolinera_Caseta`, `SM_Gasolinera_Letrero`, `SM_Casa_Dos_Plantas`, `SM_Hito_Casino`) y los materiales de zona en `Assets/_Game/Models/PuertoAlba/Zonas/`.
 
 **Origen:** modelado procedural. Cada pieza sale de primitivas de cubo creadas por `build_kit_ciudad.py`, con materiales definidos en ese mismo script. No se copió, importó ni tomó como referencia geometría de ningún paquete, tienda, juego ni fotografía de terceros.
 

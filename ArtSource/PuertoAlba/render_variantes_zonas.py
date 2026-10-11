@@ -9,6 +9,7 @@ Cambia solo los colores de los materiales; no toca la geometría ni los FBX.
 Salidas:
     ArtSource/PuertoAlba/Preview/Zonas/<id>_residencial_tienda.png
     ArtSource/PuertoAlba/Preview/Zonas/<id>_gasolinera.png
+    ArtSource/PuertoAlba/Preview/Zonas/<id>_casa_hito.png
     ArtSource/PuertoAlba/Preview/Zonas/hoja_zonas.png     hoja de contacto: una fila por zona
 """
 import bpy
@@ -34,6 +35,7 @@ CAMPO_A_MATERIAL = {
 
 RESIDENCIAL = ["SM_Fachada_Residencial", "SM_Puerta_Residencial", "SM_Tienda_Barrio"]
 GASOLINERA = ["SM_Gasolinera_Marquesina", "SM_Gasolinera_Surtidor", "SM_Gasolinera_Caseta", "SM_Gasolinera_Letrero"]
+CASA_HITO = ["SM_Casa_Dos_Plantas", "SM_Hito_Casino"]
 
 
 def _lin(c):
@@ -98,12 +100,12 @@ def render(nombres, ruta):
         o.hide_render = False
 
 
-def hoja(rutas, ruta_salida):
-    """Une las imágenes en una hoja: una fila por zona, dos columnas (residencial y gasolinera). Reduce ×4."""
+def hoja(rutas, ruta_salida, columnas=3):
+    """Une las imágenes en una hoja: una fila por zona y `columnas` vistas por fila. Reduce ×4."""
     filas = []
-    for i in range(0, len(rutas), 2):
+    for i in range(0, len(rutas), columnas):
         celdas = []
-        for r in rutas[i:i + 2]:
+        for r in rutas[i:i + columnas]:
             img = bpy.data.images.load(r)
             w, h = img.size
             px = np.array(img.pixels[:], dtype=np.float32).reshape(h, w, 4)[::-1, ::4, :][::4, :, :]
@@ -147,7 +149,8 @@ def main():
         base = os.path.join(OUT, zid)
         render(RESIDENCIAL, base + "_residencial_tienda.png")
         render(GASOLINERA, base + "_gasolinera.png")
-        rutas += [base + "_residencial_tienda.png", base + "_gasolinera.png"]
+        render(CASA_HITO, base + "_casa_hito.png")
+        rutas += [base + "_residencial_tienda.png", base + "_gasolinera.png", base + "_casa_hito.png"]
         print("ZONA_OK", zid, z["nombre"])
 
     hoja(rutas, os.path.join(OUT, "hoja_zonas.png"))

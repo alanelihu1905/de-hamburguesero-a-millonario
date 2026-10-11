@@ -49,6 +49,9 @@ MATS = {
     "M_Letrero_Texto":    ("#F4C95D", 0.50, 0.00, None, 0.0),        # plano para la textura del rótulo
     "M_Tejado":           ("#8E4A2F", 0.80, 0.00, None, 0.0),
     "M_Preview_Suelo":    ("#CDBFA4", 0.90, 0.00, None, 0.0),
+    "M_Casino_Oro":       ("#C9A227", 0.35, 0.80, None, 0.0),        # marco y bordes del hito
+    "M_Casino_Neon":      ("#7B2D8E", 0.40, 0.00, "#B47CC9", 0.0),   # tubos apagados; Unity los enciende
+    "M_Casino_Rojo":      ("#8E1B2B", 0.60, 0.00, None, 0.0),        # torres y basamento
 }
 
 # presupuesto de triángulos por pieza (propuesta del documento 09; el script avisa si se pasa)
@@ -60,6 +63,8 @@ BUDGET = {
     "SM_Gasolinera_Surtidor": 300,
     "SM_Gasolinera_Caseta": 300,
     "SM_Gasolinera_Letrero": 200,
+    "SM_Casa_Dos_Plantas": 500,
+    "SM_Hito_Casino": 500,
 }
 
 
@@ -223,7 +228,50 @@ def build_letrero():
     return join(p, "SM_Gasolinera_Letrero")
 
 
-BUILDERS = [build_fachada, build_puerta, build_tienda, build_marquesina, build_surtidor, build_caseta, build_letrero]
+def build_casa_dos_plantas():
+    """Casa de dos plantas de 5 × 6 m: planta baja con puerta, planta alta con balcón y dos ventanas por planta."""
+    p = [
+        box((5.0, 6.0, 6.2), (0, 0, 3.1), "M_Muro_Base"),
+        box((5.3, 6.3, 0.25), (0, 0, 6.325), "M_Tejado"),                 # alero del tejado
+        box((5.0, 6.04, 0.35), (0, 0, 0.175), "M_Zocalo"),
+        box((2.4, 0.9, 0.12), (0, -3.45, 3.6), "M_Cornisa"),              # balcón (losa)
+        box((2.4, 0.06, 0.9), (0, -3.87, 4.1), "M_Marco"),                # barandilla frontal
+        box((0.06, 0.9, 0.9), (-1.17, -3.45, 4.1), "M_Marco"),            # barandilla lateral izq.
+        box((0.06, 0.9, 0.9), (1.17, -3.45, 4.1), "M_Marco"),             # barandilla lateral der.
+    ]
+    # puerta en planta baja (centrada, el frente es -Y)
+    fr = frame(1.1, 2.3, 0.07, 0.1, 0, -3.02, 1.15, "M_Marco")
+    p += fr[:1] + fr[2:]
+    p.append(box((1.1, 0.06, 2.3), (0, -3.0, 1.15), "M_Puerta"))
+    # ventanas: dos por planta, con postigos
+    for z in (1.9, 4.6):
+        for cx in (-1.6, 1.6):
+            p += frame(1.0, 1.0, 0.07, 0.06, cx, -3.02, z, "M_Marco")
+            p.append(box((0.9, 0.03, 0.9), (cx, -3.04, z), "M_Vidrio"))
+            p.append(box((0.32, 0.03, 1.1), (cx - 0.7, -3.02, z), "M_Madera"))
+            p.append(box((0.32, 0.03, 1.1), (cx + 0.7, -3.02, z), "M_Madera"))
+    return join(p, "SM_Casa_Dos_Plantas")
+
+
+def build_hito_casino():
+    """Hito propio del casino: basamento, dos torres con remate y un rótulo ámbar entre ellas. No reproduce el edificio del casino."""
+    p = [
+        box((12.0, 4.0, 1.0), (0, 0, 0.5), "M_Casino_Rojo"),              # basamento 0–1 m
+        box((2.0, 2.0, 9.0), (-4.2, 0, 5.5), "M_Casino_Rojo"),            # torre izquierda 1–10 m
+        box((2.0, 2.0, 9.0), (4.2, 0, 5.5), "M_Casino_Rojo"),             # torre derecha 1–10 m
+        box((2.2, 2.2, 0.3), (-4.2, 0, 10.15), "M_Casino_Oro"),           # remate izquierdo
+        box((2.2, 2.2, 0.3), (4.2, 0, 10.15), "M_Casino_Oro"),            # remate derecho
+        box((8.2, 0.2, 2.6), (0, -2.2, 7.0), "M_Casino_Oro"),             # marco del rótulo
+        box((8.0, 0.4, 2.4), (0, -2.2, 7.0), "M_Letrero_Fondo"),          # fondo del rótulo
+        box((8.0, 0.06, 0.12), (0, -2.36, 8.1), "M_Casino_Neon"),         # tubo superior
+        box((8.0, 0.06, 0.12), (0, -2.36, 5.9), "M_Casino_Neon"),         # tubo inferior
+        box((7.4, 0.02, 1.6), (0, -2.42, 7.0), "M_Letrero_Texto"),        # plano del texto (la textura la pone Unity)
+    ]
+    return join(p, "SM_Hito_Casino")
+
+
+BUILDERS = [build_fachada, build_puerta, build_tienda, build_marquesina, build_surtidor, build_caseta, build_letrero,
+            build_casa_dos_plantas, build_hito_casino]
 
 
 # ---------------------------------------------------------------- medidas y comprobaciones
@@ -358,6 +406,8 @@ def main():
         "SM_Gasolinera_Surtidor": (0.9, 0.65, 1.55),
         "SM_Gasolinera_Caseta": (3.3, 2.8, 3.0),
         "SM_Gasolinera_Letrero": (2.4, 0.2, 4.2),
+        "SM_Casa_Dos_Plantas": (5.3, 7.05, 6.45),   # balcón hasta y = -3.9; alero hasta y = +3.15; techo a z = 6.45
+        "SM_Hito_Casino": (12.0, 4.43, 10.3),       # rótulo hasta y = -2.43; torres y remates hasta z = 10.3
     }
     fallos = []
     for name, dims in expect.items():

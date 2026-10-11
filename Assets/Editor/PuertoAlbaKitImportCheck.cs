@@ -20,7 +20,7 @@ namespace Tycoon3D.Editor
         // piezas cuyo frente (toldo, visera o pistola) sobresale hacia la cara de frente de Blender (-Y)
         private static readonly string[] FrontProtruding =
         {
-            "SM_Tienda_Barrio", "SM_Puerta_Residencial", "SM_Gasolinera_Surtidor"
+            "SM_Tienda_Barrio", "SM_Puerta_Residencial", "SM_Gasolinera_Surtidor", "SM_Casa_Dos_Plantas", "SM_Hito_Casino"
         };
 
         public static void Run()
@@ -65,11 +65,63 @@ namespace Tycoon3D.Editor
                 }
             }
 
+            int materiales = CrearMaterialesZonas(sb, ref errores);
+
             File.WriteAllText(ReportPath, sb.ToString(), Encoding.UTF8);
             Debug.Log(sb.ToString());
-            if (errores == 0) Debug.Log("TYCOON_KIT_IMPORT_OK: siete FBX importados; revisar el frente en el informe.");
+            if (errores == 0) Debug.Log("TYCOON_KIT_IMPORT_OK: " + Directory.GetFiles(ModelDir, "SM_*.fbx").Length + " FBX importados y " + materiales + " materiales de zona creados; revisar el frente en el informe.");
             else Debug.LogError("TYCOON_KIT_IMPORT_FALLO: " + errores + " problema(s); ver " + ReportPath);
             EditorApplication.Exit(errores == 0 ? 0 : 1);
+        }
+
+        private static readonly string[] ZoneIds =
+        {
+            "CasaMarea", "MercadoDelSol", "MuelleFarol", "CentroDelFaro", "TalleresBrisa", "PaseoArena", "ColinaCobalto", "EstacionSur"
+        };
+
+        private static readonly string[] ZoneFields = { "muro", "zocalo", "acento", "tejado", "toldo", "vidrio" };
+
+        /// <summary>
+        /// Crea un material por zona y campo a partir de ArtSource/PuertoAlba/zonas_variacion.json (sin dependencias de JSON:
+        /// busca el bloque de cada zona y sus colores hexadecimales). Los materiales quedan en Models/PuertoAlba/Zonas.
+        /// </summary>
+        private static int CrearMaterialesZonas(StringBuilder sb, ref int errores)
+        {
+            const string json = "ArtSource/PuertoAlba/zonas_variacion.json";
+            const string dir = ModelDir + "/Zonas";
+            if (!AssetDatabase.IsValidFolder(dir)) AssetDatabase.CreateFolder(ModelDir, "Zonas");
+            string texto = File.ReadAllText(json);
+            var shader = Shader.Find("Universal Render Pipeline/Lit");
+            if (shader == null) { errores++; sb.AppendLine("ERROR: falta el shader URP/Lit."); return 0; }
+
+            int creados = 0;
+            foreach (var zona in ZoneIds)
+            {
+                int ini = texto.IndexOf("\"" + zona + "\": {", StringComparison.Ordinal);
+                int fin = ini < 0 ? -1 : texto.IndexOf("}", ini, StringComparison.Ordinal);
+                if (ini < 0 || fin < 0) { errores++; sb.AppendLine("ERROR: zona " + zona + " no está en el JSON."); continue; }
+                string bloque = texto.Substring(ini, fin - ini);
+                foreach (var campo in ZoneFields)
+                {
+                    var m = System.Text.RegularExpressions.Regex.Match(bloque, "\"" + campo + "\"\\s*:\\s*\"(#[0-9A-Fa-f]{6})\"");
+                    if (!m.Success) { errores++; sb.AppendLine("ERROR: " + zona + "." + campo + " sin color válido."); continue; }
+                    Color color;
+                    if (!ColorUtility.TryParseHtmlString(m.Groups[1].Value, out color)) { errores++; continue; }
+                    string path = dir + "/Zona_" + zona + "_" + campo + ".mat";
+                    var mat = AssetDatabase.LoadAssetAtPath<Material>(path);
+                    if (mat == null)
+                    {
+                        mat = new Material(shader) { name = "Zona_" + zona + "_" + campo };
+                        AssetDatabase.CreateAsset(mat, path);
+                    }
+                    mat.SetColor("_BaseColor", color);
+                    EditorUtility.SetDirty(mat);
+                    creados++;
+                }
+            }
+            AssetDatabase.SaveAssets();
+            sb.AppendLine("MATERIALES_ZONA: " + creados + " materiales en " + dir);
+            return creados;
         }
 
         private static Bounds MeshBounds(GameObject go, out int tris)
