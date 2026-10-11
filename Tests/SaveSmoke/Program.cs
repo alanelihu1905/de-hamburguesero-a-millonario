@@ -139,6 +139,47 @@ string Forge(Dictionary<string, string> extra, int version = SaveCodec.CurrentVe
         "migración: un perfil v3 se abre sin hora y conserva su caja");
 }
 
+// ---------------------------------------------------------------- ajustes de accesibilidad (formato v5)
+{
+    var g = new Tycoon3D.Core.GameSettings();
+    Check(g.HudScalePercent == 100 && g.InteractKey == 101 && g.SecondaryKey == 113 && g.LightsKey == 102, "ajustes: valores por defecto (100 %, E, Q, F)");
+    Check(Tycoon3D.Core.GameSettings.LabelOf(101) == "E" && Tycoon3D.Core.GameSettings.LabelOf(32) == "Espacio" && g.LabelOf(Tycoon3D.Core.GameAction.Secondary) == "Q", "ajustes: etiquetas de las teclas");
+    g.SetScalePercent(10); Check(g.HudScalePercent == 70, "ajustes: el texto no baja del 70 %");
+    g.SetScalePercent(1000); Check(g.HudScalePercent == 220, "ajustes: el texto no pasa del 220 %");
+    g.SetScalePercent(134); Check(g.HudScalePercent == 130, "ajustes: la escala va de 10 en 10");
+    g.ChangeScale(2); Check(g.HudScalePercent == 150, "ajustes: dos pasos más suben el 20 %");
+    foreach (int reservada in new[] { 97, 100, 115, 119, 114, 27, 49, 13, 300 })
+        Check(!Tycoon3D.Core.GameSettings.IsAssignable(reservada), "ajustes: la tecla " + reservada + " no se puede asignar");
+    Check(g.TryRebind(Tycoon3D.Core.GameAction.Interact, 103, out _) && g.InteractKey == 103 && g.LabelOf(Tycoon3D.Core.GameAction.Interact) == "G", "ajustes: interactuar pasa a G");
+    Check(!g.TryRebind(Tycoon3D.Core.GameAction.Secondary, 103, out string choque) && choque.Contains("Interactuar") && g.SecondaryKey == 113, "ajustes: una tecla ya usada se rechaza y dice por qué");
+    Check(!g.TryRebind(Tycoon3D.Core.GameAction.Secondary, 119, out string movimiento) && movimiento.Contains("moverte") && g.SecondaryKey == 113, "ajustes: W (movimiento) se rechaza");
+    Check(g.TryRebind(Tycoon3D.Core.GameAction.Lights, 32, out _) && g.LabelOf(Tycoon3D.Core.GameAction.Lights) == "Espacio", "ajustes: Espacio se puede usar");
+
+    var data = Sample();
+    g.Write(data);
+    Check(SaveCodec.TryParse(SaveCodec.Serialize(data), out var back) == ParseStatus.Ok && back.SettingsScalePercent == 150 && back.SettingsKeyInteract == 103 && back.SettingsKeyLights == 32,
+        "ajustes: sobreviven al guardado");
+    var otro = new Tycoon3D.Core.GameSettings(); otro.Restore(back);
+    Check(otro.HudScalePercent == 150 && otro.InteractKey == 103 && otro.SecondaryKey == 113 && otro.LightsKey == 32, "ajustes: se restauran del perfil");
+    otro.ResetDefaults();
+    Check(otro.HudScalePercent == 100 && otro.InteractKey == 101 && otro.LightsKey == 102, "ajustes: restablecer vuelve a lo de siempre");
+
+    var viejo = Forge(new() { ["chips"] = "4", ["clockMinutes"] = "600" }, version: 4);
+    var v4 = SaveCodec.TryParse(viejo, out var d4);
+    Check(v4 == ParseStatus.Ok && d4.SettingsScalePercent == 100 && d4.SettingsKeyInteract == 101 && d4.ClockMinutes == 600, "migración: un perfil v4 se abre con los ajustes de siempre y conserva la hora");
+    var restaurado = new Tycoon3D.Core.GameSettings(); restaurado.Restore(d4);
+    Check(restaurado.InteractKey == 101 && restaurado.HudScalePercent == 100, "ajustes: un perfil anterior da los valores de siempre");
+    Check(SaveCodec.TryParse(Forge(new() { ["settingsScalePercent"] = "10" }), out _) == ParseStatus.Corrupt, "ajustes: escala fuera de rango = dañado");
+    Check(SaveCodec.TryParse(Forge(new() { ["settingsKeyInteract"] = "0" }), out _) == ParseStatus.Corrupt, "ajustes: tecla fuera de rango = dañado");
+    // teclas repetidas o reservadas en un perfil editado a mano: vuelven todas a las de siempre, la escala se conserva
+    var malo = Sample(); malo.SettingsKeyInteract = 101; malo.SettingsKeySecondary = 101; malo.SettingsKeyLights = 102; malo.SettingsScalePercent = 120;
+    var rm = new Tycoon3D.Core.GameSettings(); rm.Restore(malo);
+    Check(rm.InteractKey == 101 && rm.SecondaryKey == 113 && rm.LightsKey == 102 && rm.HudScalePercent == 120, "ajustes: teclas repetidas en el perfil vuelven a las de siempre");
+    var wasd = Sample(); wasd.SettingsKeyInteract = 119;
+    var rw = new Tycoon3D.Core.GameSettings(); rw.Restore(wasd);
+    Check(rw.InteractKey == 101, "ajustes: una tecla reservada en el perfil se descarta");
+}
+
 // ---------------------------------------------------------------- repositorio y recuperación
 {
     var repo = new SaveRepository(NewDir());

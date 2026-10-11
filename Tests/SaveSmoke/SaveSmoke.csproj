@@ -11,6 +11,7 @@
     <Compile Include="../../Assets/_Game/Scripts/Core/Save/SaveCodec.cs" Link="SaveCodec.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Core/Save/SaveRepository.cs" Link="SaveRepository.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Economy/MovementLedger.cs" Link="MovementLedger.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/Core/GameSettings.cs" Link="GameSettings.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Casino/SlotMachineLogic.cs" Link="SlotMachineLogic.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Casino/SlotPaytable.cs" Link="SlotPaytable.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Casino/CasinoSession.cs" Link="CasinoSession.cs" />

@@ -17,7 +17,7 @@ namespace Tycoon3D.Save
     /// </summary>
     public static class SaveCodec
     {
-        public const int CurrentVersion = 4;
+        public const int CurrentVersion = 5;
         public const string Header = "TYCOON3D-SAVE";
 
         private struct Field
@@ -58,6 +58,10 @@ namespace Tycoon3D.Save
             F("cashboxOwed", d => d.CashboxOwed, (d, v) => d.CashboxOwed = v, 0, int.MaxValue),
             F("cashboxRefilled", d => d.CashboxRefilled, (d, v) => d.CashboxRefilled = v, 0, Big),
             F("clockMinutes", d => d.ClockMinutes, (d, v) => d.ClockMinutes = v, -1, Big),
+            F("settingsScalePercent", d => d.SettingsScalePercent, (d, v) => d.SettingsScalePercent = v, 50, 300),
+            F("settingsKeyInteract", d => d.SettingsKeyInteract, (d, v) => d.SettingsKeyInteract = v, 1, 400),
+            F("settingsKeySecondary", d => d.SettingsKeySecondary, (d, v) => d.SettingsKeySecondary = v, 1, 400),
+            F("settingsKeyLights", d => d.SettingsKeyLights, (d, v) => d.SettingsKeyLights = v, 1, 400),
             F("ledgerSequence", d => d.LedgerSequence, (d, v) => d.LedgerSequence = v, 0, Big),
             F("ledgerOpeningPesos", d => d.LedgerOpeningPesos, (d, v) => d.LedgerOpeningPesos = v, -Big, Big),
             F("ledgerOpeningChips", d => d.LedgerOpeningChips, (d, v) => d.LedgerOpeningChips = v, -Big, Big),
@@ -80,7 +84,9 @@ namespace Tycoon3D.Save
             // v2 -> v3: la caja del casino no existía; sin cashboxInit empieza con su fondo inicial y sin deudas
             [2] = values => { values["cashboxInit"] = 0; },
             // v3 -> v4: el reloj del juego no existía; sin clockMinutes arranca a las 08:00 del día 1
-            [3] = values => { values["clockMinutes"] = -1; }
+            [3] = values => { values["clockMinutes"] = -1; },
+            // v4 -> v5: los ajustes no existían; sin sus claves toman los valores de siempre (texto al 100 %, teclas E, Q y F)
+            [4] = values => { }
         };
 
         public static string Serialize(SaveData data)

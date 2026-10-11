@@ -1,6 +1,7 @@
 using System;
 using Tycoon3D.Core;
 using Tycoon3D.Economy;
+using Tycoon3D.Interaction;
 using UnityEngine;
 
 namespace Tycoon3D.Casino
@@ -34,7 +35,7 @@ namespace Tycoon3D.Casino
         public event Action<SlotRound> Revealed;
         public event Action<MovementKind, int, MovementAccount, MovementAccount, int> MovementRecorded;
 
-        public string Message { get; private set; } = "Casino FOX abierto siempre. E gira · 1-4 apuesta.";
+        public string Message { get; private set; } = "Casino FOX abierto siempre.";
         public SlotSymbol[] DisplayReels { get; } = { SlotSymbol.Chile, SlotSymbol.Mango, SlotSymbol.Concha };
         public int DisplayVersion { get; private set; }
         public float LastActivityTime { get; private set; } = -100f;
@@ -262,7 +263,7 @@ namespace Tycoon3D.Casino
             float wheel = Input.mouseScrollDelta.y;
             if (wheel > .1f) SetBet(Mathf.Min(CasinoSession.BetTiers.Length - 1, session != null ? session.BetIndex + 1 : 0));
             else if (wheel < -.1f) SetBet(Mathf.Max(0, session != null ? session.BetIndex - 1 : 0));
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(InputBindings.Lights))
             {
                 ReduceFlashing = !ReduceFlashing;
                 Message = ReduceFlashing ? "Luces fijas activadas (sin parpadeos)." : "Luces animadas activadas.";

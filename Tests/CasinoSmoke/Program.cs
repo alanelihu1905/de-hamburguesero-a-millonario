@@ -305,6 +305,36 @@ Check(Throws(() => SlotMachineLogic.Play(0, false, new SystemRandomSource(1))), 
     Check(recuperado == 5000 && saldo4 == 8000 && cuarta.Cashbox.Owed == 75000, "caja: una ronda pendiente se liquida con el tope y deja lo demás por cobrar");
 }
 
+// HUD en otras proporciones de pantalla: todo cabe, nada se pisa
+{
+    var pantallas = new (int w, int h, string nombre)[]
+    {
+        (1280, 720, "16:9"), (1600, 900, "16:9"), (1920, 1080, "16:9"), (2560, 1440, "16:9"), (3840, 2160, "16:9 4K"),
+        (1024, 768, "4:3"), (1280, 960, "4:3"), (1600, 1200, "4:3"), (1280, 1024, "5:4"),
+        (1280, 800, "16:10"), (1440, 900, "16:10"), (1920, 1200, "16:10"),
+        (2560, 1080, "21:9"), (3440, 1440, "21:9"), (5120, 1440, "32:9"), (1366, 768, "16:9 portátil"), (800, 600, "4:3 mínima"), (640, 480, "VGA")
+    };
+    int casos = 0;
+    foreach (var (w, h, nombre) in pantallas)
+        for (float escala = .7f; escala <= 2.21f; escala += .1f)
+        {
+            var l = HudLayout.Compute(w, h, escala);
+            string quien = nombre + " " + w + "x" + h + " texto " + (int)Math.Round(escala * 100) + "%";
+            Check(l.Scale >= HudLayout.MinScale && !float.IsNaN(l.Scale), "HUD " + quien + ": escala válida");
+            Check(l.Panel.InsideScreen(w, h) && l.Tag.InsideScreen(w, h) && l.Toast.InsideScreen(w, h), "HUD " + quien + ": el panel, la etiqueta y el aviso caben en la pantalla");
+            Check(!l.Panel.Overlaps(l.Tag) && !l.Panel.Overlaps(l.Toast) && !l.Tag.Overlaps(l.Toast), "HUD " + quien + ": panel, etiqueta y aviso no se pisan");
+            casos++;
+        }
+    var normal = HudLayout.Compute(1920, 1080, 1f);
+    Check(Math.Abs(normal.Scale - 1f) < .001f && !normal.ToastBelowTag && Math.Abs(normal.Panel.W - 780f) < .01f, "HUD: a 1920x1080 y 100 % se ve como el diseño original");
+    var cuadrada = HudLayout.Compute(1024, 768, 1f);
+    Check(cuadrada.ToastBelowTag, "HUD: en 4:3 el aviso baja debajo de la etiqueta en vez de pisarla");
+    var ancha = HudLayout.Compute(3440, 1440, 1f);
+    Check(!ancha.ToastBelowTag && Math.Abs((ancha.Panel.X + ancha.Panel.W / 2) - 1720) < .01f, "HUD: en pantalla ultra ancha el panel queda centrado y el aviso no baja");
+    Check(HudLayout.Fit(1280, 720, 2.2f) < HudLayout.Fit(1920, 1080, 2.2f), "HUD: la escala pedida se recorta en pantallas pequeñas");
+    Console.WriteLine("  HUD: {0} combinaciones de pantalla y tamaño de texto sin choques.", casos);
+}
+
 Console.WriteLine("CasinoSmoke: {0} comprobaciones aprobadas.", checks);
 
 void Check(bool condition, string description)

@@ -34,6 +34,8 @@ namespace Tycoon3D.Core
         private float nextClockSave;
 
         public SaveData Data { get; private set; } = new SaveData();
+        /// <summary>Ajustes de accesibilidad del jugador (tamaño del texto y teclas); viajan en el perfil.</summary>
+        public GameSettings Settings { get; } = new GameSettings();
         public MovementLedger Ledger => ledger;
         public LoadOutcome Outcome { get; private set; }
         public int Writes { get; private set; }
@@ -73,6 +75,7 @@ namespace Tycoon3D.Core
             if (Current != null && Current != this) { Destroy(gameObject); return; }
             Current = this;
             cycle = gameObject.AddComponent<DayNightCycle>();
+            gameObject.AddComponent<Tycoon3D.UI.SettingsMenu>();
             LoadFromDisk();
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
@@ -98,6 +101,7 @@ namespace Tycoon3D.Core
             warnedReadOnly = false;
             Outcome = repository.Load(out var loaded);
             Data = loaded;
+            Settings.Restore(Data);
             Debug.Log("SAVE_LOAD " + Outcome + " dir=" + repository.Directory + " pesos=" + Data.Pesos + " fichas=" + Data.Chips +
                       " ventas=" + Data.BurgerSales + " rondas=" + Data.CasinoRounds + " pendiente=" + Data.PendingActive +
                       (repository.LastError != null ? " error=" + repository.LastError : ""));
@@ -187,6 +191,7 @@ namespace Tycoon3D.Core
 
         private void Capture(SaveData d)
         {
+            Settings.Write(d);
             if (cycle != null) d.ClockMinutes = (long)cycle.Clock.TotalMinutes;
             if (wallet != null) d.Pesos = wallet.Pesos;
             if (burger != null) { d.BurgerStep = (int)burger.Step; d.BurgerSales = burger.Sales; }

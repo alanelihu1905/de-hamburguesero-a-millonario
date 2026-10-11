@@ -28,8 +28,8 @@ namespace Tycoon3D.Casino
                 if (service == null) return string.Empty;
                 var s = service.Session;
                 int buy = service.ChipsToBuy;
-                string left = buy > 0 ? "E - Cambiar $" + buy * CasinoSession.ChipValue + " por " + buy + " fichas" : "E - Sin pesos para fichas";
-                string right = s.Chips > 0 ? "Q - Canjear " + s.Chips + " fichas por $" + s.ChipsValue : "Q - Canjear (sin fichas)";
+                string left = buy > 0 ? InputBindings.InteractLabel + " - Cambiar $" + buy * CasinoSession.ChipValue + " por " + buy + " fichas" : InputBindings.InteractLabel + " - Sin pesos para fichas";
+                string right = s.Chips > 0 ? InputBindings.SecondaryLabel + " - Canjear " + s.Chips + " fichas por $" + s.ChipsValue : InputBindings.SecondaryLabel + " - Canjear (sin fichas)";
                 return "Cajera FOX · " + left + " · " + right + " · 1 ficha = $" + CasinoSession.ChipValue;
             }
         }

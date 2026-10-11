@@ -70,8 +70,8 @@ namespace Tycoon3D.Casino
                 if (service.Spinning) return "Girando…";
                 var session = service.Session;
                 return session.NextSpinIsFree
-                    ? "E - Giro de cortesía (gratis) · " + DisplayName
-                    : "E - Girar ($" + session.CurrentBet + ")" + (session.NextSpinUsesChips ? (session.CurrentBet == CasinoSession.ChipValue ? " con 1 ficha" : " con " + session.CurrentBet / CasinoSession.ChipValue + " fichas") : "")
+                    ? InputBindings.InteractLabel + " - Giro de cortesía (gratis) · " + DisplayName
+                    : InputBindings.InteractLabel + " - Girar ($" + session.CurrentBet + ")" + (session.NextSpinUsesChips ? (session.CurrentBet == CasinoSession.ChipValue ? " con 1 ficha" : " con " + session.CurrentBet / CasinoSession.ChipValue + " fichas") : "")
                       + " · " + DisplayName + " · 1-4 cambian la apuesta";
             }
         }

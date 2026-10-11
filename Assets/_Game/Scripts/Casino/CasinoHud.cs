@@ -1,4 +1,5 @@
 using Tycoon3D.Economy;
+using Tycoon3D.Interaction;
 using UnityEngine;
 
 namespace Tycoon3D.Casino
@@ -44,7 +45,10 @@ namespace Tycoon3D.Casino
 
         public bool PanelVisible => service != null && (service.NearestDistance < 5f || Time.time - service.LastActivityTime < 5f);
 
-        private float Scale => Mathf.Clamp(Screen.height / 1080f, .7f, 2.2f);
+        private HudLayout.Result layout;
+        private float Scale => layout.Scale;
+
+        private static Rect ToRect(HudRect r) => new Rect(r.X, r.Y, r.W, r.H);
 
         private void Update()
         {
@@ -98,6 +102,7 @@ namespace Tycoon3D.Casino
         private void OnGUI()
         {
             if (service == null) return;
+            layout = HudLayout.Compute(Screen.width, Screen.height, InputBindings.HudScale);
             Styles();
             DrawTag();
             bool panel = PanelVisible;
@@ -108,8 +113,9 @@ namespace Tycoon3D.Casino
 
         private void DrawTag()
         {
-            float s = Scale, w = 470f * s, h = 70f * s;
-            var r = new Rect(Screen.width - w - 16f * s, 16f * s, w, h);
+            float s = Scale;
+            var r = ToRect(layout.Tag);
+            float w = r.width;
             Fill(r, Plum);
             Fill(new Rect(r.x, r.y, 8f * s, r.height), Mango);
             string where = entranceDistance < 3f ? "Estás en la puerta"
@@ -124,8 +130,8 @@ namespace Tycoon3D.Casino
         private void DrawToast()
         {
             if (string.IsNullOrEmpty(service.ToastText) || Time.time > service.ToastUntil) return;
-            float s = Scale, w = 760f * s, h = 52f * s;
-            var r = new Rect(Screen.width * .5f - w * .5f, 20f * s, w, h);
+            float s = Scale;
+            var r = ToRect(layout.Toast);
             Frame(r, Plum, Teal, 3f * s);
             body.fontSize = Mathf.RoundToInt(21 * s);
             GUI.Label(r, service.ToastText, body);
@@ -150,8 +156,8 @@ namespace Tycoon3D.Casino
                 ? (service.LastMachine != null ? service.LastMachine : service.NearestMachine)
                 : service.NearestMachine;
             // panel compacto anclado abajo: no tapa la máquina que se está jugando
-            float w = 780f * s, h = 372f * s;
-            var r = new Rect(Screen.width * .5f - w * .5f, Screen.height - h - 44f * s, w, h);
+            var r = ToRect(layout.Panel);
+            float w = r.width;
             Frame(r, Plum, Mango, 4f * s);
             Fill(new Rect(r.x, r.yMax - 6f * s, w, 6f * s), Chile);
 
@@ -253,7 +259,7 @@ namespace Tycoon3D.Casino
 
             small.fontSize = Mathf.RoundToInt(16 * s);
             GUI.Label(new Rect(r.x + 10f * s, r.yMax - 52f * s, w - 20f * s, 24f * s),
-                "E girar · 1-4 o rueda: apuesta · Q siguiente · F luces " + (service.ReduceFlashing ? "fijas" : "animadas"), small);
+                InputBindings.InteractLabel + " girar · 1-4 o rueda: apuesta · " + InputBindings.SecondaryLabel + " siguiente · " + InputBindings.LightsLabel + " luces " + (service.ReduceFlashing ? "fijas" : "animadas"), small);
             small.fontSize = Mathf.RoundToInt(14 * s);
             GUI.Label(new Rect(r.x + 10f * s, r.yMax - 28f * s, w - 20f * s, 22f * s),
                 "Libro del casino: " + session.RoundsStarted + " rondas · apostado $" + session.TotalWagered + " · premios $" + session.TotalWon

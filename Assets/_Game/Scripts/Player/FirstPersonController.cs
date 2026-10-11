@@ -41,13 +41,13 @@ namespace Tycoon3D.Player
                 controller.enabled = true;
                 verticalSpeed = 0f;
             }
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) && !Tycoon3D.UI.SettingsMenu.Listening)
             {
                 bool locked = Cursor.lockState == CursorLockMode.Locked;
                 Cursor.lockState = locked ? CursorLockMode.None : CursorLockMode.Locked;
                 Cursor.visible = locked;
             }
-            else if (Cursor.lockState != CursorLockMode.Locked && Input.GetMouseButtonDown(0))
+            else if (Cursor.lockState != CursorLockMode.Locked && Input.GetMouseButtonDown(0) && !Tycoon3D.UI.SettingsMenu.PointerInside(Input.mousePosition))
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;

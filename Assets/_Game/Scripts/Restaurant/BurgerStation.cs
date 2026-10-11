@@ -19,13 +19,13 @@ namespace Tycoon3D.Restaurant
                 {
                     case StationKind.Ingredients:
                         if (burgerLoop.Step != BurgerStep.NeedIngredients) return "Termina la hamburguesa actual";
-                        return burgerLoop.CanBuyIngredients ? "E - Comprar ingredientes ($" + burgerLoop.IngredientCost + ")" : "Dinero insuficiente";
+                        return burgerLoop.CanBuyIngredients ? InputBindings.InteractLabel + " - Comprar ingredientes ($" + burgerLoop.IngredientCost + ")" : "Dinero insuficiente";
                     case StationKind.Grill:
                         return burgerLoop.Step == BurgerStep.NeedCooking
-                            ? "E - Cocinar hamburguesa" : "Primero compra ingredientes";
+                            ? InputBindings.InteractLabel + " - Cocinar hamburguesa" : "Primero compra ingredientes";
                     default:
                         return burgerLoop.Step == BurgerStep.ReadyToSell
-                            ? "E - Vender hamburguesa ($" + burgerLoop.SalePrice + ")" : "Prepara una hamburguesa primero";
+                            ? InputBindings.InteractLabel + " - Vender hamburguesa ($" + burgerLoop.SalePrice + ")" : "Prepara una hamburguesa primero";
                 }
             }
         }
