@@ -79,4 +79,73 @@ Check(CityMap.Links.Any(l => (l.Item1 == ZoneId.CasaMarea && l.Item2 == ZoneId.M
     "Casa Marea y el mercado están conectados en el mapa");
 Check(!CityLayout.Built[0].Overlaps(CityLayout.Built[1]) && !CityLayout.Built[0].Overlaps(CityLayout.Street), "las cajas no se solapan con la calle");
 
+// ---- HUD: disposición en las tres resoluciones objetivo y con los tamaños de texto extremos
+var resoluciones = new (int w, int h)[] { (1280, 720), (1600, 900), (2560, 1080) };
+foreach (var (w, h) in resoluciones)
+foreach (var texto in new[] { CityAjustes.TextoMin, CityAjustes.TextoPorDefecto, CityAjustes.TextoMax })
+{
+    string id = w + "x" + h + " texto " + texto;
+    var f = CityHudLayout.Compute(w, h, texto);
+    var pantalla = new HudRect(0, 0, w, h);
+    Check(f.Banner.Inside(pantalla), "banner dentro de " + id);
+    Check(f.Minimap.Inside(pantalla), "minimapa dentro de " + id);
+    Check(f.Hint.Inside(pantalla), "pista dentro de " + id);
+    Check(f.Settings.Inside(pantalla), "ajustes dentro de " + id);
+    Check(f.MinimapMap.Inside(f.Minimap), "mapa dentro de su panel en " + id);
+    Check(!f.Banner.Overlaps(f.Minimap), "banner y minimapa no se solapan en " + id);
+    Check(!f.Hint.Overlaps(f.Minimap), "pista y minimapa no se solapan en " + id);
+    Check(f.FontSize >= 12, "texto legible (" + f.FontSize + " px) en " + id);
+    // el jugador en cualquier punto de la ciudad cae dentro del mapa
+    foreach (var (x, z) in new[] { (0f, 0f), (16f, 0f), (30f, 0f), (-10f, -10f), (40f, 10f) })
+    {
+        var (px, py) = CityHudLayout.ToMinimap(x, z, f.MinimapMap);
+        Check(f.MinimapMap.Contains(px, py), "punto (" + x + "," + z + ") dentro del mapa en " + id);
+    }
+}
+var f1280 = CityHudLayout.Compute(1280, 720, 1f);
+Check(f1280.Scale == 1f && f1280.FontSize == 14, "1280×720 con texto normal es la escala de diseño");
+Check(CityHudLayout.Compute(2560, 1080, 1f).Scale == 1.5f, "2560×1080 escala 1,5");
+Check(CityHudLayout.Compute(3840, 2160, 1f).Scale == 2f, "la escala se limita a 2 en 4K");
+Check(CityHudLayout.Compute(1280, 720, 9f).Scale == CityAjustes.TextoMax, "el texto grande se limita a su máximo");
+// el norte (z+) queda arriba: un punto más al norte tiene y menor
+var (_, yNorte) = CityHudLayout.ToMinimap(0f, 5f, f1280.MinimapMap);
+var (_, ySur) = CityHudLayout.ToMinimap(0f, -5f, f1280.MinimapMap);
+Check(yNorte < ySur, "el norte del minimapa queda arriba");
+// la caja de Casa Marea cae a la izquierda de la del mercado
+var casa = CityHudLayout.BoxToMinimap(CityLayout.Built[0], f1280.MinimapMap);
+var mercado = CityHudLayout.BoxToMinimap(CityLayout.Built[1], f1280.MinimapMap);
+Check(casa.X < mercado.X && casa.Inside(f1280.MinimapMap), "Casa Marea queda a la izquierda del mercado en el minimapa");
+
+// ---- ajustes: límites, valores ilegibles y guardado ida y vuelta
+var ajustes = new CityAjustes();
+ajustes.Set(99f, 500f, 9f);
+Check(ajustes.Sensibilidad == CityAjustes.SensibilidadMax && ajustes.Fov == CityAjustes.FovMax && ajustes.EscalaTexto == CityAjustes.TextoMax, "los ajustes altos se limitan al máximo");
+ajustes.Set(-3f, -1f, 0f);
+Check(ajustes.Sensibilidad == CityAjustes.SensibilidadMin && ajustes.Fov == CityAjustes.FovMin && ajustes.EscalaTexto == CityAjustes.TextoMin, "los ajustes bajos se limitan al mínimo");
+ajustes.Set(float.NaN, float.PositiveInfinity, float.NegativeInfinity);
+Check(ajustes.Sensibilidad == CityAjustes.SensibilidadPorDefecto && ajustes.Fov == CityAjustes.FovPorDefecto && ajustes.EscalaTexto == CityAjustes.TextoPorDefecto, "NaN e infinitos vuelven al valor por defecto");
+var almacen = new MemoriaAjustes();
+almacen.SetFloat(CityAjustes.KeyFov, 75f);
+almacen.SetFloat(CityAjustes.KeySensibilidad, float.NaN);
+var cargado = new CityAjustes();
+cargado.Load(almacen);
+Check(cargado.Fov == 75f && cargado.Sensibilidad == CityAjustes.SensibilidadPorDefecto && cargado.EscalaTexto == CityAjustes.TextoPorDefecto,
+    "al cargar, un valor ilegible usa su defecto y el resto se conserva");
+var guardado = new MemoriaAjustes();
+cargado.Set(3.5f, 80f, 1.25f);
+cargado.Save(guardado);
+var recargado = new CityAjustes();
+recargado.Load(guardado);
+Check(recargado.Sensibilidad == 3.5f && recargado.Fov == 80f && recargado.EscalaTexto == 1.25f, "los ajustes sobreviven a guardar y cargar");
+Check(new CityAjustes().Sensibilidad == CityAjustes.SensibilidadPorDefecto, "sin datos guardados, los ajustes usan su defecto");
+new CityAjustes().Load(null);
+Check(true, "cargar sin almacén no falla");
+
 Console.WriteLine("CitySmoke: {0} comprobaciones aprobadas.", checks);
+
+sealed class MemoriaAjustes : IAjustesStore
+{
+    private readonly System.Collections.Generic.Dictionary<string, float> datos = new();
+    public bool TryGetFloat(string key, out float value) => datos.TryGetValue(key, out value);
+    public void SetFloat(string key, float value) => datos[key] = value;
+}

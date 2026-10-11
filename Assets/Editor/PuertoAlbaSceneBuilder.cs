@@ -47,6 +47,9 @@ namespace Tycoon3D.Editor
             var tracker = player.AddComponent<CityZoneTracker>();
             tracker.Configure(player.transform);
 
+            var hud = new GameObject("Puerto Alba HUD").AddComponent<CityHud>();
+            hud.Configure(tracker, player.GetComponent<Tycoon3D.Player.FirstPersonController>());
+
             var cam = new GameObject("Camara primera persona");
             cam.tag = "MainCamera";
             cam.transform.SetParent(player.transform, false);
@@ -64,6 +67,8 @@ namespace Tycoon3D.Editor
                 throw new InvalidOperationException("No se pudo guardar " + ScenePath);
             AssetDatabase.SaveAssets();
             Debug.Log("PUERTO_ALBA_SCENE_OK: " + ScenePath);
+            // En batch, cierra Unity al terminar; sin esto el proceso se queda abierto tras guardar.
+            if (Application.isBatchMode) EditorApplication.delayCall += () => EditorApplication.Exit(0);
         }
 
         private static void Slab(string name, Vector3 position, Vector3 scale, Material material, Transform parent)

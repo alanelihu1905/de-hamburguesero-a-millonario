@@ -24,6 +24,19 @@ namespace Tycoon3D.Player
             Cursor.visible = false;
         }
 
+        /// <summary>Sensibilidad del ratón (ajustes). Por defecto 2.</summary>
+        public float MouseSensitivity
+        {
+            get => mouseSensitivity;
+            set => mouseSensitivity = value;
+        }
+
+        /// <summary>Campo de visión vertical de la cámara en grados (ajustes).</summary>
+        public void SetFieldOfView(float degrees)
+        {
+            if (viewCamera != null) viewCamera.fieldOfView = degrees;
+        }
+
         /// <summary>Orienta la vista (giro en grados, sin inclinación). Lo usan las pruebas en vivo para no depender del ratón.</summary>
         public void FaceDirection(float yawDegrees)
         {

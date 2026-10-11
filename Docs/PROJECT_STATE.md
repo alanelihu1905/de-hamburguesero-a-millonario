@@ -65,3 +65,14 @@ Repositorio público compartido para tres personas con sus agentes. Preparado: `
 - Importación en Unity 6000.0.84f1 (batch, `PuertoAlbaKitImportCheck`): siete FBX importados con `.meta`, escala 1, base en y = 0, frente en +Z por medida. Informe en `ArtSource/PuertoAlba/unity_import_check.txt`. No es una revisión visual en escena.
 - Colocación en la cuadrícula 21×21: no hay `CityGridLayout` en esta rama; el tamaño de celda está por confirmar.
 - Ubicación del casino: el plan y `CityMap.cs` lo ponen en Casa Marea; la propuesta 08 lo pone en la zona 8. Decisión pendiente de Claude o Codex.
+
+## Puerto Alba · HUD y ajustes de la ciudad (rama `ciudad/fase-1-modelo`, 2026-10-11)
+**Verificado**
+- `Tests/CitySmoke`: 183 comprobaciones aprobadas. Incluye disposición del HUD en 1280×720, 1600×900 y 2560×1080 con escala de texto de 0,85× a 1,5×, mapeo del minimapa y límites de ajustes.
+- Unity 6000.0.84f1 batch, secuencia limpia: `PuertoAlbaSceneBuilder.Build` con `PUERTO_ALBA_SCENE_OK` (código 0) y `PuertoAlbaPlaySmoke.Run` con `TYCOON_PUERTO_ALBA_SMOKE_OK` (código 0). El smoke comprueba el banner de zona en cada paso y que sensibilidad y FOV se limitan y llegan al jugador y a la cámara.
+- Regresión: `TYCOON_SMOKE_OK` (barrio) y `TYCOON_CASINO_SMOKE_OK` (casino) pasan tras el cambio en `FirstPersonController`.
+
+**No verificado**
+- Aspecto visual del HUD en pantalla real (solo pruebas de disposición y de lógica).
+- Escala de texto y minimapa en las resoluciones objetivo fuera de las pruebas geométricas.
+- Caída por gravedad en ventana real (pendiente desde la fase 1).

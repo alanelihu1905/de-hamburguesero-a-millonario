@@ -4,12 +4,12 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace Tycoon.Editor
+namespace Tycoon3D.Editor
 {
     /// <summary>
     /// Importa los FBX del kit de Puerto Alba (Docs/Handoffs/Claude/09_KIT_VISUAL_CIUDAD.md) y deja un informe:
     /// escala del importador, límites reales en Unity, base en y = 0 y lado del frente.
-    /// Uso en batch: -executeMethod Tycoon.Editor.PuertoAlbaKitImportCheck.Run
+    /// Uso en batch: -executeMethod Tycoon3D.Editor.PuertoAlbaKitImportCheck.Run
     /// Informe: ArtSource/PuertoAlba/unity_import_check.txt
     /// </summary>
     public static class PuertoAlbaKitImportCheck

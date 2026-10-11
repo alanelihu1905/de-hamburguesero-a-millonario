@@ -9,5 +9,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="../../Assets/_Game/Scripts/City/CityMap.cs" Link="CityMap.cs" />
     <Compile Include="../../Assets/_Game/Scripts/City/CityLayout.cs" Link="CityLayout.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/City/CityHudLayout.cs" Link="CityHudLayout.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/City/CityAjustes.cs" Link="CityAjustes.cs" />
   </ItemGroup>
 </Project>

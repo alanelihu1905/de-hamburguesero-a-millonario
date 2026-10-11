@@ -16,6 +16,8 @@ namespace Tycoon3D.Editor
         private static EnterPlayModeOptions prevOptions;
         private static GameObject player;
         private static CityZoneTracker tracker;
+        private static CityHud hud;
+        private static readonly MemoriaSmoke memoria = new MemoriaSmoke();
         private static int step, frames;
         private static float stepStart, realStart;
 
@@ -51,6 +53,9 @@ namespace Tycoon3D.Editor
                 player = GameObject.Find("Jugador");
                 tracker = player != null ? player.GetComponent<CityZoneTracker>() : null;
                 Require(player != null && tracker != null, "Falta el jugador o el seguidor de zona.");
+                hud = GameObject.Find("Puerto Alba HUD") != null ? GameObject.Find("Puerto Alba HUD").GetComponent<CityHud>() : null;
+                Require(hud != null, "Falta el HUD de Puerto Alba.");
+                hud.UseStore(memoria);   // los ajustes del smoke no escriben en PlayerPrefs del usuario
                 step = 0; frames = 0;
                 EditorApplication.update += Step;
             }
@@ -87,10 +92,22 @@ namespace Tycoon3D.Editor
                 Require(tracker.Known && tracker.CurrentZone == expect.expect,
                     "Tras caminar a " + expect.label + " la zona debía ser " + (expect.expect.HasValue ? expect.expect.Value.ToString() : "calle") +
                     " y es " + (tracker.CurrentZone.HasValue ? tracker.CurrentZone.Value.ToString() : "calle"));
+                string textoEsperado = expect.expect.HasValue ? CityMap.Get(expect.expect.Value).Name : "Calle";
+                Require(hud.ZoneText == textoEsperado, "El banner dice «" + hud.ZoneText + "» y debía decir «" + textoEsperado + "».");
                 Debug.Log("PUERTO_ALBA_PASO " + expect.label + " OK");
                 step++;
                 if (step >= Path.Length)
                 {
+                    // ajustes: se limitan al rango y se aplican al jugador y a la cámara
+                    hud.ApplyAjustes(99f, 500f, 9f);
+                    var fpc = player.GetComponent<Tycoon3D.Player.FirstPersonController>();
+                    Require(hud.Ajustes.Sensibilidad == CityAjustes.SensibilidadMax && fpc.MouseSensitivity == CityAjustes.SensibilidadMax,
+                        "La sensibilidad no se limitó o no llegó al jugador.");
+                    Require(Mathf.Approximately(Camera.main.fieldOfView, CityAjustes.FovMax), "El FOV no llegó a la cámara.");
+                    Require(hud.Ajustes.EscalaTexto == CityAjustes.TextoMax, "La escala de texto no se limitó.");
+                    hud.ApplyAjustes(CityAjustes.SensibilidadPorDefecto, CityAjustes.FovPorDefecto, CityAjustes.TextoPorDefecto);
+                    Require(Mathf.Approximately(Camera.main.fieldOfView, CityAjustes.FovPorDefecto), "El FOV no volvió al valor por defecto.");
+                    Debug.Log("PUERTO_ALBA_HUD banner=" + hud.ZoneText + " ajustes=limitados");
                     Debug.Log("TYCOON_PUERTO_ALBA_SMOKE_OK: apoyo sobre el suelo y cambio de zona en Casa Marea, calle y mercado.");
                     Finish(0);
                     return;
@@ -129,5 +146,13 @@ namespace Tycoon3D.Editor
             if (code == 0) EditorApplication.ExitPlaymode();
             EditorApplication.delayCall += () => EditorApplication.Exit(code);
         }
+    }
+
+    /// <summary>Almacén en memoria para el smoke: no escribe en PlayerPrefs.</summary>
+    internal sealed class MemoriaSmoke : Tycoon3D.City.IAjustesStore
+    {
+        private readonly System.Collections.Generic.Dictionary<string, float> datos = new System.Collections.Generic.Dictionary<string, float>();
+        public bool TryGetFloat(string key, out float value) => datos.TryGetValue(key, out value);
+        public void SetFloat(string key, float value) => datos[key] = value;
     }
 }
