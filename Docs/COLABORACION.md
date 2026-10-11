@@ -47,6 +47,8 @@ Automatizaciones recomendadas: al abrir un issue entra en *Pendiente*; al abrir 
 
 ## Issues iniciales
 
+Encargos concretos por área, orden de integración y regla de la escena: [`ARRANQUE_AGENTES.md`](ARRANQUE_AGENTES.md).
+
 Están en [`tools/github/issues.tsv`](../tools/github/issues.tsv) (título, área, prioridad, tamaño, cuerpo) y se pueden crear con `tools/github/crear_issues.sh` cuando el repositorio exista y `gh` esté autenticado. Resumen:
 
 - **A — Economía y guardado:** libro de movimientos común; caja del casino con fondos y tope; protección contra dos instancias; precios y recetas como datos; reporte de ventas, dinero y resultado.

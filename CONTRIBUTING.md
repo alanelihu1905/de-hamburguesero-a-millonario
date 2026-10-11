@@ -23,7 +23,7 @@ Puedes tocar archivos de otra área solo si el issue lo pide o lo acuerdas en un
 
 ## Archivos que se pisan fácil (reglas especiales)
 
-- **Escena `BarrioResidencial.unity` y prefabs**: no se editan a mano en dos ramas a la vez. La escena se **genera** con los constructores de `Assets/Editor/` (`CasinoFoxIntegration.IntegrateAllWithCasino`). Si hay conflicto en la escena, **no lo resuelvas a mano**: toma la versión de `main`, repite el constructor y vuelve a guardar.
+- **Escena `BarrioResidencial.unity` y prefabs**: no se editan a mano en dos ramas a la vez. La escena se **genera** con los constructores de `Assets/Editor/` (`CasinoFoxIntegration.IntegrateAllWithCasino`). Si hay conflicto en la escena, **no lo resuelvas a mano**: toma la versión de `main`, repite el constructor y vuelve a guardar. Solo el área C sube la escena, en un PR propio tras fusionar los de A y B (ver [`Docs/ARRANQUE_AGENTES.md`](Docs/ARRANQUE_AGENTES.md)).
 - **`.meta`**: se suben siempre junto a su archivo y nunca se editan a mano. Un archivo sin su `.meta` rompe referencias.
 - **`Docs/PROJECT_STATE.md`, `DECISIONS.md`, `TEST_REPORT.md`**: solo se **añade** al final, bajo un encabezado con fecha y el nombre de tu área. No reescribas lo ajeno.
 - **`Packages/manifest.json`**: cambiar un paquete exige decirlo en el PR y que otra persona lo revise.
