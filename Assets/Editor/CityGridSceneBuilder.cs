@@ -48,7 +48,7 @@ namespace Tycoon3D.Editor
             Directory.CreateDirectory("Assets/_Game/Scenes");
             EditorSceneManager.SaveScene(scene, ScenePath);
             AssetDatabase.SaveAssets();
-            Debug.Log("Puerto Alba grid scene saved: 441 blocks, radius 10 blocks, 1,764 m square. Open it and press Play to generate blockout.");
+            Debug.Log("Puerto Alba grid scene saved: 441 blocks, radius 10 blocks, 1,776 m square. Open it and press Play to generate blockout.");
         }
     }
 }
