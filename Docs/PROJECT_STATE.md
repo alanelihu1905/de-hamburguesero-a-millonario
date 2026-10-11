@@ -23,3 +23,14 @@ El saldo, las ventas, el libro del casino, las fichas y una ronda pendiente sobr
 
 ## Preparación para GitHub (2026-10-10, solo local; nada publicado)
 Repositorio público compartido para tres personas con sus agentes. Preparado: `README.md` de arranque, `CONTRIBUTING.md`, `Docs/COLABORACION.md` (áreas, tablero, decisiones), plantillas de PR e issues, flujo de pruebas `dotnet`, 15 issues iniciales en `tools/github/issues.tsv` (script en simulación), `.gitignore` y `.gitattributes` reforzados. Pendiente de confirmar con el usuario: propietario, nombre, usuarios de las dos personas, licencia y si se publica la especificación. Sin commits ni remotos todavía.
+
+## Puerto Alba · Fase 1 · modelo de zonas (rama `ciudad/fase-1-modelo`, 2026-10-11)
+**Hecho y verificado**
+- `Assets/_Game/Scripts/City/CityMap.cs`: ocho zonas con nombre, propósito y lugares para negocios; nueve enlaces (avenida central y anillo secundario del plan); ruta mínima por cruces; validador con datos rotos.
+- `Tests/CitySmoke` (dotnet): **44 comprobaciones aprobadas**. Cubre validez del mapa, grafo simétrico, alcanzabilidad, casino en la zona de inicio, rutas conocidas y 10 fallos detectados a propósito (zona aislada, enlace a sí misma, duplicado, menos de 8 zonas, zona inexistente, sin nombre, sin negocios, zona de inicio cortada, sin ruta, casino fuera de inicio).
+- Unity 6000.0.84f1: `CityMap.cs` compila sin errores (`-batchmode -quit`, 0 `error CS`).
+
+**No hecho (siguientes bloques)**
+- Escena de ciudad y streaming por zonas; navegación de primera persona y cámara física; HUD, mapa y ajustes de ciudad; NPC por zona; transporte; casino en esta rama (queda para la rama de prioridad 2).
+- Ningún smoke de Play Mode nuevo: este bloque no tiene escena ni comportamiento en juego que probar todavía.
+- El barrio actual y el casino no se han modificado en este bloque.
