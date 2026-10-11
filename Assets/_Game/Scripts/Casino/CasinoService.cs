@@ -32,6 +32,7 @@ namespace Tycoon3D.Casino
 
         public event Action Started;
         public event Action<SlotRound> Revealed;
+        public event Action<MovementKind, int, MovementAccount, MovementAccount, int> MovementRecorded;
 
         public string Message { get; private set; } = "Casino FOX abierto siempre. E gira · 1-4 apuesta.";
         public SlotSymbol[] DisplayReels { get; } = { SlotSymbol.Chile, SlotSymbol.Mango, SlotSymbol.Concha };
@@ -153,9 +154,13 @@ namespace Tycoon3D.Casino
             if (wallet == null) wallet = FindFirstObjectByType<Wallet>();
             if (wallet == null) throw new InvalidOperationException("Casino sin Wallet en la escena.");
             session = new CasinoSession(random, () => wallet.Pesos, wallet.TrySpend, wallet.Earn);
+            session.MovementRecorded += OnSessionMovement;
             if (carry.HasValue) { session.Restore(carry.Value); carry = null; }
             if (profile != null) session.StateChanged += profile.MarkDirty;
         }
+
+        private void OnSessionMovement(MovementKind kind, int amount, MovementAccount from, MovementAccount to, int roundId)
+            => MovementRecorded?.Invoke(kind, amount, from, to, roundId);
 
         /// <summary>Gira en una máquina concreta (con su tabla y su ritmo). Sin máquina se usa la tabla clásica.</summary>
         public bool TrySpin(SlotMachineStation machine = null)

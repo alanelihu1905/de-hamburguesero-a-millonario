@@ -26,9 +26,11 @@ namespace Tycoon3D.Core
         private Wallet wallet;
         private BurgerLoop burger;
         private CasinoService casino;
+        private readonly MovementLedger ledger = new MovementLedger();
         private bool dirty;
 
         public SaveData Data { get; private set; } = new SaveData();
+        public MovementLedger Ledger => ledger;
         public LoadOutcome Outcome { get; private set; }
         public int Writes { get; private set; }
         public string Directory => repository != null ? repository.Directory : null;
@@ -102,6 +104,9 @@ namespace Tycoon3D.Core
             int recovered = 0;
             if (wallet != null && Data.HasProfile) wallet.Restore((int)Math.Min(int.MaxValue, Data.Pesos));
             if (burger != null && Data.HasProfile) burger.Restore((int)Data.BurgerStep, (int)Data.BurgerSales);
+            ledger.Restore(Data, wallet != null ? wallet.Pesos : 0, (int)Data.Chips);
+            if (burger != null) burger.MovementRecorded += OnBurgerMovement;
+            if (casino != null) casino.MovementRecorded += OnCasinoMovement;
             if (casino != null) recovered = casino.AttachProfile(this);
             if (wallet != null) wallet.Changed += OnWalletChanged;
             if (burger != null) burger.Changed += MarkDirty;
@@ -114,6 +119,20 @@ namespace Tycoon3D.Core
         {
             if (wallet != null) wallet.Changed -= OnWalletChanged;
             if (burger != null) burger.Changed -= MarkDirty;
+            if (burger != null) burger.MovementRecorded -= OnBurgerMovement;
+            if (casino != null) casino.MovementRecorded -= OnCasinoMovement;
+        }
+
+        private void OnBurgerMovement(MovementKind kind, int amount, MovementAccount from, MovementAccount to)
+        {
+            ledger.Record(kind, amount, from, to);
+            MarkDirty();
+        }
+
+        private void OnCasinoMovement(MovementKind kind, int amount, MovementAccount from, MovementAccount to, int roundId)
+        {
+            ledger.Record(kind, amount, from, to, roundId);
+            MarkDirty();
         }
 
         private void OnWalletChanged(int _) => MarkDirty();
@@ -143,6 +162,9 @@ namespace Tycoon3D.Core
             if (wallet != null) d.Pesos = wallet.Pesos;
             if (burger != null) { d.BurgerStep = (int)burger.Step; d.BurgerSales = burger.Sales; }
             if (casino != null && casino.Session != null) CasinoProfileMapping.Write(d, casino.Session.Snapshot());
+            ledger.Write(d);
+            if (wallet != null && casino != null && !ledger.Matches(wallet.Pesos, casino.Session.Chips))
+                Debug.LogWarning("LEDGER_MISMATCH pesos=" + wallet.Pesos + " fichas=" + casino.Session.Chips);
         }
     }
 }

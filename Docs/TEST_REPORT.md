@@ -133,3 +133,10 @@ Todo ejecutado con Unity 6.0.84f1 en modo batch y `dotnet` 8.0.419.
 - Dos instancias de la app con el mismo perfil a la vez no están protegidas.
 - La cajera no tiene turnos, salario ni caja con fondos; el audio sigue sin escucharse.
 - Solo un perfil por equipo; no hay menú para borrarlo (carpeta indicada arriba).
+
+## Libro común, perfil v2 (2026-10-10)
+- `Tests/SaveSmoke`: **474 comprobaciones aprobadas**. Nuevas pruebas: migración de perfil v1 con pesos, fichas, ventas y ronda pendiente; persistencia de tipo, monto, cuentas e ID de ronda; copia profunda; recorte a 32 movimientos sin perder saldos; rechazo de entrada incompleta o historial excesivo; canjes registrados; premio pendiente sin duplicación tras dos reinicios.
+- `Tests/CasinoSmoke`: **685 comprobaciones aprobadas**. `Tests/EconomySmoke`: **9 comprobaciones aprobadas** (compras y ventas registradas).
+- Unity 6.0.84f1 Play Mode, sin `-quit`: `TYCOON_CASINO_SMOKE_OK` y `TYCOON_SMOKE_OK`. El smoke del casino comprueba saldo del libro después de jackpot y venta, apuesta con fichas y liquidación de ronda pendiente.
+- Sin build nueva de macOS ni escucha de audio en esta rama. El casino continúa disponible desde el primer momento.
+- Corrección posterior al review de audio: canjear una ficha con el monedero a menos de $25 del máximo ya no consume la ficha ni registra una visita. El canje que llega exactamente a `int.MaxValue` sí se acredita. `SaveSmoke`: **477 comprobaciones aprobadas**; `CasinoSmoke`: **685**; `EconomySmoke`: **9**. Unity Play Mode no se repitió para este guard de límites.

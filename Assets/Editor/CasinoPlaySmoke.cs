@@ -163,11 +163,14 @@ namespace Tycoon3D.Editor
             var counter = burger.Single(s => s.name == "Punto de venta");
             ingredients.Interact(); grill.Interact(); counter.Interact();
             Require(wallet.Pesos == 1110 && loop.Sales == 1, "La venta tras el casino no dejó $1110; saldo " + wallet.Pesos);
+            Require(GameProfile.Current.Ledger.Matches(wallet.Pesos, casino.Session.Chips), "Libro común descuadrado tras jackpot y venta.");
 
             // cambiar la apuesta (Q) y giro de cortesía con saldo cero
             ((ISecondaryInteractable)first).InteractSecondary();
             Require(casino.Session.CurrentBet == 100 && first.Prompt.StartsWith("E - Girar ($100)"), "Q no cambió la apuesta.");
-            wallet.TrySpend(wallet.Pesos);
+            int drained = wallet.Pesos;
+            wallet.TrySpend(drained);
+            GameProfile.Current.Ledger.Record(MovementKind.Adjustment, drained, MovementAccount.Wallet, MovementAccount.Outside);
             Require(wallet.Pesos == 0 && casino.Session.NextSpinIsFree && first.Prompt.Contains("cortesía"),
                 "Con saldo $0 el casino debe ofrecer un giro de cortesía.");
             casino.UseRandom(new Scripted(68));                      // trío de chiles x3 sobre $25
@@ -196,6 +199,7 @@ namespace Tycoon3D.Editor
 
             casino.SetBet(0);
             wallet.Earn(925);                                                  // $1000 para el caso normal
+            profile.Ledger.Record(MovementKind.Adjustment, 925, MovementAccount.Outside, MovementAccount.Wallet);
             int worth = casino.Session.NetWorth;
             desk.Interact();
             Require(wallet.Pesos == 500 && casino.Session.Chips == 20 && casino.Session.NetWorth == worth, "Cambiar un lote debía dar 20 fichas por $500; $" + wallet.Pesos + " y " + casino.Session.Chips + " fichas.");
@@ -211,6 +215,7 @@ namespace Tycoon3D.Editor
             casino.RevealNow();
             Require(wallet.Pesos == 500 && casino.Session.Chips == 59 && casino.Session.LastPaidWithChips, "El premio debía volver en fichas (59); " + casino.Session.Chips);
             Require(casino.Session.NetWorth == worth - 25 + 1000, "El valor total no cuadra tras jugar con fichas.");
+            Require(profile.Ledger.Matches(wallet.Pesos, casino.Session.Chips), "Libro común descuadrado tras apostar con fichas.");
 
             ((ISecondaryInteractable)desk).InteractSecondary();
             Require(casino.Session.Chips == 0 && wallet.Pesos == 500 + 59 * 25, "Canjear las 59 fichas debía dar $1975; saldo " + wallet.Pesos);
@@ -247,6 +252,7 @@ namespace Tycoon3D.Editor
             Require(casino.ToastText.Contains("giro pendiente") && casino.ToastText.Contains("$1000"), "Falta el aviso de la ronda liquidada: " + casino.ToastText);
             profile.Flush();
             Require(profile.Data.PendingActive == 0 && profile.Data.Pesos == expectedPesos, "El perfil debía quedar sin ronda pendiente.");
+            Require(profile.Ledger.Matches(wallet.Pesos, casino.Session.Chips), "Libro común descuadrado tras liquidar ronda pendiente.");
             var desk = UnityEngine.Object.FindFirstObjectByType<CashierDesk>();
             Require(desk != null && desk.Cashier != null, "Tras recargar falta la ventanilla o la cajera.");
 

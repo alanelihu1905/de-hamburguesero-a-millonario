@@ -40,3 +40,8 @@
 - Fichas: 1 ficha = $25, canje sin comisión, opcional y sin bloqueo (el casino sigue abierto sin ellas). La apuesta se paga con fichas si alcanzan y, si no, con pesos; el premio vuelve en la misma moneda. Giro de cortesía solo sin pesos ni fichas.
 - Cajera: interacción mínima y visible (E cambia un lote de 20 fichas, Q canjea todo). Sin turnos ni salario hasta que exista un libro de movimientos común.
 - Los smokes de Play Mode usan un perfil temporal propio y nunca el real.
+
+## 2026-10-10 — Libro común de movimientos
+- El perfil sube a `version=2`. Guarda los últimos 32 movimientos con ID, tipo, monto en pesos, origen, destino e ID de ronda. Al recortar, conserva saldos anteriores como punto inicial para seguir auditando pesos y fichas.
+- Comprar o canjear fichas mueve valor entre monedero y fichas sin crear ni destruir dinero. Ingredientes, ventas, apuestas y premios cruzan el límite del jugador. Un giro de cortesía registra monto cero.
+- Un perfil v1 migra sus saldos de pesos y fichas al punto inicial. El historial anterior no se inventa. Una ronda pendiente se liquida una sola vez y su premio entra al libro.

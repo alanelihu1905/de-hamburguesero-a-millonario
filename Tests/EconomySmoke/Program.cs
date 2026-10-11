@@ -2,11 +2,15 @@ using System;
 using System.Reflection;
 using Tycoon3D.Economy;
 using Tycoon3D.Restaurant;
+using Tycoon3D.Save;
 
 var wallet = new Wallet();
 typeof(Wallet).GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(wallet, null);
 var loop = new BurgerLoop();
 typeof(BurgerLoop).GetField("wallet", BindingFlags.Instance | BindingFlags.NonPublic)!.SetValue(loop, wallet);
+var ledger = new MovementLedger();
+ledger.Restore(new SaveData(), wallet.Pesos, 0);
+loop.MovementRecorded += (kind, amount, from, to) => ledger.Record(kind, amount, from, to);
 
 Check(wallet.Pesos == 100, "Saldo inicial");
 loop.Sell();
@@ -26,8 +30,9 @@ loop.Cook();
 loop.Sell();
 Check(wallet.Pesos == 170 && loop.Sales == 2, "Segunda venta");
 Check(!wallet.TrySpend(-1), "Rechaza gasto negativo");
+Check(ledger.Matches(wallet.Pesos, 0) && ledger.Entries.Count == 5, "Libro registra dos compras y dos ventas");
 
-Console.WriteLine("EconomySmoke: 8 comprobaciones aprobadas.");
+Console.WriteLine("EconomySmoke: 9 comprobaciones aprobadas.");
 
 static void Check(bool condition, string description)
 {

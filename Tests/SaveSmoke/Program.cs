@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Tycoon3D.Casino;
+using Tycoon3D.Economy;
 using Tycoon3D.Save;
 
 int checks = 0;
@@ -51,7 +52,50 @@ string Forge(Dictionary<string, string> extra, int version = SaveCodec.CurrentVe
     Check(SaveCodec.TryParse(Forge(new(), version: SaveCodec.CurrentVersion + 1), out _) == ParseStatus.FutureVersion, "códec: versión futura no se interpreta");
     Check(SaveCodec.TryParse(Forge(new(), version: 0), out _) == ParseStatus.Corrupt, "códec: versión antigua sin migración = dañado, no se adivina");
     var migrations = new Dictionary<int, SaveMigration> { [0] = v => { v["chips"] = 4; v["pesos"] = v["pesos"] * 2; } };
-    Check(SaveCodec.TryParse(Forge(new(), version: 0), out var mig, migrations) == ParseStatus.Ok && mig.Chips == 4 && mig.Pesos == 100, "migración: v0 se actualiza con la migración registrada");
+    Check(SaveCodec.TryParse(Forge(new(), version: 0), out var mig, migrations) == ParseStatus.Ok && mig.Chips == 4 && mig.Pesos == 100 &&
+        mig.LedgerOpeningPesos == 100 && mig.LedgerOpeningChips == 4, "migración: v0 pasa por v1 y conserva ambos saldos");
+    Check(SaveCodec.TryParse(Forge(new() { ["chips"] = "17", ["burgerSales"] = "3", ["pendingActive"] = "1",
+        ["pendingStake"] = "25", ["pendingPayout"] = "1000" }, version: 1), out var legacy) == ParseStatus.Ok &&
+        legacy.Pesos == 50 && legacy.Chips == 17 && legacy.BurgerSales == 3 && legacy.PendingPayout == 1000 &&
+        legacy.LedgerOpeningPesos == 50 && legacy.LedgerOpeningChips == 17, "migración: perfil v1 conserva saldo, ventas, fichas y ronda pendiente");
+}
+
+// ---------------------------------------------------------------- libro común: tipos, persistencia, recorte y conservación
+{
+    var ledger = new MovementLedger();
+    var data = new SaveData { Pesos = 100 };
+    ledger.Restore(data, 100, 0);
+    Check(ledger.Matches(100, 0) && ledger.Entries.Count == 1 && ledger.Entries[0].Kind == MovementKind.Opening,
+        "libro: perfil nuevo abre con saldo inicial");
+    ledger.Record(MovementKind.Ingredients, 15, MovementAccount.Wallet, MovementAccount.Outside);
+    ledger.Record(MovementKind.Sale, 50, MovementAccount.Outside, MovementAccount.Wallet);
+    ledger.Record(MovementKind.BuyChips, 100, MovementAccount.Wallet, MovementAccount.Chips);
+    ledger.Record(MovementKind.Stake, 25, MovementAccount.Chips, MovementAccount.Casino, 7);
+    ledger.Record(MovementKind.Payout, 1000, MovementAccount.Casino, MovementAccount.Chips, 7);
+    ledger.Record(MovementKind.CashOut, 100, MovementAccount.Chips, MovementAccount.Wallet);
+    Check(ledger.Matches(135, 39) && 135 + 39 * 25 == 100 - 15 + 50 - 25 + 1000,
+        "libro: compra y canje conservan valor; apuesta y premio lo ajustan");
+    ledger.Write(data);
+    Check(SaveCodec.TryParse(SaveCodec.Serialize(data), out var loaded) == ParseStatus.Ok && loaded.LedgerEntries.Length == 7,
+        "libro: todos los tipos persisten en v2");
+    var again = new MovementLedger(); again.Restore(loaded, 135, 39);
+    Check(again.Matches(135, 39) && again.Entries[4].RoundId == 7 && again.Sequence == ledger.Sequence,
+        "libro: reinicio conserva saldo, orden e ID de ronda");
+    loaded.LedgerEntries[0] = default;
+    Check(data.LedgerEntries[0].Id == 1, "libro: copia de datos no comparte entradas");
+    var clone = data.Clone(); clone.LedgerEntries[0] = default;
+    Check(data.LedgerEntries[0].Id == 1, "libro: Clone copia el historial");
+    for (int i = 0; i < 50; i++) ledger.Record(MovementKind.Courtesy, 0, MovementAccount.Wallet, MovementAccount.Casino, i + 8);
+    Check(ledger.Entries.Count == MovementLedger.Capacity && ledger.Matches(135, 39) && ledger.Sequence == 57,
+        "libro: recorte a 32 conserva saldos e IDs");
+    ledger.Write(data);
+    Check(SaveCodec.TryParse(SaveCodec.Serialize(data), out var capped) == ParseStatus.Ok, "libro: historial recortado se carga");
+    again.Restore(capped, 135, 39);
+    Check(again.Matches(135, 39), "libro: saldos auditables tras recorte y reinicio");
+    Check(SaveCodec.TryParse(Forge(new() { ["ledgerCount"] = "33" }), out _) == ParseStatus.Corrupt,
+        "libro: rechaza historial sobre límite");
+    Check(SaveCodec.TryParse(Forge(new() { ["ledgerCount"] = "1" }), out _) == ParseStatus.Corrupt,
+        "libro: rechaza entrada incompleta");
 }
 
 // ---------------------------------------------------------------- repositorio y recuperación
@@ -119,6 +163,8 @@ CasinoSession NewSession(Func<int> pesos, Func<int, bool> spend, Action<int> ear
 {
     int pesos = 1000;
     var s = NewSession(() => pesos, v => { if (pesos < v) return false; pesos -= v; return true; }, v => pesos += v);
+    var ledger = new MovementLedger(); ledger.Restore(new SaveData(), pesos, 0);
+    s.MovementRecorded += (kind, amount, from, to, round) => ledger.Record(kind, amount, from, to, round);
     int worth = s.NetWorth;
     Check(s.BuyChips(20) && pesos == 500 && s.Chips == 20 && s.NetWorth == worth, "fichas: comprar 20 cuesta $500 y el valor total no cambia");
     Check(s.CashOutChips(20) == 500 && pesos == 1000 && s.Chips == 0 && s.NetWorth == worth, "fichas: canjear devuelve exactamente los pesos (sin comisión)");
@@ -128,6 +174,20 @@ CasinoSession NewSession(Func<int> pesos, Func<int, bool> spend, Action<int> ear
     s.BuyChips(4);
     Check(s.CashOutChips(5) == 0 && s.Chips == 4, "fichas: no se canjea más de lo que se tiene");
     Check(s.ChipsBought == 24 && s.ChipsCashed == 20 && s.CashierVisits == 3, "fichas: el libro cuenta compradas, canjeadas y visitas");
+    Check(ledger.Matches(pesos, s.Chips) && ledger.Entries.Count == 4, "libro común: la cajera registra solo canjes completados");
+}
+{
+    int pesos = 25;
+    var s = NewSession(() => pesos, v => { if (pesos < v) return false; pesos -= v; return true; },
+        v => { if (pesos <= int.MaxValue - v) pesos += v; });
+    Check(s.BuyChips(1), "cajera: prepara una ficha para probar el límite del monedero");
+    int visits = s.CashierVisits;
+    pesos = int.MaxValue - 24;
+    Check(s.CashOutChips(1) == 0 && s.Chips == 1 && pesos == int.MaxValue - 24 && s.CashierVisits == visits,
+        "cajera: saldo al límite no consume ficha ni registra visita");
+    pesos = int.MaxValue - 25;
+    Check(s.CashOutChips(1) == 25 && s.Chips == 0 && pesos == int.MaxValue,
+        "cajera: canje exacto hasta el máximo acredita los pesos");
 }
 {
     // la apuesta se paga con fichas si alcanzan, el premio vuelve en fichas, y el jackpot de $25 deja 40 fichas
@@ -165,15 +225,22 @@ CasinoSession NewSession(Func<int> pesos, Func<int, bool> spend, Action<int> ear
 
     int pesos2 = (int)fromDisk.Pesos;                                // otra sesión tras el reinicio
     var s2 = NewSession(() => pesos2, v => { pesos2 -= v; return true; }, v => pesos2 += v, 0);
+    var ledger = new MovementLedger(); ledger.Restore(fromDisk, pesos2, 0);
+    s2.MovementRecorded += (kind, amount, from, to, id) => ledger.Record(kind, amount, from, to, id);
     int recovered = s2.Restore(CasinoProfileMapping.Read(fromDisk));
     Check(recovered == 1000 && pesos2 == 1075 && !s2.Busy, "pendiente: al volver se acredita el premio una sola vez ($1075)");
+    Check(ledger.Matches(1075, 0) && ledger.Entries.Count == 2 && ledger.Entries[1].Kind == MovementKind.Payout,
+        "pendiente: el libro común registra el premio recuperado una vez");
     Check(s2.TotalSpins == 1 && s2.TotalWon == 1000 && s2.TotalWagered == 25 && s2.RoundsStarted == 1, "pendiente: el libro queda coherente tras la liquidación");
     var snap2 = s2.Snapshot();
     Check(!snap2.PendingActive, "pendiente: la liquidación limpia la ronda pendiente");
-    var data2 = new SaveData { Pesos = pesos2 }; CasinoProfileMapping.Write(data2, snap2);
+    var data2 = new SaveData { Pesos = pesos2 }; CasinoProfileMapping.Write(data2, snap2); ledger.Write(data2);
     int pesos3 = (int)data2.Pesos;
     var s3 = NewSession(() => pesos3, v => true, v => pesos3 += v, 0);
+    var ledger3 = new MovementLedger(); ledger3.Restore(data2, pesos3, 0);
+    s3.MovementRecorded += (kind, amount, from, to, id) => ledger3.Record(kind, amount, from, to, id);
     Check(s3.Restore(CasinoProfileMapping.Read(data2)) == 0 && pesos3 == 1075, "pendiente: un segundo reinicio no paga otra vez");
+    Check(ledger3.Entries.Count == 2 && ledger3.Matches(1075, 0), "pendiente: un segundo reinicio no duplica el premio en el libro");
     Check(Throws(() => s3.Complete()), "pendiente: Complete sin ronda sigue fallando");
 }
 {
@@ -245,4 +312,3 @@ sealed class Roll : IRandomSource
     public Roll(int tier) { this.tier = tier; }
     public int Next(int max) => max == 100 ? Math.Min(tier, 99) : (calls++ * 7 + 3) % max;
 }
-
