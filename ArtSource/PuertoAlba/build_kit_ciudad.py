@@ -396,6 +396,8 @@ def stat(obj):
         "dentro_de_presupuesto": tris <= budget,
         "dimensiones_XxYxZ_m": [round(x1 - x0, 3), round(y1 - y0, 3), round(z1 - z0, 3)],
         "centro_huella_xy": [round((x0 + x1) / 2, 4), round((y0 + y1) / 2, 4)],
+        "bbox_min_XYZ_m": [round(x0, 4), round(y0, 4), round(z0, 4)],
+        "bbox_max_XYZ_m": [round(x1, 4), round(y1, 4), round(z1, 4)],
         "base_z": round(z0, 4),
         "materiales": sorted({s.material.name for s in obj.material_slots if s.material}),
     }

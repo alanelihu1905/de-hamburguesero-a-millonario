@@ -9,6 +9,16 @@
     ],
     "base_z": 0.0,
     "pivote_correcto": true,
+    "bbox_min_XYZ_m": [
+      -5.3,
+      -4.3,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      5.3,
+      4.3,
+      9.4
+    ],
     "materiales": [
       "M_Cornisa",
       "M_Letrero_Fondo",
@@ -30,6 +40,16 @@
     ],
     "base_z": 0.0,
     "pivote_correcto": true,
+    "bbox_min_XYZ_m": [
+      -7.05,
+      -3.2,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      7.05,
+      3.2,
+      9.6
+    ],
     "materiales": [
       "M_Cornisa",
       "M_Metal_Oscuro",
@@ -48,6 +68,16 @@
     ],
     "base_z": 0.0,
     "pivote_correcto": true,
+    "bbox_min_XYZ_m": [
+      -3.1,
+      -2.125,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      3.1,
+      1.88,
+      3.11
+    ],
     "materiales": [
       "M_Madera",
       "M_Metal_Oscuro",
@@ -66,6 +96,16 @@
     ],
     "base_z": 0.0,
     "pivote_correcto": true,
+    "bbox_min_XYZ_m": [
+      -4.2,
+      -3.2,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      4.2,
+      3.2,
+      7.5
+    ],
     "materiales": [
       "M_Letrero_Fondo",
       "M_Letrero_Texto",
@@ -85,6 +125,16 @@
     ],
     "base_z": 0.0,
     "pivote_correcto": true,
+    "bbox_min_XYZ_m": [
+      -2.3,
+      -3.15,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      2.3,
+      2.3,
+      4.0
+    ],
     "materiales": [
       "M_Madera",
       "M_Muro_Base",
@@ -104,6 +154,16 @@
     ],
     "base_z": 0.0,
     "pivote_correcto": true,
+    "bbox_min_XYZ_m": [
+      -4.0,
+      -5.0,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      4.0,
+      4.0,
+      28.3
+    ],
     "materiales": [
       "M_Cornisa",
       "M_Muro_Base",

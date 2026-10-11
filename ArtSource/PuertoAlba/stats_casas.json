@@ -1,0 +1,100 @@
+{
+  "SM_Casa_Colonial": {
+    "triangulos": 1178,
+    "presupuesto_triangulos": 2500,
+    "dimensiones_XxYxZ_m": [
+      8.6,
+      10.5,
+      9.62
+    ],
+    "bbox_min_XYZ_m": [
+      -4.3,
+      -6.7,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      4.3,
+      3.8,
+      9.62
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Cornisa",
+      "M_Ladrillo",
+      "M_Madera",
+      "M_Marco",
+      "M_Muro_Base",
+      "M_Puerta",
+      "M_Tejado",
+      "M_Vidrio",
+      "M_Zocalo"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/Casas/SM_Casa_Colonial.fbx"
+  },
+  "SM_Casa_Moderna": {
+    "triangulos": 436,
+    "presupuesto_triangulos": 2500,
+    "dimensiones_XxYxZ_m": [
+      7.2,
+      10.73,
+      7.3
+    ],
+    "bbox_min_XYZ_m": [
+      -3.6,
+      -6.63,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      3.6,
+      4.1,
+      7.3
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Cornisa",
+      "M_Madera",
+      "M_Marco",
+      "M_Metal_Oscuro",
+      "M_Muro_Base",
+      "M_Puerta",
+      "M_Vidrio",
+      "M_Zocalo"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/Casas/SM_Casa_Moderna.fbx"
+  },
+  "SM_Casa_Cabana": {
+    "triangulos": 756,
+    "presupuesto_triangulos": 2500,
+    "dimensiones_XxYxZ_m": [
+      5.6,
+      9.575,
+      6.5
+    ],
+    "bbox_min_XYZ_m": [
+      -2.8,
+      -5.675,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      2.8,
+      3.9,
+      6.5
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Cornisa",
+      "M_Ladrillo",
+      "M_Madera",
+      "M_Marco",
+      "M_Muro_Base",
+      "M_Puerta",
+      "M_Tejado",
+      "M_Vidrio",
+      "M_Zocalo"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/Casas/SM_Casa_Cabana.fbx"
+  }
+}

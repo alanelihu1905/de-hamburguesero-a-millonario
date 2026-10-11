@@ -297,6 +297,7 @@ def main():
         stats[nombre] = {
             "triangulos": tris, "presupuesto_triangulos": budget, "dimensiones_XxYxZ_m": list(dims),
             "base_z": round(z0, 4), "pivote_correcto": abs(z0) < 1e-4 and abs((x0 + x1) / 2) < 1e-3,
+            "bbox_min_XYZ_m": [round(x0, 4), round(y0, 4), round(z0, 4)], "bbox_max_XYZ_m": [round(x1, 4), round(y1, 4), round(z1, 4)],
             "materiales": sorted({s.material.name for s in obj.material_slots if s.material}),
             "fbx": os.path.relpath(export_fbx(obj), PROJECT),
         }

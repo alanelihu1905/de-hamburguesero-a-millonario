@@ -12,6 +12,16 @@
       0.0,
       0.0
     ],
+    "bbox_min_XYZ_m": [
+      -2.1,
+      -0.26,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      2.1,
+      0.26,
+      3.38
+    ],
     "base_z": 0.0,
     "materiales": [
       "M_Cornisa",
@@ -36,6 +46,16 @@
     "centro_huella_xy": [
       0.0,
       -0.12
+    ],
+    "bbox_min_XYZ_m": [
+      -2.1,
+      -0.5,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      2.1,
+      0.26,
+      3.38
     ],
     "base_z": 0.0,
     "materiales": [
@@ -63,6 +83,16 @@
       0.0,
       -0.43
     ],
+    "bbox_min_XYZ_m": [
+      -0.85,
+      -0.72,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      0.85,
+      -0.14,
+      2.65
+    ],
     "base_z": 0.0,
     "materiales": [
       "M_Cornisa",
@@ -85,6 +115,16 @@
     "centro_huella_xy": [
       0.0,
       -0.425
+    ],
+    "bbox_min_XYZ_m": [
+      -3.1,
+      -2.9,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      3.1,
+      2.05,
+      4.45
     ],
     "base_z": 0.0,
     "materiales": [
@@ -114,6 +154,16 @@
       0.0,
       0.0
     ],
+    "bbox_min_XYZ_m": [
+      -6.0,
+      -4.0,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      6.0,
+      4.0,
+      5.5
+    ],
     "base_z": 0.0,
     "materiales": [
       "M_Marquesina",
@@ -134,6 +184,16 @@
     "centro_huella_xy": [
       0.0,
       0.0
+    ],
+    "bbox_min_XYZ_m": [
+      -0.8,
+      -0.5,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      0.8,
+      0.5,
+      1.55
     ],
     "base_z": 0.0,
     "materiales": [
@@ -159,6 +219,16 @@
       0.0,
       0.0
     ],
+    "bbox_min_XYZ_m": [
+      -1.65,
+      -1.4,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      1.65,
+      1.4,
+      3.0
+    ],
     "base_z": 0.0,
     "materiales": [
       "M_Marco",
@@ -182,6 +252,16 @@
       0.0,
       0.0
     ],
+    "bbox_min_XYZ_m": [
+      -1.2,
+      -0.1,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      1.2,
+      0.1,
+      4.2
+    ],
     "base_z": 0.0,
     "materiales": [
       "M_Letrero_Fondo",
@@ -203,6 +283,16 @@
     "centro_huella_xy": [
       0.0,
       -0.375
+    ],
+    "bbox_min_XYZ_m": [
+      -2.65,
+      -3.9,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      2.65,
+      3.15,
+      6.45
     ],
     "base_z": 0.0,
     "materiales": [
@@ -230,6 +320,16 @@
     "centro_huella_xy": [
       0.0,
       -0.235
+    ],
+    "bbox_min_XYZ_m": [
+      -6.0,
+      -2.47,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      6.0,
+      2.0,
+      10.3
     ],
     "base_z": 0.0,
     "materiales": [
