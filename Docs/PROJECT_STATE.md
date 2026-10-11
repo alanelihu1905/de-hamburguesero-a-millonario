@@ -21,5 +21,10 @@ Verificado en la app: HUD a 1600×900 y pantalla completa, jackpot y giro de cor
 ## Tanda 5 (2026-10-10): persistencia, fichas, cajera
 El saldo, las ventas, el libro del casino, las fichas y una ronda pendiente sobreviven a cerrar y reabrir la app y a R. Cajera funcional en el casino. 5 lanzamientos reales probados. Smokes con marcador y build macOS 110 291 303 bytes. Siguiente: caja con fondos, libro de movimientos común, preparar el repositorio para tres colaboradores (ver `CONTRIBUTING.md` cuando exista).
 
-## Preparación para GitHub (2026-10-10, solo local; nada publicado)
-Repositorio público compartido para tres personas con sus agentes. Preparado: `README.md` de arranque, `CONTRIBUTING.md`, `Docs/COLABORACION.md` (áreas, tablero, decisiones), plantillas de PR e issues, flujo de pruebas `dotnet`, 15 issues iniciales en `tools/github/issues.tsv` (script en simulación), `.gitignore` y `.gitattributes` reforzados. Pendiente de confirmar con el usuario: propietario, nombre, usuarios de las dos personas, licencia y si se publica la especificación. Sin commits ni remotos todavía.
+## Preparación para GitHub (2026-10-10, histórico)
+Se prepararon `README.md`, `CONTRIBUTING.md`, `Docs/COLABORACION.md`, plantillas, flujo `dotnet`, 15 issues y reglas de Git LFS. El estado publicado figura abajo. Siguen pendientes los usuarios de los dos colaboradores y la licencia.
+
+## Colaboración pública y libro común (2026-10-10)
+Repositorio público: `https://github.com/alanelihu1905/de-hamburguesero-a-millonario`. GitHub CI pasó; 15 issues abiertas. Los usuarios de los dos colaboradores aún faltan. La automatización que asignaba tareas a Claude quedó pausada por instrucción del usuario; Codex implementa y dirige ahora.
+
+Rama `codex/libro-movimientos`: libro común de 32 movimientos con migración v1→v2, saldo auditable y premio de ronda pendiente registrado una sola vez. `SaveSmoke` 472, `CasinoSmoke` 685 y `EconomySmoke` 9 comprobaciones. Play Mode: `TYCOON_CASINO_SMOKE_OK` y `TYCOON_SMOKE_OK`. Pendiente: publicar PR y fusionar tras revisión; build macOS actual aún no regenerada.

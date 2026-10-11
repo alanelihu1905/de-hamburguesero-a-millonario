@@ -1,4 +1,5 @@
 using System;
+using Tycoon3D.Economy;
 
 namespace Tycoon3D.Casino
 {
@@ -35,6 +36,7 @@ namespace Tycoon3D.Casino
 
         /// <summary>Se dispara cuando cambia algo que debe guardarse (apuesta aceptada, liquidación, canje de fichas).</summary>
         public event Action StateChanged;
+        public event Action<MovementKind, int, MovementAccount, MovementAccount, int> MovementRecorded;
 
         public int BetIndex { get; private set; }
         public int CurrentBet => BetTiers[BetIndex];
@@ -89,6 +91,7 @@ namespace Tycoon3D.Casino
             Chips += count;
             ChipsBought += count;
             CashierVisits++;
+            MovementRecorded?.Invoke(MovementKind.BuyChips, (int)cost, MovementAccount.Wallet, MovementAccount.Chips, 0);
             StateChanged?.Invoke();
             return true;
         }
@@ -102,6 +105,7 @@ namespace Tycoon3D.Casino
             ChipsCashed += count;
             CashierVisits++;
             earn(pesos);
+            MovementRecorded?.Invoke(MovementKind.CashOut, pesos, MovementAccount.Chips, MovementAccount.Wallet, 0);
             StateChanged?.Invoke();
             return pesos;
         }
@@ -141,6 +145,9 @@ namespace Tycoon3D.Casino
             pendingWithChips = withChips;
             RoundsStarted++;
             if (round.FreeSpin) FreeSpins++; else TotalWagered += round.Stake;
+            MovementRecorded?.Invoke(round.FreeSpin ? MovementKind.Courtesy : MovementKind.Stake,
+                round.FreeSpin ? 0 : round.Stake, withChips ? MovementAccount.Chips : MovementAccount.Wallet,
+                MovementAccount.Casino, RoundsStarted);
             StateChanged?.Invoke();
             return status;
         }
@@ -154,6 +161,8 @@ namespace Tycoon3D.Casino
             hasPending = false;
             pendingWithChips = false;
             Settle(round.Payout, withChips && !round.FreeSpin);
+            if (round.Payout > 0) MovementRecorded?.Invoke(MovementKind.Payout, round.Payout, MovementAccount.Casino,
+                withChips && !round.FreeSpin ? MovementAccount.Chips : MovementAccount.Wallet, RoundsStarted);
             LastRound = round;
             LastPaidWithChips = withChips && !round.FreeSpin;
             StateChanged?.Invoke();
@@ -205,6 +214,8 @@ namespace Tycoon3D.Casino
             {
                 recovered = Math.Max(0, s.PendingPayout);
                 Settle(recovered, s.PendingChips && !s.PendingFree);
+                if (recovered > 0) MovementRecorded?.Invoke(MovementKind.Payout, recovered, MovementAccount.Casino,
+                    s.PendingChips && !s.PendingFree ? MovementAccount.Chips : MovementAccount.Wallet, s.PendingRoundId);
                 StateChanged?.Invoke();
             }
             return recovered;

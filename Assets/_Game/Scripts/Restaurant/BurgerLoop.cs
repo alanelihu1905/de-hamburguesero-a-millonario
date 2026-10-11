@@ -16,6 +16,7 @@ namespace Tycoon3D.Restaurant
         public int Sales { get; private set; }
         /// <summary>Se dispara cuando cambia el paso o las ventas (para guardar el perfil).</summary>
         public event Action Changed;
+        public event Action<MovementKind, int, MovementAccount, MovementAccount> MovementRecorded;
 
         public bool CanBuyIngredients => wallet != null && wallet.Pesos >= ingredientCost;
         public string Message { get; private set; } = "Compra ingredientes para empezar.";
@@ -39,6 +40,7 @@ namespace Tycoon3D.Restaurant
         {
             if (Step != BurgerStep.NeedIngredients) { Message = "Termina la hamburguesa actual."; return; }
             if (wallet == null || !wallet.TrySpend(ingredientCost)) { Message = "No tienes dinero suficiente."; return; }
+            MovementRecorded?.Invoke(MovementKind.Ingredients, ingredientCost, MovementAccount.Wallet, MovementAccount.Outside);
             Step = BurgerStep.NeedCooking;
             Message = "Ingredientes comprados. Usa la parrilla.";
             Changed?.Invoke();
@@ -57,6 +59,7 @@ namespace Tycoon3D.Restaurant
             if (Step != BurgerStep.ReadyToSell) { Message = "Prepara una hamburguesa primero."; return; }
             if (wallet == null) { Message = "Falta el monedero de la escena."; return; }
             wallet.Earn(salePrice);
+            MovementRecorded?.Invoke(MovementKind.Sale, salePrice, MovementAccount.Outside, MovementAccount.Wallet);
             Sales++;
             Step = BurgerStep.NeedIngredients;
             Message = "¡Venta completada! +$" + salePrice + ". Compra más ingredientes.";

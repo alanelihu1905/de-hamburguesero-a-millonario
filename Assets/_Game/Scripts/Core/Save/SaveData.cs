@@ -1,3 +1,5 @@
+using Tycoon3D.Economy;
+
 namespace Tycoon3D.Save
 {
     /// <summary>
@@ -34,8 +36,19 @@ namespace Tycoon3D.Save
         public long PendingChips;
         public long PendingRoundId;
 
+        // libro común: últimos movimientos y saldos anteriores al historial recortado
+        public long LedgerSequence;
+        public long LedgerOpeningPesos;
+        public long LedgerOpeningChips;
+        public Movement[] LedgerEntries = new Movement[0];
+
         public bool HasProfile => Pesos >= 0;
 
-        public SaveData Clone() => (SaveData)MemberwiseClone();
+        public SaveData Clone()
+        {
+            var copy = (SaveData)MemberwiseClone();
+            copy.LedgerEntries = (Movement[])LedgerEntries.Clone();
+            return copy;
+        }
     }
 }

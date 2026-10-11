@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using Tycoon3D.Economy;
 
 namespace Tycoon3D.Save
 {
@@ -16,7 +17,7 @@ namespace Tycoon3D.Save
     /// </summary>
     public static class SaveCodec
     {
-        public const int CurrentVersion = 1;
+        public const int CurrentVersion = 2;
         public const string Header = "TYCOON3D-SAVE";
 
         private struct Field
@@ -52,13 +53,26 @@ namespace Tycoon3D.Save
             F("pendingFree", d => d.PendingFree, (d, v) => d.PendingFree = v, 0, 1),
             F("pendingChips", d => d.PendingChips, (d, v) => d.PendingChips = v, 0, 1),
             F("pendingRoundId", d => d.PendingRoundId, (d, v) => d.PendingRoundId = v, 0, Big),
+            F("ledgerSequence", d => d.LedgerSequence, (d, v) => d.LedgerSequence = v, 0, Big),
+            F("ledgerOpeningPesos", d => d.LedgerOpeningPesos, (d, v) => d.LedgerOpeningPesos = v, -Big, Big),
+            F("ledgerOpeningChips", d => d.LedgerOpeningChips, (d, v) => d.LedgerOpeningChips = v, -Big, Big),
         };
 
         private static Field F(string key, Func<SaveData, long> get, Action<SaveData, long> set, long min, long max)
             => new Field { Key = key, Get = get, Set = set, Min = min, Max = max };
 
-        /// <summary>Migraciones por versión de origen (de N a N+1). Vacío mientras solo exista la versión 1.</summary>
-        public static readonly Dictionary<int, SaveMigration> Migrations = new Dictionary<int, SaveMigration>();
+        /// <summary>v1 conserva saldos como punto inicial; el historial anterior no se puede reconstruir.</summary>
+        public static readonly Dictionary<int, SaveMigration> Migrations = new Dictionary<int, SaveMigration>
+        {
+            [1] = values =>
+            {
+                long pesos = values.TryGetValue("pesos", out long p) ? p : -1;
+                long chips = values.TryGetValue("chips", out long c) ? c : 0;
+                values["ledgerOpeningPesos"] = Math.Max(0, pesos);
+                values["ledgerOpeningChips"] = Math.Max(0, chips);
+                values["ledgerCount"] = 0;
+            }
+        };
 
         public static string Serialize(SaveData data)
         {
@@ -67,6 +81,19 @@ namespace Tycoon3D.Save
             body.Append("version=").Append(CurrentVersion.ToString(CultureInfo.InvariantCulture)).Append('\n');
             foreach (var f in Fields)
                 body.Append(f.Key).Append('=').Append(f.Get(data).ToString(CultureInfo.InvariantCulture)).Append('\n');
+            var entries = data.LedgerEntries ?? new Movement[0];
+            if (entries.Length > MovementLedger.Capacity) throw new ArgumentException("Libro demasiado largo.");
+            body.Append("ledgerCount=").Append(entries.Length).Append('\n');
+            for (int i = 0; i < entries.Length; i++)
+            {
+                string key = "ledger" + i.ToString(CultureInfo.InvariantCulture);
+                Append(body, key + "Id", entries[i].Id);
+                Append(body, key + "Kind", (int)entries[i].Kind);
+                Append(body, key + "Amount", entries[i].Amount);
+                Append(body, key + "From", (int)entries[i].From);
+                Append(body, key + "To", (int)entries[i].To);
+                Append(body, key + "Round", entries[i].RoundId);
+            }
             string text = body.ToString();
             return text + "checksum=" + Checksum(text).ToString("x8", CultureInfo.InvariantCulture) + "\n";
         }
@@ -101,7 +128,7 @@ namespace Tycoon3D.Save
             var steps = migrations ?? Migrations;
             while (version < CurrentVersion)
             {
-                if (!steps.TryGetValue((int)version, out var migrate)) return ParseStatus.Corrupt;
+                if (!steps.TryGetValue((int)version, out var migrate) && !Migrations.TryGetValue((int)version, out migrate)) return ParseStatus.Corrupt;
                 migrate(values);
                 version++;
             }
@@ -114,6 +141,27 @@ namespace Tycoon3D.Save
                 f.Set(result, v);
             }
             if (result.PendingActive == 1 && result.PendingStake <= 0) return ParseStatus.Corrupt;
+            if (!values.TryGetValue("ledgerCount", out long count)) count = 0;
+            if (count < 0 || count > MovementLedger.Capacity) return ParseStatus.Corrupt;
+            var entries = new Movement[(int)count];
+            long previous = 0;
+            for (int i = 0; i < entries.Length; i++)
+            {
+                string key = "ledger" + i.ToString(CultureInfo.InvariantCulture);
+                if (!Read(values, key + "Id", 1, Big, out long id) || id <= previous ||
+                    !Read(values, key + "Kind", 0, (int)MovementKind.Adjustment, out long kind) ||
+                    !Read(values, key + "Amount", 0, int.MaxValue, out long amount) ||
+                    !Read(values, key + "From", 0, (int)MovementAccount.Casino, out long from) ||
+                    !Read(values, key + "To", 0, (int)MovementAccount.Casino, out long to) ||
+                    !Read(values, key + "Round", 0, int.MaxValue, out long round) || from == to ||
+                    ((from == (int)MovementAccount.Chips || to == (int)MovementAccount.Chips) && amount % 25 != 0))
+                    return ParseStatus.Corrupt;
+                entries[i] = new Movement { Id = id, Kind = (MovementKind)kind, Amount = (int)amount,
+                    From = (MovementAccount)from, To = (MovementAccount)to, RoundId = (int)round };
+                previous = id;
+            }
+            if (result.LedgerSequence < previous) return ParseStatus.Corrupt;
+            result.LedgerEntries = entries;
             data = result;
             return ParseStatus.Ok;
         }
@@ -124,5 +172,11 @@ namespace Tycoon3D.Save
             foreach (char c in text) { hash ^= c; hash *= 16777619; }
             return hash;
         }
+
+        private static void Append(StringBuilder body, string key, long value)
+            => body.Append(key).Append('=').Append(value.ToString(CultureInfo.InvariantCulture)).Append('\n');
+
+        private static bool Read(Dictionary<string, long> values, string key, long min, long max, out long value)
+            => values.TryGetValue(key, out value) && value >= min && value <= max;
     }
 }
