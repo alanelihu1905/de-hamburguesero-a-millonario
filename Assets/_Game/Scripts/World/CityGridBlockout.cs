@@ -586,7 +586,10 @@ namespace Tycoon3D.World
             visitor.name = "Visitante de la casa";
             visitor.transform.position = transform.position + transform.forward * -1.2f + Vector3.up * .9f;
             var renderer = visitor.GetComponent<Renderer>();
-            renderer.material.color = new Color(.2f, .55f, .72f);
+            var block = new MaterialPropertyBlock();
+            renderer.GetPropertyBlock(block);
+            block.SetColor("_BaseColor", new Color(.2f, .55f, .72f));
+            renderer.SetPropertyBlock(block);
         }
     }
 }

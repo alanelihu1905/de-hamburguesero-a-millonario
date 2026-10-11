@@ -46,3 +46,11 @@ Repositorio público compartido para tres personas con sus agentes. Preparado: `
 - Blockout de primitivas y menú de editor para escena separada `PuertoAlba_Grid`.
 - `dotnet run --project Tests/CitySmoke`: pasan 66 comprobaciones.
 - Unity Play Mode aún pendiente. Render, colisión e interacción de puertas requieren marcador real.
+
+## Codex (área C) — cierre del smoke de Puerto Alba (2026-10-11)
+
+- `CityGridPlaySmoke` ahora conserva/restaura las opciones de Play Mode, desactiva Domain Reload durante el smoke y cierra Unity con código de salida al correr en batch; el uso desde Editor normal solo sale de Play Mode.
+- `DoorVisitorSpawner` aplica el azul al visitante con `MaterialPropertyBlock`, sin instanciar material.
+- Escena reproducible: `Assets/_Game/Scenes/PuertoAlba_Grid.unity`.
+- Unity 6000.0.84f1, sin `-quit`: `TYCOON_PUERTO_ALBA_GRID_SMOKE_OK blocks=441 radiusBlocks=10 zones=8 casino=1 gasStations=2 towers=2 transit=1 cargo=3 traffic=16 doors=75 objects=2374`.
+- `dotnet run --project Tests/CitySmoke`: 72 comprobaciones aprobadas. La ciudad aún genera 2,374 objetos en `Start`; optimización de agrupado/batching queda pendiente. No es arte final.

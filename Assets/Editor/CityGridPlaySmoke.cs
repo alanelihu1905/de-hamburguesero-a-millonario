@@ -12,6 +12,9 @@ namespace Tycoon3D.Editor
     {
         private const string ScenePath = "Assets/_Game/Scenes/PuertoAlba_Grid.unity";
         private static double deadline;
+        private static bool previousPlayModeOptionsEnabled;
+        private static EnterPlayModeOptions previousPlayModeOptions;
+        private static bool hasPreviousPlayModeOptions;
 
         [MenuItem("Tools/Tycoon3D/Run Puerto Alba Grid Play Smoke")]
         public static void Run()
@@ -19,6 +22,11 @@ namespace Tycoon3D.Editor
             try
             {
                 EditorSceneManager.OpenScene(ScenePath);
+                previousPlayModeOptionsEnabled = EditorSettings.enterPlayModeOptionsEnabled;
+                previousPlayModeOptions = EditorSettings.enterPlayModeOptions;
+                hasPreviousPlayModeOptions = true;
+                EditorSettings.enterPlayModeOptionsEnabled = true;
+                EditorSettings.enterPlayModeOptions = EnterPlayModeOptions.DisableDomainReload;
                 deadline = EditorApplication.timeSinceStartup + 30;
                 EditorApplication.playModeStateChanged += OnPlayModeChanged;
                 EditorApplication.EnterPlaymode();
@@ -76,19 +84,37 @@ namespace Tycoon3D.Editor
                 if (!door.Prompt.StartsWith("E")) throw new InvalidOperationException("La puerta no presenta acción E.");
                 door.Interact();
                 if (!door.Prompt.Contains("Despedir")) throw new InvalidOperationException("La puerta no genera visitante.");
+                var visitor = GameObject.Find("Visitante de la casa");
+                var visitorRenderer = visitor != null ? visitor.GetComponent<Renderer>() : null;
+                if (visitorRenderer == null) throw new InvalidOperationException("Falta el visitante visual de la puerta.");
+                var visitorBlock = new MaterialPropertyBlock();
+                visitorRenderer.GetPropertyBlock(visitorBlock);
+                if (visitorBlock.GetColor("_BaseColor") != new Color(.2f, .55f, .72f))
+                    throw new InvalidOperationException("El visitante no tiene el color azul configurado sin instanciar material.");
                 door.Interact();
                 if (!door.Prompt.Contains("Tocar")) throw new InvalidOperationException("La puerta no retira visitante.");
 
                 Debug.Log($"TYCOON_PUERTO_ALBA_GRID_SMOKE_OK blocks=441 radiusBlocks=10 zones=8 casino=1 gasStations=2 towers=2 transit=1 cargo=3 traffic=16 doors={doors.Length} objects={city.transform.childCount}");
-                EditorApplication.ExitPlaymode();
+                Finish(0);
             }
             catch (Exception exception) { Fail(exception); }
         }
 
         private static void Fail(Exception exception)
         {
-            Cleanup();
             Debug.LogException(exception);
+            Finish(1);
+        }
+
+        private static void Finish(int exitCode)
+        {
+            Cleanup();
+            if (Application.isBatchMode)
+            {
+                EditorApplication.delayCall += () => EditorApplication.Exit(exitCode);
+                return;
+            }
+
             if (EditorApplication.isPlaying) EditorApplication.ExitPlaymode();
         }
 
@@ -96,6 +122,10 @@ namespace Tycoon3D.Editor
         {
             EditorApplication.update -= WaitForCity;
             EditorApplication.playModeStateChanged -= OnPlayModeChanged;
+            if (!hasPreviousPlayModeOptions) return;
+            EditorSettings.enterPlayModeOptions = previousPlayModeOptions;
+            EditorSettings.enterPlayModeOptionsEnabled = previousPlayModeOptionsEnabled;
+            hasPreviousPlayModeOptions = false;
         }
     }
 }
