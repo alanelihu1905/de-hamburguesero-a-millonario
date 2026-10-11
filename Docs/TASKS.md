@@ -16,14 +16,14 @@
 - [ ] Comprobar manualmente E con puntero en Game View.
 - [ ] Integrar fachada exterior Casa Marea cuando Claude entregue el modelo.
 - [ ] Integrar props del barrio cuando Claude entregue el siguiente paquete.
-- [ ] Crear build Windows cuando exista editor con módulo de build.
+- [x] Crear build Windows (2026-10-11, con Unity 6000.3.25f1; repetir con 6000.0.84f1). Lista de QA en `Docs/QA_ARRANQUE.md`, con filas pendientes de teclado real.
 - [x] Crear build macOS del prototipo.
 
 ## Próximo hito
 
-- [ ] Cliente NPC con pedido visible y tiempo de espera.
+- [x] Cliente NPC con pedido visible y tiempo de espera (cartel y paciencia de 45 s; `Docs/DISENO_CLIENTES_PIDEN.md`).
 - [ ] Inventario de ingredientes y receta configurable con ScriptableObjects.
 - [ ] Cocción temporizada y resultado de calidad.
 - [ ] Compra en tienda, margen y reputación.
-- [ ] Guardado local versionado.
-- [ ] Pruebas de economía y reinicio en editor.
+- [x] Guardado local versionado (formato v5 con migraciones).
+- [x] Pruebas de economía y reinicio en editor (`dotnet` y smokes de Play Mode con marcador).

@@ -140,3 +140,41 @@ Todo ejecutado con Unity 6.0.84f1 en modo batch y `dotnet` 8.0.419.
 - Unity 6.0.84f1 Play Mode, sin `-quit`: `TYCOON_CASINO_SMOKE_OK` y `TYCOON_SMOKE_OK`. El smoke del casino comprueba saldo del libro después de jackpot y venta, apuesta con fichas y liquidación de ronda pendiente.
 - Sin build nueva de macOS ni escucha de audio en esta rama. El casino continúa disponible desde el primer momento.
 - Corrección posterior al review de audio: canjear una ficha con el monedero a menos de $25 del máximo ya no consume la ficha ni registra una visita. El canje que llega exactamente a `int.MaxValue` sí se acredita. `SaveSmoke`: **477 comprobaciones aprobadas**; `CasinoSmoke`: **685**; `EconomySmoke`: **9**. Unity Play Mode no se repitió para este guard de límites.
+
+
+## Cierre de las tareas iniciales — primera ejecución en Windows (2026-10-11)
+
+Hecho por Claude (modelo Sonnet 5.5) en el equipo de Angel; ninguna de estas cifras viene de otra persona ni de otra máquina.
+
+### Entorno (tarea «Primera ejecución», #1)
+Windows 11 (10.0.26300) · Intel Core Ultra 9 275HX, 24 hilos, 32 GB · NVIDIA GeForce RTX 5070 Laptop (Direct3D11) · Git LFS 3.7.1 · .NET 8.0.420 · **Unity 6000.3.25f1**, no la 6000.0.84f1 que pide el proyecto (es la única instalada). Al abrirla, Unity actualizó `ProjectSettings/` y `Packages/`; esos cambios **no** se subieron. Clonado con `git lfs pull` sin problemas.
+
+### Pruebas rápidas (`dotnet`)
+- `Tests/SaveSmoke`: **530** comprobaciones aprobadas (códec v1 a v5 y migraciones, candado de perfil, caja, hora y ajustes en el perfil).
+- `Tests/CasinoSmoke`: **1604** (caja del casino, horario de la cajera, límite de destellos, HUD en 18 pantallas y 16 tamaños de texto sin choques).
+- `Tests/EconomySmoke`: **173** (precios en `economy.json`, reloj, flujo de pedidos, variantes de paleta, estadísticas de rendimiento).
+
+### Play Mode (Unity 6000.3.25f1, batch, sin `-quit`)
+Todos con su marcador en el log, sobre la escena regenerada: `TYCOON_SMOKE_OK` ($135), `TYCOON_CASINO_SMOKE_OK`, `TYCOON_ECONOMY_CONFIG_OK`, `TYCOON_DAYNIGHT_OK`, `TYCOON_SETTINGS_OK`, `TYCOON_CASHIER_SHIFT_OK`, `TYCOON_JACKPOT_OK`, `TYCOON_ORDERS_OK`, `TYCOON_VARIETY_OK` y `TYCOON_PERF_WALK_OK`. El diagnóstico de audio dio `CASINO_AUDIO giro=True musica=1 efectos=N ambiente=1 bucle=True` (música y ambiente en su bus).
+
+### Build de Windows (tarea C1)
+`PrototypeWinBuild.Build` con el módulo *Windows Build Support* de 6000.3.25f1: `TYCOON_WIN_BUILD_OK`, `Builds/Windows/De Hamburguesero a Millonario.exe`, 98 617 350 bytes. Es una build con otra versión del editor que la oficial: repetirla con 6000.0.84f1 cuando esté instalada.
+
+### Dos copias de la app con el mismo perfil (tarea A4)
+Con la build, tres lanzamientos reales (`-batchmode -nographics -save-dir <misma carpeta>`): la primera `SAVE_LOAD Fresh`; la segunda, con la primera abierta, `SAVE_LOAD LockedByOtherInstance` (leyó lo último guardado, `SAVE_FAIL` una sola vez, no tocó `profile.sav`); tras cerrar las dos a la fuerza, la tercera `SAVE_LOAD Loaded` (el candado no queda atascado).
+
+### Capturas de la app compilada (`ArtSource/CasaMarea/Preview/Cierre_*.png`)
+- **Día, tarde y noche** (`-clock-hour 10 / 18.5 / 23`): la noche conserva ambiente y el casino se lee; a las 23:00 el rótulo de la cajera dice «Turno 08:00–22:00 · En descanso · vuelve a las 08:00» y la cajera no está.
+- **HUD del casino** en 1024×768 (4:3), 1280×800 (16:10), 1280×720, 1600×900 y 2560×1080 (21:9), y con el texto al 150 %: panel, etiqueta y aviso legibles y sin pisarse; muestra «caja $…» y «por cobrar $…».
+- **Jackpot**: lluvia de monedas, y el premio de $6000 se paga con el tope («cobras $5000 ahora y $1000 en las próximas rondas»).
+
+### Rendimiento (tarea C3 y C2)
+`-perf-walk -perf-laps 3` a 1280×720 en ventana, V-Sync apagado, 3 repeticiones por configuración (medianas): calidad por defecto de la build (Very Low) con ciclo y variedad **1338 fps** (mediana de fotograma 0.62 ms, p99 3.19 ms); sin ellos 1282 fps; Ultra con todo 1289 fps y sin ellos 1329 fps. **Las diferencias están dentro del ruido** (hubo fotogramas sueltos de hasta 1.3 s en algunas repeticiones y la primera repetición fue más lenta). Conclusión honesta: en esta máquina y esta escena no se aprecia coste del ciclo de día y noche ni de la variedad de clientes; no es una promesa para otros equipos. Informes completos: salida de `-perf-walk` (ver README).
+
+### Lo que NO se verificó
+- **Audio**: nadie lo escuchó. Solo se comprobó el enrutamiento por buses y que las fuentes suenan (B1 sigue pendiente de una persona con auriculares).
+- **Versión del editor**: todo con 6000.3.25f1, no con 6000.0.84f1. La escena y los activos se regeneraron con esa versión (ver `Docs/DECISIONS.md`).
+- **Lista de QA de teclado en la build** (`Docs/QA_ARRANQUE.md`): no se ejecutó con teclado y ratón reales; ver el estado por fila en ese documento.
+- **Cartel «HAMBURGUESA $50»** sobre los clientes: lo comprueba el smoke de Play Mode (texto y estado) pero no se vio en una captura.
+- **Menú de ajustes** (Esc): probado en Play Mode (teclas, escala, guardado) pero no capturado en pantalla.
+- Cierre real de la app a mitad de un giro con una ronda aceptada: sigue sin probarse (heredado).

@@ -28,3 +28,15 @@ Se prepararon `README.md`, `CONTRIBUTING.md`, `Docs/COLABORACION.md`, plantillas
 Repositorio público: `https://github.com/alanelihu1905/de-hamburguesero-a-millonario`. GitHub CI pasó; 15 issues abiertas. Los usuarios de los dos colaboradores aún faltan. La automatización que asignaba tareas a Claude quedó pausada por instrucción del usuario; Codex implementa y dirige ahora.
 
 Rama `codex/libro-movimientos`: libro común de 32 movimientos con migración v1→v2, saldo auditable y premio de ronda pendiente registrado una sola vez. `SaveSmoke` 474, `CasinoSmoke` 685 y `EconomySmoke` 9 comprobaciones. Play Mode: `TYCOON_CASINO_SMOKE_OK` y `TYCOON_SMOKE_OK`. Pendiente: publicar PR y fusionar tras revisión; build macOS actual aún no regenerada.
+
+
+## Cierre de las tareas iniciales (2026-10-11, rama local `integracion`; nada publicado)
+
+Sobre `main` se integraron las tres ramas abiertas (libro común #16, audio por buses #17 y build Windows) y se implementaron las demás tareas de `tools/github/issues.tsv`:
+
+- **A2** caja del casino con fondo, tope por ronda y premios por cobrar; **A3** precios en `StreamingAssets/economy.json`; **A4** candado de perfil contra dos copias.
+- **B2** ajustes de accesibilidad (Esc); **B3** cajera con turnos y fichas sobre el mostrador; **B4** HUD en otras proporciones; **B5** celebración del jackpot.
+- **C2** ciclo de día y noche con reloj guardado; **C3** medición de rendimiento `-perf-walk`; **C4** variedad de clientes con la paleta; **C5** clientes que piden y pagan (diseño en `Docs/DISENO_CLIENTES_PIDEN.md`); **C1** primera build de Windows y lista de QA ejecutada.
+- Formato de guardado v5 (v3 caja, v4 hora, v5 ajustes), cada versión con su migración y su prueba.
+
+Todo se probó con `dotnet` y con un smoke de Play Mode con marcador por función; lo medido en la build de Windows y lo que **no** se pudo verificar (sobre todo el oído y la versión exacta del editor) está en `Docs/TEST_REPORT.md`. La escena se regeneró con Unity 6000.3.25f1, no con 6000.0.84f1: ver `Docs/DECISIONS.md`.

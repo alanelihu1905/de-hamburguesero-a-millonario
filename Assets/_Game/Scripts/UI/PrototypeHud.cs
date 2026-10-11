@@ -55,11 +55,12 @@ namespace Tycoon3D.UI
             GUI.Label(new Rect(30, 43, 500, 25), "Dinero: $" + (wallet != null ? wallet.Pesos : 0) +
                       "    Ventas: " + (burgerLoop != null ? burgerLoop.Sales : 0), label);
             if (burgerLoop != null) GUI.Label(new Rect(30, 72, 500, 52), burgerLoop.Message, label);
-            GUI.Label(new Rect(20, sh - 40, Mathf.Min(820, sw - 40), 32),
+            GUI.Label(new Rect(20, sh - 62, Mathf.Min(820, sw - 40), 56),
                 "WASD mover · Ratón mirar · " + InputBindings.InteractLabel + " interactuar · " + InputBindings.SecondaryLabel +
                 " apuesta (casino) · R volver al inicio · Esc cursor y ajustes", label);
             if (interactor != null && !string.IsNullOrEmpty(interactor.CurrentPrompt))
-                GUI.Label(new Rect(sw * .5f - 180, sh * .65f, 400, 32),
+                GUI.Label(new Rect(sw * .5f - 200, sh * .54f, 400, 32),          // sobre el panel del casino, no dentro de él
+                    
                     interactor.CurrentPrompt, label);
             GUI.Label(new Rect(sw * .5f - 5, sh * .5f - 16, 20, 30), "+", label);
             DrawProfileNotice(sw, sh);
