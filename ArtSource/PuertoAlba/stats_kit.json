@@ -1,0 +1,167 @@
+{
+  "SM_Fachada_Residencial": {
+    "triangulos": 204,
+    "presupuesto_triangulos": 400,
+    "dentro_de_presupuesto": true,
+    "dimensiones_XxYxZ_m": [
+      4.2,
+      0.52,
+      3.38
+    ],
+    "centro_huella_xy": [
+      0.0,
+      0.0
+    ],
+    "base_z": 0.0,
+    "materiales": [
+      "M_Cornisa",
+      "M_Madera",
+      "M_Marco",
+      "M_Muro_Base",
+      "M_Vidrio",
+      "M_Zocalo"
+    ],
+    "pivote_correcto": true,
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Fachada_Residencial.fbx"
+  },
+  "SM_Puerta_Residencial": {
+    "triangulos": 108,
+    "presupuesto_triangulos": 300,
+    "dentro_de_presupuesto": true,
+    "dimensiones_XxYxZ_m": [
+      1.7,
+      0.58,
+      2.65
+    ],
+    "centro_huella_xy": [
+      0.0,
+      -0.43
+    ],
+    "base_z": 0.0,
+    "materiales": [
+      "M_Cornisa",
+      "M_Marco",
+      "M_Metal_Oscuro",
+      "M_Puerta"
+    ],
+    "pivote_correcto": true,
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Puerta_Residencial.fbx"
+  },
+  "SM_Tienda_Barrio": {
+    "triangulos": 144,
+    "presupuesto_triangulos": 700,
+    "dentro_de_presupuesto": true,
+    "dimensiones_XxYxZ_m": [
+      6.2,
+      4.95,
+      4.45
+    ],
+    "centro_huella_xy": [
+      0.0,
+      -0.425
+    ],
+    "base_z": 0.0,
+    "materiales": [
+      "M_Letrero_Fondo",
+      "M_Letrero_Texto",
+      "M_Madera",
+      "M_Marco",
+      "M_Muro_Base",
+      "M_Tejado",
+      "M_Toldo",
+      "M_Vidrio",
+      "M_Zocalo"
+    ],
+    "pivote_correcto": true,
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Tienda_Barrio.fbx"
+  },
+  "SM_Gasolinera_Marquesina": {
+    "triangulos": 72,
+    "presupuesto_triangulos": 300,
+    "dentro_de_presupuesto": true,
+    "dimensiones_XxYxZ_m": [
+      12.0,
+      8.0,
+      5.5
+    ],
+    "centro_huella_xy": [
+      0.0,
+      0.0
+    ],
+    "base_z": 0.0,
+    "materiales": [
+      "M_Marquesina",
+      "M_Marquesina_Luz"
+    ],
+    "pivote_correcto": true,
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Gasolinera_Marquesina.fbx"
+  },
+  "SM_Gasolinera_Surtidor": {
+    "triangulos": 72,
+    "presupuesto_triangulos": 300,
+    "dentro_de_presupuesto": true,
+    "dimensiones_XxYxZ_m": [
+      0.9,
+      0.65,
+      1.55
+    ],
+    "centro_huella_xy": [
+      0.0,
+      -0.025
+    ],
+    "base_z": 0.0,
+    "materiales": [
+      "M_Marquesina",
+      "M_Metal_Oscuro",
+      "M_Pantalla",
+      "M_Surtidor"
+    ],
+    "pivote_correcto": true,
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Gasolinera_Surtidor.fbx"
+  },
+  "SM_Gasolinera_Caseta": {
+    "triangulos": 84,
+    "presupuesto_triangulos": 300,
+    "dentro_de_presupuesto": true,
+    "dimensiones_XxYxZ_m": [
+      3.3,
+      2.8,
+      3.0
+    ],
+    "centro_huella_xy": [
+      0.0,
+      0.0
+    ],
+    "base_z": 0.0,
+    "materiales": [
+      "M_Marco",
+      "M_Marquesina",
+      "M_Muro_Base",
+      "M_Vidrio"
+    ],
+    "pivote_correcto": true,
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Gasolinera_Caseta.fbx"
+  },
+  "SM_Gasolinera_Letrero": {
+    "triangulos": 48,
+    "presupuesto_triangulos": 200,
+    "dentro_de_presupuesto": true,
+    "dimensiones_XxYxZ_m": [
+      2.4,
+      0.2,
+      4.2
+    ],
+    "centro_huella_xy": [
+      0.0,
+      0.0
+    ],
+    "base_z": 0.0,
+    "materiales": [
+      "M_Letrero_Fondo",
+      "M_Letrero_Texto",
+      "M_Metal_Oscuro"
+    ],
+    "pivote_correcto": true,
+    "fbx": "Assets/_Game/Models/PuertoAlba/SM_Gasolinera_Letrero.fbx"
+  }
+}

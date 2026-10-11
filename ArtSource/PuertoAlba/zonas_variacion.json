@@ -1,0 +1,83 @@
+{
+  "_nota": "Variación de materiales por zona del kit de Puerto Alba. Los ids coinciden con ZoneId de Assets/_Game/Scripts/City/CityMap.cs. Unity aplicará estos colores como instancias de material o MaterialPropertyBlock; este archivo no altera los FBX. Diseño en Docs/Handoffs/Claude/09_KIT_VISUAL_CIUDAD.md. Pendiente de validar visualmente en Unity.",
+  "CasaMarea": {
+    "nombre": "Casa Marea",
+    "muro": "#EFE3CC",
+    "zocalo": "#4F7F95",
+    "acento": "#B9663F",
+    "tejado": "#A9532F",
+    "toldo": "#D9573B",
+    "vidrio": "#5FA9B8",
+    "piezas_preferentes": ["SM_Fachada_Residencial", "SM_Puerta_Residencial"]
+  },
+  "MercadoDelSol": {
+    "nombre": "Mercado del Sol",
+    "muro": "#F5EFE0",
+    "zocalo": "#3E6B4F",
+    "acento": "#E3B23C",
+    "tejado": "#E88A2E",
+    "toldo": "#E88A2E",
+    "vidrio": "#7FB7B0",
+    "piezas_preferentes": ["SM_Tienda_Barrio"]
+  },
+  "MuelleFarol": {
+    "nombre": "Muelle Farol",
+    "muro": "#C9CED3",
+    "zocalo": "#24466B",
+    "acento": "#7A5A3E",
+    "tejado": "#24466B",
+    "toldo": "#24466B",
+    "vidrio": "#6E97B5",
+    "piezas_preferentes": ["SM_Gasolinera_Caseta", "SM_Tienda_Barrio"]
+  },
+  "CentroDelFaro": {
+    "nombre": "Centro del Faro",
+    "muro": "#E8ECEF",
+    "zocalo": "#3A3F47",
+    "acento": "#2C5DA8",
+    "tejado": "#3A3F47",
+    "toldo": "#2C5DA8",
+    "vidrio": "#6E8799",
+    "piezas_preferentes": ["SM_Fachada_Residencial", "SM_Gasolinera_Letrero"]
+  },
+  "TalleresBrisa": {
+    "nombre": "Talleres Brisa",
+    "muro": "#BDB8AE",
+    "zocalo": "#6B7480",
+    "acento": "#E7B73A",
+    "tejado": "#6B7480",
+    "toldo": "#B5442E",
+    "vidrio": "#8A9AA6",
+    "piezas_preferentes": ["SM_Gasolinera_Surtidor", "SM_Gasolinera_Caseta", "SM_Gasolinera_Letrero"]
+  },
+  "PaseoArena": {
+    "nombre": "Paseo Arena",
+    "muro": "#DCD3BF",
+    "zocalo": "#2E8B6E",
+    "acento": "#C2407A",
+    "tejado": "#8A5A3C",
+    "toldo": "#C2407A",
+    "vidrio": "#6DBFA8",
+    "piezas_preferentes": ["SM_Fachada_Residencial", "SM_Tienda_Barrio"]
+  },
+  "ColinaCobalto": {
+    "nombre": "Colina Cobalto",
+    "muro": "#F2E6D2",
+    "zocalo": "#4B6FA8",
+    "acento": "#D9A441",
+    "tejado": "#B5623B",
+    "toldo": "#4B6FA8",
+    "vidrio": "#7DB4C2",
+    "piezas_preferentes": ["SM_Fachada_Residencial", "SM_Puerta_Residencial", "SM_Tienda_Barrio"]
+  },
+  "EstacionSur": {
+    "nombre": "Estación Sur",
+    "muro": "#E9E4D8",
+    "zocalo": "#3C4048",
+    "acento": "#F4C95D",
+    "tejado": "#3C4048",
+    "toldo": "#F7F3EA",
+    "vidrio": "#5E8E9A",
+    "piezas_preferentes": ["SM_Gasolinera_Marquesina", "SM_Gasolinera_Surtidor", "SM_Gasolinera_Caseta", "SM_Gasolinera_Letrero"]
+  }
+}

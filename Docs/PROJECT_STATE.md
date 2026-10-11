@@ -54,3 +54,15 @@ Repositorio público compartido para tres personas con sus agentes. Preparado: `
 
 **No hecho (siguientes bloques)**
 - Navegación en primera persona completa (aceleración, pasos, interacción E/Q en la calle), HUD y minimapa propios, ajustes de sensibilidad y FOV, streaming de zonas, NPC por zona, transporte y la rama de casino.
+
+## Puerto Alba · kit visual modular (rama `ciudad/fase-1-modelo`, 2026-10-11)
+**Hecho y verificado en Blender 5.2 LTS**
+- `ArtSource/PuertoAlba/build_kit_ciudad.py` genera siete piezas: fachada residencial, puerta, tienda de barrio, marquesina, surtidor, caseta y letrero de gasolinera. Termina con código 0; dimensiones y pivote comprobados dentro del script; todas por debajo de su presupuesto de triángulos (732 en total).
+- Vistas en `ArtSource/PuertoAlba/Preview/`. Variación de color y piezas preferentes por zona en `zonas_variacion.json` (ocho zonas, ids de `CityMap.cs`).
+- Detalle, licencia propia y decisiones abiertas en `Docs/Handoffs/Claude/09_KIT_VISUAL_CIUDAD.md` y `ArtSource/PuertoAlba/LICENCIA.md`.
+
+**No verificado**
+- Importación en Unity 6000.0.84f1: los FBX están en `Assets/_Game/Models/PuertoAlba/` sin `.meta`; Unity los generará al abrir el proyecto.
+- Orientación del frente y escala dentro de Unity.
+- Colocación en la cuadrícula 21×21: no hay `CityGridLayout` en esta rama; el tamaño de celda está por confirmar.
+- Ubicación del casino: el plan y `CityMap.cs` lo ponen en Casa Marea; la propuesta 08 lo pone en la zona 8. Decisión pendiente de Claude o Codex.
