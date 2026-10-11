@@ -1,0 +1,11 @@
+OK    el jugador de prueba (1.80 m × 0.60 m) se apoya en el suelo
+OK    entra por la puerta de ENTRADA y llega a la sala (z = -5.00)
+OK    recorre el pasillo y llega al jackpot (z = 7.50, el letrero está en z = 9)
+OK    el muro frontal lo detiene (z final = -9.62, el muro está en z = −10)
+OK    sale por la puerta de SALIDA (z final = -14.00)
+OK    el taburete y la tragamonedas lo detienen (x final = -4.48)
+OK    el mostrador de cambio lo detiene (x final = -8.42)
+OK    se puede entrar también por la puerta de SALIDA (z final = -5.00)
+  (errores de consola en Play Mode: 0)
+OK    consola sin errores durante Play Mode (0)
+TYCOON_CASINO_SALA_PLAY_OK

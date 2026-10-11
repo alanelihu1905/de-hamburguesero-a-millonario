@@ -168,6 +168,13 @@ namespace Tycoon3D.Editor
             suelo.transform.localScale = new Vector3(20f, .1f, 20f);
             suelo.GetComponent<Renderer>().sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(VarianteDir + "/Casino_rojo_madera.mat");
 
+            // acera exterior frente a las puertas: sin ella, ENTRADA y SALIDA abrirían al vacío (defecto que halló el Play Mode)
+            var acera = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            acera.name = "Acera exterior (no build)";
+            acera.transform.position = new Vector3(0, -.05f, -14.5f);
+            acera.transform.localScale = new Vector3(30f, .1f, 9f);   // x −15…15, z −19…−10
+            acera.GetComponent<Renderer>().sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(VarianteDir + "/Casino_rojo_madera.mat");
+
             var raiz = new GameObject(RootName);
             var arq = new GameObject("Arquitectura").transform;
             arq.SetParent(raiz.transform, false);
