@@ -71,7 +71,7 @@ namespace Tycoon3D.Editor
                 door.Interact();
                 if (!door.Prompt.Contains("Tocar")) throw new InvalidOperationException("La puerta no retira visitante.");
 
-                Debug.Log($"TYCOON_PUERTO_ALBA_GRID_SMOKE_OK blocks=441 radius=10m casino=1 gasStations=2 doors={doors.Length} objects={city.transform.childCount}");
+                Debug.Log($"TYCOON_PUERTO_ALBA_GRID_SMOKE_OK blocks=441 radiusBlocks=10 casino=1 gasStations=2 doors={doors.Length} objects={city.transform.childCount}");
                 EditorApplication.ExitPlaymode();
             }
             catch (Exception exception) { Fail(exception); }

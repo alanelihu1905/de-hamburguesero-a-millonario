@@ -9,6 +9,7 @@ Puerto Alba usa una cuadrícula determinista de **21 × 21 cuadras**: diez cuadr
 - Dos gasolineras permanecen ubicadas en sectores distintos.
 - Mercado, muelle, restaurante, patio industrial y parque reciben cuadras propias.
 - Cuadras restantes usan fachadas simples. Un subconjunto fijo tiene puerta visible: `E` toca y crea un visitante de prueba. `E` otra vez lo retira.
+- Colores de fachada y techo separan visualmente las zonas; letreros marcan casino, mercado, muelle, restaurante y gasolineras.
 - Calles forman una retícula uniforme. Ciudad tiene un suelo con colisión y fachadas con colisión.
 
 ## Abrir blockout en Unity

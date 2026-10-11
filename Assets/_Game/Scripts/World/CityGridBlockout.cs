@@ -25,8 +25,6 @@ namespace Tycoon3D.World
             var layout = new CityGridLayout();
             var roadMat = MakeMaterial("City Asphalt", asphalt);
             var sidewalkMat = MakeMaterial("City Sidewalk", sidewalk);
-            var wallMat = MakeMaterial("City Stucco", stucco);
-            var roofMat = MakeMaterial("City Roof", roof);
             var greenMat = MakeMaterial("City Park Green", grass);
             float pitch = CityGridLayout.BlockPitchMeters;
             float road = CityGridLayout.RoadWidthMeters;
@@ -45,7 +43,8 @@ namespace Tycoon3D.World
                 Cube("Sidewalk Z west", new Vector3(edge - walkOffset, .02f, 0), new Vector3(3f, .16f, extent), sidewalkMat, false);
             }
 
-            foreach (var block in layout.Blocks) BuildBlock(block, pitch, road, wallMat, roofMat, greenMat);
+            foreach (var block in layout.Blocks)
+                BuildBlock(block, pitch, road, WallForZone(block.Zone), RoofForZone(block.Zone), greenMat);
             Debug.Log($"TYCOON_CITY_GRID_BUILT blocks={layout.Blocks.Count} diameter={layout.DiameterMeters:0}m seed={seed}");
         }
 
@@ -86,13 +85,21 @@ namespace Tycoon3D.World
             {
                 Cube("Casino entrance canopy", new Vector3(x, 4.2f, z - lot * .5f - 2f), new Vector3(15, .6f, 4), top, false);
                 Cube("Casino lit sign", new Vector3(x, 7.5f, z - lot * .5f - 2.1f), new Vector3(12, 1.2f, .35f), MakeMaterial("Casino Marquee", new Color(1f, .65f, .1f)), false);
+                TextSign("CASINO FOX 24H", new Vector3(x, 7.5f, z - lot * .5f - 2.32f), .20f, Color.white);
             }
+            else if (block.Feature == CityBlockFeature.Market)
+                TextSign("MERCADO DEL SOL", new Vector3(x, height + 1f, z - lot * .5f - .2f), .16f, Color.white);
+            else if (block.Feature == CityBlockFeature.Port)
+                TextSign("MUELLE FAROL", new Vector3(x, height + 1f, z - lot * .5f - .2f), .16f, Color.white);
+            else if (block.Feature == CityBlockFeature.Restaurant)
+                TextSign("LOS SABORES", new Vector3(x, height + 1f, z - lot * .5f - .2f), .16f, Color.white);
         }
 
         private void BuildGasStation(float x, float z, float lot, Material wall, Material roofMaterial)
         {
             float frontage = lot * .6f;
             Cube("Gas station shop", new Vector3(x, 2, z + lot * .25f), new Vector3(frontage, 4, lot * .38f), wall, true, true);
+            TextSign("GAS", new Vector3(x, 4.5f, z + lot * .25f - lot * .19f - .18f), .3f, Color.white);
             Cube("Fuel canopy", new Vector3(x, 4f, z - lot * .2f), new Vector3(lot * .82f, .55f, lot * .48f), roofMaterial, false);
             for (int side = -1; side <= 1; side += 2)
                 for (int row = -1; row <= 1; row += 2)
@@ -109,6 +116,51 @@ namespace Tycoon3D.World
             crown.transform.localPosition = new Vector3(x, 3.2f, z); crown.transform.localScale = new Vector3(3, 2.5f, 3);
             crown.GetComponent<Renderer>().sharedMaterial = leaves;
             Object.Destroy(crown.GetComponent<Collider>());
+        }
+
+        private void TextSign(string value, Vector3 position, float characterSize, Color color)
+        {
+            var sign = new GameObject(value + " sign");
+            sign.transform.SetParent(transform, false);
+            sign.transform.localPosition = position;
+            sign.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+            var text = sign.AddComponent<TextMesh>();
+            text.text = value;
+            text.fontSize = 64;
+            text.characterSize = characterSize;
+            text.alignment = TextAlignment.Center;
+            text.anchor = TextAnchor.MiddleCenter;
+            text.color = color;
+        }
+
+        private static Material WallForZone(CityZoneId zone)
+        {
+            switch (zone)
+            {
+                case CityZoneId.Mercado: return MakeMaterial("Wall Market", new Color(.83f, .58f, .28f));
+                case CityZoneId.Muelle: return MakeMaterial("Wall Port", new Color(.44f, .57f, .61f));
+                case CityZoneId.Restaurantes: return MakeMaterial("Wall Restaurant", new Color(.55f, .30f, .32f));
+                case CityZoneId.Industrial: return MakeMaterial("Wall Industrial", new Color(.43f, .46f, .45f));
+                case CityZoneId.Parque: return MakeMaterial("Wall Park", new Color(.62f, .70f, .56f));
+                case CityZoneId.CentroFinanciero: return MakeMaterial("Wall Finance", new Color(.36f, .49f, .62f));
+                case CityZoneId.AvenidaCentral: return MakeMaterial("Wall Avenue", new Color(.48f, .39f, .57f));
+                default: return MakeMaterial("Wall Residential", stucco);
+            }
+        }
+
+        private static Material RoofForZone(CityZoneId zone)
+        {
+            switch (zone)
+            {
+                case CityZoneId.Mercado: return MakeMaterial("Roof Market", new Color(.73f, .42f, .18f));
+                case CityZoneId.Muelle: return MakeMaterial("Roof Port", new Color(.29f, .37f, .40f));
+                case CityZoneId.Restaurantes: return MakeMaterial("Roof Restaurant", new Color(.31f, .19f, .22f));
+                case CityZoneId.Industrial: return MakeMaterial("Roof Industrial", new Color(.27f, .29f, .29f));
+                case CityZoneId.Parque: return MakeMaterial("Roof Park", new Color(.34f, .47f, .32f));
+                case CityZoneId.CentroFinanciero: return MakeMaterial("Roof Finance", new Color(.21f, .29f, .40f));
+                case CityZoneId.AvenidaCentral: return MakeMaterial("Roof Avenue", new Color(.29f, .23f, .35f));
+                default: return MakeMaterial("Roof Residential", roof);
+            }
         }
 
         private void Cube(string name, Vector3 position, Vector3 size, Material material, bool collider, bool door = false)
