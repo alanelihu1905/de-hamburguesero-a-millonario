@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Tycoon3D.Casino
 {
@@ -7,9 +8,22 @@ namespace Tycoon3D.Casino
     {
         public AudioClip spinLoop, spinStart, reelStop, betChange, lose, winSmall, winBig, jackpot, coin;
         [Range(0f, 1f)] public float volume = .8f;
+        [SerializeField] private AudioMixerGroup musicGroup;
+        [SerializeField] private AudioMixerGroup effectsGroup;
+        [SerializeField] private AudioMixerGroup ambienceGroup;
 
         public int PlayedCount { get; private set; }
         public string LastPlayed { get; private set; } = string.Empty;
+        public AudioMixerGroup MusicGroup => musicGroup;
+        public AudioMixerGroup EffectsGroup => effectsGroup;
+        public AudioMixerGroup AmbienceGroup => ambienceGroup;
+
+        public void ConfigureMixer(AudioMixerGroup music, AudioMixerGroup effects, AudioMixerGroup ambience)
+        {
+            musicGroup = music;
+            effectsGroup = effects;
+            ambienceGroup = ambience;
+        }
 
         public bool Complete =>
             spinLoop != null && spinStart != null && reelStop != null && betChange != null && lose != null &&
@@ -20,7 +34,18 @@ namespace Tycoon3D.Casino
             if (clip == null) return;
             PlayedCount++;
             LastPlayed = clip.name;
-            AudioSource.PlayClipAtPoint(clip, position, Mathf.Clamp01(volume * gain));
+            var emitter = new GameObject("Casino SFX " + clip.name);
+            emitter.transform.position = position;
+            var source = emitter.AddComponent<AudioSource>();
+            source.outputAudioMixerGroup = effectsGroup;
+            source.clip = clip;
+            source.volume = Mathf.Clamp01(volume * gain);
+            source.spatialBlend = 1f;
+            source.minDistance = 2f;
+            source.maxDistance = 20f;
+            source.rolloffMode = AudioRolloffMode.Linear;
+            source.Play();
+            Destroy(emitter, clip.length + .1f);
         }
 
         public AudioClip ForRound(SlotRound round)
