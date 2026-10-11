@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using Tycoon3D.Economy;
 using Tycoon3D.Restaurant;
@@ -188,12 +189,61 @@ Check(ledger.Matches(wallet.Pesos, 0) && ledger.Entries.Count == 5, "Libro regis
     Check(libro.Matches(cartera.Pesos, 0), "pedidos: el libro común cuadra");
 }
 
+// ---- variantes de ropa de los clientes con la paleta única ---------------------------------------------------------------------
+{
+    var P = Tycoon3D.Restaurant.PaletteVariants.Palette;
+    Check(P.Length == 26 && P.Select(x => x.Name).Distinct().Count() == 26, "variantes: la paleta tiene 26 colores con nombres distintos");
+    Check(P.Select(x => (x.Col, x.Row)).Distinct().Count() == 26 && P.All(x => x.Col >= 0 && x.Col < 8 && x.Row >= 0 && x.Row < 4), "variantes: cada color ocupa una celda propia de la rejilla de 8 × 4");
+    var original = Tycoon3D.Restaurant.PaletteVariants.BuildPixels(0);
+    Check(original.Length == 128 * 64 * 4, "variantes: la textura es de 128 × 64 RGBA");
+    Check(P.All(x => Tycoon3D.Restaurant.PaletteVariants.CellColor(original, x.Col, x.Row) == (x.R, x.G, x.B)), "variantes: la variante original reproduce los 26 colores de la paleta");
+    Check(Tycoon3D.Restaurant.PaletteVariants.Find("M_Turquesa").R == 0x2B && Tycoon3D.Restaurant.PaletteVariants.Find("M_Chile").G == 0x57, "variantes: valores de ejemplo de la paleta (turquesa y chile)");
+
+    var All = Tycoon3D.Restaurant.PaletteVariants.All;
+    Check(All.Length >= 4 && All[0].Swaps.Length == 0, "variantes: hay al menos tres variantes además de la original");
+    for (int v = 1; v < All.Length; v++)
+    {
+        var var_ = All[v];
+        Check(var_.Swaps.Length >= 3, "variantes: " + var_.Name + " cambia al menos tres colores");
+        foreach (var (from, to) in var_.Swaps)
+        {
+            Check(Tycoon3D.Restaurant.PaletteVariants.Has(from) && Tycoon3D.Restaurant.PaletteVariants.Has(to), "variantes: " + var_.Name + " solo usa colores de la paleta (" + from + " -> " + to + ")");
+            Check(from != to, "variantes: " + var_.Name + " no cambia un color por sí mismo");
+            Check(!Tycoon3D.Restaurant.PaletteVariants.Protected.Contains(from) && !Tycoon3D.Restaurant.PaletteVariants.Protected.Contains(to), "variantes: " + var_.Name + " no toca piel ni pelo (" + from + " -> " + to + ")");
+        }
+        var px = Tycoon3D.Restaurant.PaletteVariants.BuildPixels(v);
+        Check(px.Length == original.Length, "variantes: " + var_.Name + " tiene el mismo tamaño de textura");
+        foreach (var name in Tycoon3D.Restaurant.PaletteVariants.Protected)
+        {
+            var sw = Tycoon3D.Restaurant.PaletteVariants.Find(name);
+            Check(Tycoon3D.Restaurant.PaletteVariants.CellColor(px, sw.Col, sw.Row) == (sw.R, sw.G, sw.B), "variantes: " + var_.Name + " deja intacto " + name);
+        }
+        int cambiadas = P.Count(x => Tycoon3D.Restaurant.PaletteVariants.CellColor(px, x.Col, x.Row) != (x.R, x.G, x.B));
+        Check(cambiadas >= 3, "variantes: " + var_.Name + " cambia " + cambiadas + " celdas de ropa");
+        // cada celda cambiada muestra exactamente el color destino
+        foreach (var (from, to) in var_.Swaps)
+        {
+            var f = Tycoon3D.Restaurant.PaletteVariants.Find(from); var t = Tycoon3D.Restaurant.PaletteVariants.Find(to);
+            Check(Tycoon3D.Restaurant.PaletteVariants.CellColor(px, f.Col, f.Row) == (t.R, t.G, t.B), "variantes: " + var_.Name + ": " + from + " se ve como " + to);
+        }
+    }
+    for (int a = 0; a < All.Length; a++)
+        for (int b = a + 1; b < All.Length; b++)
+            Check(!Tycoon3D.Restaurant.PaletteVariants.BuildPixels(a).SequenceEqual(Tycoon3D.Restaurant.PaletteVariants.BuildPixels(b)), "variantes: " + All[a].Name + " y " + All[b].Name + " se ven distintas");
+    Check(Throws(() => Tycoon3D.Restaurant.PaletteVariants.BuildPixels(-1)) && Throws(() => Tycoon3D.Restaurant.PaletteVariants.BuildPixels(All.Length)), "variantes: un índice fuera de rango se rechaza");
+}
+
 Console.WriteLine("EconomySmoke: {0} comprobaciones aprobadas.", Counter.Checks);
 
 static void Check(bool condition, string description)
 {
     Counter.Checks++;
     if (!condition) throw new Exception("Falló: " + description);
+}
+
+static bool Throws(Action action)
+{
+    try { action(); return false; } catch (Exception) { return true; }
 }
 
 static class Counter { public static int Checks; }

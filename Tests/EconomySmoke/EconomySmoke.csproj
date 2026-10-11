@@ -11,6 +11,7 @@
     <Compile Include="../../Assets/_Game/Scripts/Economy/MovementLedger.cs" Link="MovementLedger.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Core/GameClock.cs" Link="GameClock.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Restaurant/CustomerOrderFlow.cs" Link="CustomerOrderFlow.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/Restaurant/PaletteVariants.cs" Link="PaletteVariants.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Core/Save/SaveData.cs" Link="SaveData.cs" />
   </ItemGroup>
 </Project>
