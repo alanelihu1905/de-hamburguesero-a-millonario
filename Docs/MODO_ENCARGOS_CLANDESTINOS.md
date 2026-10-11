@@ -25,6 +25,12 @@ El jugador puede abandonar el modo en cualquier momento y seguir vendiendo hambu
 - El casino usa sus pesos y fichas actuales; permanece disponible y no financia mejoras clandestinas. Así el casino conserva su vía rápida de dinero sin romper esta progresión.
 - Cada entrega registra identidad de misión, pago y estado final. El saldo nunca baja por una entrega fallida.
 
+## Expansión a Puerto Alba
+
+Después de validar el barrio pequeño, abrir Las Acacias, Calle Mercado, Distrito Norte y Avenida Central por etapas. Cada distrito aporta contactos, punto seguro y contratos propios. Las rutas entre distritos cruzan conexiones definidas en datos; aumentan distancia, tiempo y recompensa sin imponer combate.
+
+La **reputación local** abre encargos dentro del distrito. La **reputación global** abre contratos que conectan zonas. Un fallo reduce reputación sin dejar al jugador sin encargos. Restaurantes pueden ser destinos o fuentes de información; el casino puede ofrecer contactos y actividad del barrio. Ninguno cambia la separación entre pesos, fichas y créditos, ni el acceso inmediato al casino. Ver [plan maestro ampliado](PLAN_MAESTRO_AMPLIADO.md) para el orden de expansión.
+
 ## Alerta, patrulla y combate opcional
 
 - Alerta de 0 a 100. Crece por acciones visibles del encargo; baja con tiempo fuera de misión. La interfaz indica causa y nivel. Los umbrales disparan **observación** (30), **seguimiento** (60) y **persecución** (85).
@@ -38,7 +44,7 @@ Añadir armas ficticias de varias clases, incluido disparo a distancia, con muni
 
 ## Primer hito implementable
 
-**Una entrega completa en el barrio actual, sin ampliar la ciudad.** Crear datos configurables para un encargo, una caja visible, un contacto, un destino, temporizador, recompensa en créditos y barra de alerta. Implementar estados puros `Disponible`, `Aceptado`, `Entregado`, `Fallido`; guardar solo al completar la arquitectura acordada con el área A. Sin patrulla física ni combate en este hito: al llegar a 85 de alerta, mostrar aviso y aplicar fallo tras una cuenta atrás recuperable.
+**Una entrega completa en el barrio actual, sin ampliar la ciudad.** Crear datos configurables para un encargo, una caja visible, un contacto, un destino, temporizador, recompensa en créditos y barra de alerta. Implementar estados puros `Disponible`, `Aceptado`, `Transportando`, `Entregado`, `Fallido`, `Interceptado`; guardar solo al completar la arquitectura acordada con el área A. Sin patrulla física ni combate en este hito: al llegar a 85 de alerta, mostrar aviso y aplicar fallo tras una cuenta atrás recuperable.
 
 **Pruebas propuestas, aún no ejecutadas:**
 
