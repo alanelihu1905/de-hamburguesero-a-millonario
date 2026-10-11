@@ -1,0 +1,45 @@
+OK    FBX SM_Slot_Tres_Rodillos importa
+OK    SM_Slot_Tres_Rodillos: 1260 triángulos en Unity = 1260 en Blender
+OK    SM_Slot_Tres_Rodillos: tamaño (0.948, 1.800, 0.735) esperado (0.948, 1.800, 0.735)
+OK    SM_Slot_Tres_Rodillos: base en y = 0 (0.000)
+OK    FBX SM_Mesa_Ruleta importa
+OK    SM_Mesa_Ruleta: 952 triángulos en Unity = 952 en Blender
+OK    SM_Mesa_Ruleta: tamaño (2.240, 0.890, 1.440) esperado (2.240, 0.890, 1.440)
+OK    SM_Mesa_Ruleta: base en y = 0 (0.000)
+OK    FBX SM_Mesa_Blackjack importa
+OK    SM_Mesa_Blackjack: 172 triángulos en Unity = 172 en Blender
+OK    SM_Mesa_Blackjack: tamaño (1.840, 0.860, 0.920) esperado (1.840, 0.860, 0.920)
+OK    SM_Mesa_Blackjack: base en y = 0 (0.000)
+OK    prefab PF_Slot_Tres_Rodillos existe
+OK    PF_Slot_Tres_Rodillos: tiene colisiones simples (2)
+OK    PF_Slot_Tres_Rodillos: tiene mallas (1)
+OK    prefab PF_Mesa_Ruleta existe
+OK    PF_Mesa_Ruleta: tiene colisiones simples (1)
+OK    PF_Mesa_Ruleta: tiene mallas (1)
+OK    prefab PF_Mesa_Blackjack existe
+OK    PF_Mesa_Blackjack: tiene colisiones simples (1)
+OK    PF_Mesa_Blackjack: tiene mallas (1)
+OK    materiales de variante presentes (8 de 8)
+OK    la escena interior abre
+OK    la escena interior no está en la build
+OK    8 piezas en la escena (8)
+OK    Ruleta dorada es instancia de prefab
+OK    Ruleta dorada usa solo la variante dorado
+OK    Blackjack dorado es instancia de prefab
+OK    Blackjack dorado usa solo la variante dorado
+OK    Blackjack rojo es instancia de prefab
+OK    Blackjack rojo usa solo la variante rojo
+OK    Ruleta roja es instancia de prefab
+OK    Ruleta roja usa solo la variante rojo
+OK    Slot dorado 2 es instancia de prefab
+OK    Slot dorado 2 usa solo la variante dorado
+OK    Slot rojo 1 es instancia de prefab
+OK    Slot rojo 1 usa solo la variante rojo
+OK    Slot rojo 2 es instancia de prefab
+OK    Slot rojo 2 usa solo la variante rojo
+OK    Slot dorado 1 es instancia de prefab
+OK    Slot dorado 1 usa solo la variante dorado
+OK    cámara de vista previa presente
+OK    captura de la escena interior generada
+OK    la captura muestra dorado (1.64%)
+OK    la captura muestra rojo (2.71%)

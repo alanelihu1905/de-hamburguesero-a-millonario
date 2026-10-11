@@ -1,0 +1,15 @@
+{
+  "_nota": "Variantes de color del kit interior del casino. Roles: cuerpo (M_Casino_Rojo), acento (M_Casino_Oro), fieltro (M_Fieltro), madera (M_Madera). Los demás materiales (símbolos, pantalla, celdas) no cambian. ARTE: no define ni altera ninguna mecánica de apuestas.",
+  "rojo": {
+    "cuerpo": "#8E1B2B",
+    "acento": "#C9A227",
+    "fieltro": "#7A1420",
+    "madera": "#4A2A1E"
+  },
+  "dorado": {
+    "cuerpo": "#C9A227",
+    "acento": "#8E1B2B",
+    "fieltro": "#1E5B3A",
+    "madera": "#3A2416"
+  }
+}
