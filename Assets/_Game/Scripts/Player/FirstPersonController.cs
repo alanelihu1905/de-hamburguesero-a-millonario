@@ -53,14 +53,17 @@ namespace Tycoon3D.Player
                 Cursor.visible = false;
             }
 
-            if (Cursor.lockState != CursorLockMode.Locked || viewCamera == null) return;
-
-            transform.Rotate(Vector3.up, Input.GetAxisRaw("Mouse X") * mouseSensitivity);
-            pitch = Mathf.Clamp(pitch - Input.GetAxisRaw("Mouse Y") * mouseSensitivity, -85f, 85f);
-            viewCamera.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
-
-            Vector3 direction = (transform.right * Input.GetAxisRaw("Horizontal") +
-                                 transform.forward * Input.GetAxisRaw("Vertical")).normalized;
+            // La gravedad se aplica siempre: con el cursor libre (menú, Esc) el jugador no debe quedarse flotando.
+            // Solo el giro y el desplazamiento horizontal dependen de tener el cursor bloqueado.
+            Vector3 direction = Vector3.zero;
+            if (Cursor.lockState == CursorLockMode.Locked && viewCamera != null)
+            {
+                transform.Rotate(Vector3.up, Input.GetAxisRaw("Mouse X") * mouseSensitivity);
+                pitch = Mathf.Clamp(pitch - Input.GetAxisRaw("Mouse Y") * mouseSensitivity, -85f, 85f);
+                viewCamera.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+                direction = (transform.right * Input.GetAxisRaw("Horizontal") +
+                             transform.forward * Input.GetAxisRaw("Vertical")).normalized;
+            }
             if (controller.isGrounded && verticalSpeed < 0f) verticalSpeed = -2f;
             verticalSpeed += gravity * Time.deltaTime;
             controller.Move((direction * walkSpeed + Vector3.up * verticalSpeed) * Time.deltaTime);

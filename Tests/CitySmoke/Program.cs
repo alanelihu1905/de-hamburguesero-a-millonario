@@ -67,4 +67,16 @@ Check(Flags(zs, sinSalida, "aislada"), "detecta que la zona del casino queda ais
 Check(Flags(zs, sinSalida, "no alcanzable desde el inicio"), "detecta zonas sin ruta desde el inicio");
 Check(CityMap.Validate(zs, ls).Count == 0, "el mapa de fase 1 sigue siendo válido");
 
+// ---- geometría de las zonas construidas
+Check(CityLayout.Validate().Count == 0, "la geometría es válida: " + string.Join(" | ", CityLayout.Validate()));
+Check(CityLayout.Built.Length == 2, "la escena de fase 1 construye dos zonas");
+foreach (var box in CityLayout.Built)
+    Check(CityLayout.Locate(box.CenterX, box.CenterZ) == box.Zone, "el centro de " + box.Zone + " cae en esa zona");
+Check(CityLayout.Locate(CityLayout.Street.CenterX, CityLayout.Street.CenterZ) == null, "la calle no es zona");
+Check(CityLayout.Locate(0f, 0f) == ZoneId.CasaMarea && CityLayout.Locate(30f, 0f) == ZoneId.MercadoDelSol, "puntos de prueba del smoke de Play Mode");
+Check(CityLayout.Locate(10f, 0f) == null && CityLayout.Locate(22f, 0f) != null, "la calle separa las dos zonas");
+Check(CityMap.Links.Any(l => (l.Item1 == ZoneId.CasaMarea && l.Item2 == ZoneId.MercadoDelSol) || (l.Item1 == ZoneId.MercadoDelSol && l.Item2 == ZoneId.CasaMarea)),
+    "Casa Marea y el mercado están conectados en el mapa");
+Check(!CityLayout.Built[0].Overlaps(CityLayout.Built[1]) && !CityLayout.Built[0].Overlaps(CityLayout.Street), "las cajas no se solapan con la calle");
+
 Console.WriteLine("CitySmoke: {0} comprobaciones aprobadas.", checks);

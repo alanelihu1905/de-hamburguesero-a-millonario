@@ -34,3 +34,23 @@ Repositorio público compartido para tres personas con sus agentes. Preparado: `
 - Escena de ciudad y streaming por zonas; navegación de primera persona y cámara física; HUD, mapa y ajustes de ciudad; NPC por zona; transporte; casino en esta rama (queda para la rama de prioridad 2).
 - Ningún smoke de Play Mode nuevo: este bloque no tiene escena ni comportamiento en juego que probar todavía.
 - El barrio actual y el casino no se han modificado en este bloque.
+
+## Propuesta visual Puerto Alba y handoff para Claude (2026-10-11)
+- Antigravity preparó la propuesta de diseño visual, física de primera persona, HUD multi-resolución (720p, 900p, ultrawide 21:9) y guía técnica de Unity 6 URP en `Docs/Handoffs/Claude/08_PROPUESTA_VISUAL_PUERTO_ALBA.md`.
+- No se editó código en este paso; la entrega queda preparada para la dirección visual de Claude y la integración modular de Codex.
+
+## Puerto Alba · Fase 1 · escena mínima y apoyo del jugador (rama `ciudad/fase-1-modelo`, 2026-10-11)
+**Hecho y verificado**
+- `Assets/_Game/Scripts/City/CityLayout.cs`: geometría de dos zonas (Casa Marea y Mercado del Sol) con una calle entre ellas fuera de cualquier zona. Validación de cajas y pruebas en `Tests/CitySmoke`: **53 comprobaciones aprobadas**.
+- `Assets/_Game/Scripts/City/CityZoneTracker.cs`: informa de la zona en la que está el jugador; no mueve nada ni toca la economía.
+- `Assets/Editor/PuertoAlbaSceneBuilder.cs` genera `Assets/_Game/Scenes/PuertoAlba.unity` (escena nueva; no cambia el barrio ni la lista de escenas de compilación).
+- `Assets/Editor/PuertoAlbaPlaySmoke.cs`: Play Mode con marcador real `TYCOON_PUERTO_ALBA_SMOKE_OK` (Unity 6000.0.84f1, batch, sin `-quit`). Comprueba que el jugador queda apoyado sobre el suelo (hueco ≤ 0,12 m) y que el seguidor de zona cambia Casa Marea → calle → Mercado del Sol → Casa Marea.
+- **Cambio en `FirstPersonController`:** la gravedad ya se aplica aunque el cursor esté libre (antes, con Esc, el jugador se quedaba flotando). Solo el giro y el desplazamiento horizontal siguen dependiendo del cursor bloqueado.
+- Regresión: `TYCOON_SMOKE_OK` (hamburguesas) y `TYCOON_CASINO_SMOKE_OK` (casino) pasan tras ese cambio.
+
+**No verificado**
+- La caída por gravedad en batch no es fiable: el controlador se integra con pasos de microsegundos (`Time.deltaTime` ~2e-5 s), así que el smoke comprueba el **asentamiento** con `CharacterController.Move`, no la velocidad de caída. Falta comprobarla en una ventana real de la app.
+- Ninguna escena de ciudad se ha probado en build macOS ni Windows.
+
+**No hecho (siguientes bloques)**
+- Navegación en primera persona completa (aceleración, pasos, interacción E/Q en la calle), HUD y minimapa propios, ajustes de sensibilidad y FOV, streaming de zonas, NPC por zona, transporte y la rama de casino.
