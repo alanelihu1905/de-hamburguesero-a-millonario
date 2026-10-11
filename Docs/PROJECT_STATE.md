@@ -72,3 +72,12 @@ Repositorio público compartido para tres personas con sus agentes. Preparado: `
 - Se añadió `RouletteLogic` para ruleta virtual de un cero: apuestas a pleno, color, paridad y mitades; incluye retorno bruto y neto con pago estándar.
 - `Tests/CasinoSmoke` verifica el cero verde, límites, pago de pleno 35:1, pago de color 1:1, errores de rango y muestra: 698 comprobaciones aprobadas.
 - Lógica pura con RNG inyectable; no está conectada al HUD ni probada en Unity Play Mode.
+
+## Codex — movimiento y HUD (2026-10-11)
+
+- Control FPS suavizado: aceleración/frenado, correr, salto calibrado por altura, balanceo sutil de cámara y FOV al correr; diagonales no aumentan velocidad.
+- HUD transparente: salud y efectivo persistentes, aviso de interacción contextual, teléfono con bolsa, paquetes de contrabando y nivel de atención. Eliminada lista fija de teclas. Salud/carga viven en `PlayerStatus`.
+- Panel del Casino FOX usa menos opacidad y ocupa menos espacio.
+- `dotnet run --project Tests/PlayerSmoke`: 9 comprobaciones de normalización, aceleración, frenado, salto y balanceo aprobadas.
+- Unity 6000.0.84f1: `Run HUD Play Smoke` aprobó `TYCOON_HUD_SMOKE_OK` (HUD, teléfono, salud, carga y atención); el smoke amplio se detuvo por la escala medida de un modelo Casa Marea.
+- Unity reporta `SAVE_FAIL Perfil de una versión futura: no se sobrescribe`; guardado no se reemplazó. Revisar compatibilidad del perfil aparte.

@@ -24,8 +24,8 @@ namespace Tycoon3D.Casino
         private int walletDelta;
         private int lastWallet = -1;
 
-        private static readonly Color Plum = new Color32(59, 47, 74, 242);
-        private static readonly Color PlumLight = new Color32(92, 74, 112, 255);
+        private static readonly Color Plum = new Color32(31, 25, 39, 178);
+        private static readonly Color PlumLight = new Color32(69, 58, 79, 188);
         private static readonly Color Mango = new Color32(244, 201, 93, 255);
         private static readonly Color Cream = new Color32(247, 238, 221, 255);
         private static readonly Color Chile = new Color32(228, 87, 46, 255);
@@ -44,7 +44,7 @@ namespace Tycoon3D.Casino
 
         public bool PanelVisible => service != null && (service.NearestDistance < 5f || Time.time - service.LastActivityTime < 5f);
 
-        private float Scale => Mathf.Clamp(Screen.height / 1080f, .7f, 2.2f);
+        private float Scale => Mathf.Clamp(Screen.height / 1080f, .64f, 1.25f);
 
         private void Update()
         {
@@ -108,23 +108,23 @@ namespace Tycoon3D.Casino
 
         private void DrawTag()
         {
-            float s = Scale, w = 470f * s, h = 70f * s;
+            float s = Scale, w = Mathf.Min(370f * s, Screen.width - 32f * s), h = 58f * s;
             var r = new Rect(Screen.width - w - 16f * s, 16f * s, w, h);
             Fill(r, Plum);
             Fill(new Rect(r.x, r.y, 8f * s, r.height), Mango);
             string where = entranceDistance < 3f ? "Estás en la puerta"
                 : Mathf.RoundToInt(entranceDistance) + " m al " + (entranceSide >= 0 ? "este >>" : "<< oeste");
-            title.fontSize = Mathf.RoundToInt(23 * s);
-            GUI.Label(new Rect(r.x + 14f * s, r.y + 4f * s, w - 18f * s, 34f * s), "CASINO FOX · abierto siempre", title);
+            title.fontSize = Mathf.RoundToInt(19 * s);
+            GUI.Label(new Rect(r.x + 14f * s, r.y + 3f * s, w - 18f * s, 27f * s), "CASINO FOX · abierto siempre", title);
             title.fontSize = Mathf.RoundToInt(26 * s);
-            GUI.Label(new Rect(r.x + 14f * s, r.y + 38f * s, w - 18f * s, 28f * s), where + " · pesos virtuales", small);
+            GUI.Label(new Rect(r.x + 14f * s, r.y + 29f * s, w - 18f * s, 24f * s), where + " · pesos virtuales", small);
         }
 
         // aviso de la cajera o de una ronda liquidada al volver: arriba al centro, unos segundos
         private void DrawToast()
         {
             if (string.IsNullOrEmpty(service.ToastText) || Time.time > service.ToastUntil) return;
-            float s = Scale, w = 760f * s, h = 52f * s;
+            float s = Scale, w = Mathf.Min(760f * s, Screen.width - 32f * s), h = 52f * s;
             var r = new Rect(Screen.width * .5f - w * .5f, 20f * s, w, h);
             Frame(r, Plum, Teal, 3f * s);
             body.fontSize = Mathf.RoundToInt(21 * s);
@@ -150,8 +150,10 @@ namespace Tycoon3D.Casino
                 ? (service.LastMachine != null ? service.LastMachine : service.NearestMachine)
                 : service.NearestMachine;
             // panel compacto anclado abajo: no tapa la máquina que se está jugando
-            float w = 780f * s, h = 372f * s;
-            var r = new Rect(Screen.width * .5f - w * .5f, Screen.height - h - 44f * s, w, h);
+            float margin = 60f * s;
+            float w = Mathf.Min(780f * s, Screen.width - 2f * margin);
+            float h = Mathf.Min(350f * s, Screen.height - 2f * margin);
+            var r = new Rect(Screen.width * .5f - w * .5f, Screen.height - h - margin, w, h);
             Frame(r, Plum, Mango, 4f * s);
             Fill(new Rect(r.x, r.yMax - 6f * s, w, 6f * s), Chile);
 

@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using Tycoon3D.Economy;
+using Tycoon3D.Player;
 using Tycoon3D.Restaurant;
+using Tycoon3D.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -13,11 +15,19 @@ namespace Tycoon3D.Editor
         private const string ScenePath = "Assets/_Game/Scenes/BarrioResidencial.unity";
         private static bool previousEnterPlayModeOptionsEnabled;
         private static EnterPlayModeOptions previousEnterPlayModeOptions;
+        private static bool hudOnly;
 
-        public static void Run()
+        [MenuItem("Tools/Tycoon3D/Run Prototype Play Smoke")]
+        public static void Run() => Start(false);
+
+        [MenuItem("Tools/Tycoon3D/Run HUD Play Smoke")]
+        public static void RunHud() => Start(true);
+
+        private static void Start(bool onlyHud)
         {
             try
             {
+                hudOnly = onlyHud;
                 Tycoon3D.Core.GameProfile.DirectoryOverride = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "tycoon-smoke-burger-" + System.Guid.NewGuid().ToString("N"));   // perfil limpio, aparte del real
                 EditorSceneManager.OpenScene(ScenePath);
                 previousEnterPlayModeOptionsEnabled = EditorSettings.enterPlayModeOptionsEnabled;
@@ -43,8 +53,34 @@ namespace Tycoon3D.Editor
                 var stations = UnityEngine.Object.FindObjectsByType<BurgerStation>(FindObjectsSortMode.None);
                 if (wallet == null || loop == null || stations.Length != 3)
                     throw new InvalidOperationException("Faltan componentes de economía o estaciones en la escena.");
-                if (Camera.main == null || UnityEngine.Object.FindFirstObjectByType<CharacterController>() == null)
-                    throw new InvalidOperationException("Faltan cámara o controlador de jugador.");
+                var playerController = UnityEngine.Object.FindFirstObjectByType<FirstPersonController>();
+                var playerHud = UnityEngine.Object.FindFirstObjectByType<PrototypeHud>();
+                if (Camera.main == null || UnityEngine.Object.FindFirstObjectByType<CharacterController>() == null ||
+                    playerController == null || playerController.GetComponent<PlayerStatus>() == null || playerHud == null)
+                    throw new InvalidOperationException("Faltan cámara, estado de jugador, controlador o HUD.");
+
+                if (hudOnly)
+                {
+                    var status = playerController.GetComponent<PlayerStatus>();
+                    status.TakeDamage(25);
+                    if (status.Health != 75) throw new InvalidOperationException("El daño no actualizó la barra de salud.");
+                    status.Heal(10);
+                    if (status.Health != 85) throw new InvalidOperationException("La curación no actualizó la barra de salud.");
+                    status.AddContraband(2, 40);
+                    if (status.ContrabandPackages != 2 || status.Heat != 40)
+                        throw new InvalidOperationException("El inventario del teléfono no refleja la carga y atención.");
+                    status.RemoveContraband(1);
+                    status.SetHeat(120);
+                    if (status.ContrabandPackages != 1 || status.Heat != 100)
+                        throw new InvalidOperationException("Los límites de carga/atención fallaron.");
+                    Debug.Log("TYCOON_HUD_SMOKE_OK: HUD, teléfono, salud, carga y atención.");
+                    EditorApplication.playModeStateChanged -= OnPlayModeChanged;
+                    RestoreEditorSettings();
+                    EditorApplication.ExitPlaymode();
+                    if (Application.isBatchMode)
+                        EditorApplication.delayCall += () => EditorApplication.Exit(0);
+                    return;
+                }
 
                 var ingredients = stations.Single(s => s.name == "Caja de ingredientes");
                 var grill = stations.Single(s => s.name == "Parrilla");
@@ -92,7 +128,8 @@ namespace Tycoon3D.Editor
                 EditorApplication.playModeStateChanged -= OnPlayModeChanged;
                 RestoreEditorSettings();
                 EditorApplication.ExitPlaymode();
-                EditorApplication.delayCall += () => EditorApplication.Exit(0);
+                if (Application.isBatchMode)
+                    EditorApplication.delayCall += () => EditorApplication.Exit(0);
             }
             catch (Exception exception)
             {
@@ -105,7 +142,8 @@ namespace Tycoon3D.Editor
             EditorApplication.playModeStateChanged -= OnPlayModeChanged;
             RestoreEditorSettings();
             Debug.LogException(exception);
-            EditorApplication.Exit(1);
+            if (Application.isBatchMode)
+                EditorApplication.Exit(1);
         }
 
         private static void RestoreEditorSettings()
