@@ -10,6 +10,7 @@
     <Compile Include="../EconomySmoke/UnityStubs.cs" Link="UnityStubs.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Economy/Wallet.cs" Link="Wallet.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Restaurant/BurgerLoop.cs" Link="BurgerLoop.cs" />
+    <Compile Include="../../Assets/_Game/Scripts/Economy/EconomyConfig.cs" Link="EconomyConfig.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Casino/SlotMachineLogic.cs" Link="SlotMachineLogic.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Casino/SlotPaytable.cs" Link="SlotPaytable.cs" />
     <Compile Include="../../Assets/_Game/Scripts/Casino/CasinoSession.cs" Link="CasinoSession.cs" />

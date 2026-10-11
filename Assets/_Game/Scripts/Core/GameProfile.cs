@@ -102,6 +102,9 @@ namespace Tycoon3D.Core
             burger = FindFirstObjectByType<BurgerLoop>();
             casino = FindFirstObjectByType<CasinoService>();
             int recovered = 0;
+            var prices = EconomyConfigSource.Current;
+            if (burger != null) burger.ApplyConfig(prices);
+            if (casino != null) casino.ApplyConfig(prices);
             if (wallet != null && Data.HasProfile) wallet.Restore((int)Math.Min(int.MaxValue, Data.Pesos));
             if (burger != null && Data.HasProfile) burger.Restore((int)Data.BurgerStep, (int)Data.BurgerSales);
             ledger.Restore(Data, wallet != null ? wallet.Pesos : 0, (int)Data.Chips);

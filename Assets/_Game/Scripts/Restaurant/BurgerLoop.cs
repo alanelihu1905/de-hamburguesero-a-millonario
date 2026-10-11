@@ -12,6 +12,17 @@ namespace Tycoon3D.Restaurant
         [SerializeField] private int ingredientCost = 15;
         [SerializeField] private int salePrice = 50;
 
+        public int IngredientCost => ingredientCost;
+        public int SalePrice => salePrice;
+
+        /// <summary>Aplica los precios de los datos editables (economy.json). Los valores por defecto son los del código.</summary>
+        public void ApplyConfig(EconomyConfig config)
+        {
+            if (config == null) return;
+            ingredientCost = config.IngredientCost;
+            salePrice = config.SalePrice;
+        }
+
         public BurgerStep Step { get; private set; }
         public int Sales { get; private set; }
         /// <summary>Se dispara cuando cambia el paso o las ventas (para guardar el perfil).</summary>

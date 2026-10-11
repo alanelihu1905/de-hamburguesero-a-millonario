@@ -75,7 +75,15 @@ namespace Tycoon3D.Casino
         }
 
         // ------------------------------------------------------------------ cajera: fichas
-        public const int ChipLot = 20;
+        public const int DefaultChipLot = 20;
+
+        /// <summary>Fichas por canje de la cajera (de los datos editables; 20 por defecto).</summary>
+        public int ChipLot { get; private set; } = DefaultChipLot;
+
+        public void ApplyConfig(EconomyConfig config)
+        {
+            if (config != null) ChipLot = config.ChipLot;
+        }
 
         /// <summary>Fichas que compraría el siguiente canje: un lote de 20 (o lo que alcance, mínimo una).</summary>
         public int ChipsToBuy { get { Ensure(); return Mathf.Min(ChipLot, wallet.Pesos / CasinoSession.ChipValue); } }
