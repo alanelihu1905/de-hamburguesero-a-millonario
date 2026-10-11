@@ -1,0 +1,25 @@
+OK    FBX SM_Letrero_Jackpot importa
+OK    SM_Letrero_Jackpot: 900 triángulos en Unity = 900 en Blender
+OK    prefab PF_Letrero_Jackpot existe
+OK    PF_Letrero_Jackpot: 3 colisiones simples
+OK    PF_Letrero_Jackpot: tamaño (10.800, 4.100, 0.205) esperado (10.800, 4.100, 0.205)
+OK    la escena de integración abre
+OK    la escena de integración no está en la build
+OK    raíz del casino presente
+OK    bancos: 3 rojos y 3 dorados (3 y 3)
+OK    zona de ruleta y mesa de blackjack presentes
+OK    letrero JACKPOT es instancia de prefab
+OK    referencia humana presente
+OK    pasillo libre de x −4.5 a 4.5 y de z −8 a 8.8
+OK    bancos separados por un pasillo de 11.27 m (mínimo 8 m)
+OK    cápsula de referencia mide 1.800 m (1.80 m)
+OK    tragamonedas mide 1.800 m, escala humana frente a la cápsula
+OK    colisiones de piezas distintas sin solaparse (17 colisiones, 0 solapes)
+OK    cámara frontal presente
+OK    el letrero JACKPOT cae dentro del encuadre frontal
+OK    nada tapa el letrero desde la cámara frontal
+OK    captura frontal generada
+OK    el letrero JACKPOT muestra letras en la captura frontal (ámbar 12048 px (35.3%), tablero rojo 58.6%)
+OK    captura frontal con dorado (0.90%)
+OK    captura frontal con rojo (2.70%)
+OK    captura general generada

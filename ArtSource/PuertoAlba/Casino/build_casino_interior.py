@@ -43,6 +43,8 @@ PIEZAS = {
     "SM_Slot_Tres_Rodillos": (2500, (0.95, 0.73, 1.80)),
     "SM_Mesa_Ruleta": (1000, (2.24, 1.44, 0.89)),
     "SM_Mesa_Blackjack": (800, (1.84, 0.92, 0.86)),
+    # letrero JACKPOT de pie: letras de 0.25 m (7 × 0.25 = 1.75 m de alto), tablero 10.8 m × 2.0 m a 2.0 m del suelo
+    "SM_Letrero_Jackpot": (2000, (10.8, 0.205, 4.1)),
 }
 
 # glifos 5 × 7 (mismo estilo que el letrero del hito): JACKPOT y CASINO FOX
@@ -215,7 +217,21 @@ def build_blackjack():
     return join(p, "SM_Mesa_Blackjack")
 
 
+def build_letrero_jackpot():
+    """Letrero JACKPOT grande sobre dos patas. Pivote en el suelo, centrado en X; las letras miran a −Y (frente)."""
+    p = [
+        box((10.8, 0.12, 2.2), (0, 0, 3.0), "M_Casino_Oro"),              # marco dorado 1.9–4.1
+        box((10.6, 0.14, 2.0), (0, 0, 3.0), "M_Casino_Rojo"),             # tablero rojo 2.0–4.0
+        box((0.2, 0.2, 2.0), (-4.5, 0, 1.0), "M_Madera"),                 # pata izquierda 0–2
+        box((0.2, 0.2, 2.0), (4.5, 0, 1.0), "M_Madera"),                  # pata derecha 0–2
+    ]
+    # letras: 7 × 0.25 m = 1.75 m de alto, centradas en el tablero, delante de su cara (y = −0.07)
+    p += letras("JACKPOT", 0, 3.0, 0.25, -0.085, 0.04, "M_Letrero_Texto")
+    return join(p, "SM_Letrero_Jackpot")
+
+
 BUILDERS = {
+    "SM_Letrero_Jackpot": build_letrero_jackpot,
     "SM_Slot_Tres_Rodillos": build_slot,
     "SM_Mesa_Ruleta": build_ruleta,
     "SM_Mesa_Blackjack": build_blackjack,

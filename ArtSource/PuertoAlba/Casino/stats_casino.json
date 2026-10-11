@@ -1,4 +1,22 @@
 {
+  "SM_Letrero_Jackpot": {
+    "triangulos": 900,
+    "presupuesto_triangulos": 2000,
+    "dimensiones_XxYxZ_m": [
+      10.8,
+      0.205,
+      4.1
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Casino_Oro",
+      "M_Casino_Rojo",
+      "M_Letrero_Texto",
+      "M_Madera"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/Casino/SM_Letrero_Jackpot.fbx"
+  },
   "SM_Slot_Tres_Rodillos": {
     "triangulos": 1260,
     "presupuesto_triangulos": 2500,
