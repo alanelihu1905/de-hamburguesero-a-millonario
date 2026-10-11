@@ -55,6 +55,8 @@ namespace Tycoon3D.UI
             GUI.Label(new Rect(30, 43, 500, 25), "Dinero: $" + (wallet != null ? wallet.Pesos : 0) +
                       "    Ventas: " + (burgerLoop != null ? burgerLoop.Sales : 0), label);
             if (burgerLoop != null) GUI.Label(new Rect(30, 72, 500, 52), burgerLoop.Message, label);
+            // con el panel del casino abierto, sus controles ya están en el panel: el pie no debe pisarlo
+            if (!Tycoon3D.Casino.CasinoHud.LastPanelDrawn)
             GUI.Label(new Rect(20, sh - 62, Mathf.Min(820, sw - 40), 56),
                 "WASD mover · Ratón mirar · " + InputBindings.InteractLabel + " interactuar · " + InputBindings.SecondaryLabel +
                 " apuesta (casino) · R volver al inicio · Esc cursor y ajustes", label);
