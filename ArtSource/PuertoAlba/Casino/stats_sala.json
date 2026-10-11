@@ -1,0 +1,198 @@
+{
+  "SM_Sala_Muro": {
+    "triangulos": 72,
+    "presupuesto_triangulos": 400,
+    "dimensiones_XxYxZ_m": [
+      4.0,
+      0.4,
+      5.0
+    ],
+    "bbox_min_XYZ_m": [
+      -2.0,
+      -0.25,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      2.0,
+      0.15,
+      5.0
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Casino_Oro",
+      "M_Casino_Rojo",
+      "M_Fieltro",
+      "M_Madera"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/Casino/Sala/SM_Sala_Muro.fbx"
+  },
+  "SM_Sala_Esquina": {
+    "triangulos": 48,
+    "presupuesto_triangulos": 300,
+    "dimensiones_XxYxZ_m": [
+      0.9,
+      0.9,
+      5.0
+    ],
+    "bbox_min_XYZ_m": [
+      -0.45,
+      -0.45,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      0.45,
+      0.45,
+      5.0
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Casino_Oro",
+      "M_Casino_Rojo",
+      "M_Madera"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/Casino/Sala/SM_Sala_Esquina.fbx"
+  },
+  "SM_Sala_Puerta_Entrada": {
+    "triangulos": 1092,
+    "presupuesto_triangulos": 1500,
+    "dimensiones_XxYxZ_m": [
+      4.0,
+      1.533,
+      5.0
+    ],
+    "bbox_min_XYZ_m": [
+      -2.0,
+      -1.3831,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      2.0,
+      0.15,
+      5.0
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Blanco",
+      "M_Casino_Oro",
+      "M_Casino_Rojo",
+      "M_Entrada_Verde",
+      "M_Madera"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/Casino/Sala/SM_Sala_Puerta_Entrada.fbx"
+  },
+  "SM_Sala_Puerta_Salida": {
+    "triangulos": 852,
+    "presupuesto_triangulos": 1500,
+    "dimensiones_XxYxZ_m": [
+      4.0,
+      1.533,
+      5.0
+    ],
+    "bbox_min_XYZ_m": [
+      -2.0,
+      -1.3831,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      2.0,
+      0.15,
+      5.0
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Blanco",
+      "M_Casino_Oro",
+      "M_Casino_Rojo",
+      "M_Madera",
+      "M_Salida_Rojo"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/Casino/Sala/SM_Sala_Puerta_Salida.fbx"
+  },
+  "SM_Sala_Techo": {
+    "triangulos": 72,
+    "presupuesto_triangulos": 400,
+    "dimensiones_XxYxZ_m": [
+      4.0,
+      4.0,
+      0.4
+    ],
+    "bbox_min_XYZ_m": [
+      -2.0,
+      -2.0,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      2.0,
+      2.0,
+      0.4
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Casino_Oro",
+      "M_Madera"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/Casino/Sala/SM_Sala_Techo.fbx"
+  },
+  "SM_Mostrador_Cambio": {
+    "triangulos": 924,
+    "presupuesto_triangulos": 1500,
+    "dimensiones_XxYxZ_m": [
+      3.2,
+      1.0,
+      2.455
+    ],
+    "bbox_min_XYZ_m": [
+      -1.6,
+      -0.5,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      1.6,
+      0.5,
+      2.455
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Casino_Oro",
+      "M_Casino_Rojo",
+      "M_Letrero_Texto",
+      "M_Madera",
+      "M_Negro",
+      "M_Vidrio"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/Casino/Sala/SM_Mostrador_Cambio.fbx"
+  },
+  "SM_Taburete": {
+    "triangulos": 236,
+    "presupuesto_triangulos": 400,
+    "dimensiones_XxYxZ_m": [
+      0.429,
+      0.44,
+      0.69
+    ],
+    "bbox_min_XYZ_m": [
+      -0.2145,
+      -0.22,
+      0.0
+    ],
+    "bbox_max_XYZ_m": [
+      0.2145,
+      0.22,
+      0.69
+    ],
+    "base_z": 0.0,
+    "pivote_correcto": true,
+    "materiales": [
+      "M_Casino_Oro",
+      "M_Casino_Rojo",
+      "M_Negro"
+    ],
+    "fbx": "Assets/_Game/Models/PuertoAlba/Casino/Sala/SM_Taburete.fbx"
+  }
+}
