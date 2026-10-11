@@ -1,0 +1,177 @@
+{
+  "generado": "2026-10-10",
+  "criterio": "solo licencias que permiten uso comercial e integración sin condiciones (CC0). Ningún asset de Schedule I.",
+  "paquetes": [
+    {
+      "id": "Kenney_FurnitureKit",
+      "nombre": "Furniture Kit 2.0",
+      "autor": "Kenney (www.kenney.nl)",
+      "licencia": "CC0 1.0 Universal (dominio público)",
+      "licencia_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "pagina": "https://kenney.nl/assets/furniture-kit",
+      "descarga_directa": "https://kenney.nl/media/pages/assets/furniture-kit/440e0608a4-1677580847/kenney_furniture-kit.zip",
+      "zip_sha256": "e67652d0932cee41683f74711c03d3e192a2af9979ef8e6b237711f5482d46b0",
+      "zip_bytes": 5130729,
+      "fecha_descarga": "2026-10-10",
+      "archivo_de_licencia": "Kenney_FurnitureKit/License.txt",
+      "archivos_incorporados": [
+        {
+          "archivo": "Kenney_FurnitureKit/stoolBar.fbx",
+          "sha256": "ef0cb173307d9fd46e9d37ae7e82d8f5f7f4ea4c79effe680baceb92b0b96585",
+          "bytes": 30868
+        },
+        {
+          "archivo": "Kenney_FurnitureKit/stoolBarSquare.fbx",
+          "sha256": "1d0f36df3748234d2de183ff29bb1054a5e621208bb9203edc316a6f42b5ea55",
+          "bytes": 25330
+        },
+        {
+          "archivo": "Kenney_FurnitureKit/pottedPlant.fbx",
+          "sha256": "61e963d81fbf4e0772b5b8d542a44dbb0c794affa9994b6d5715f425d71fc97d",
+          "bytes": 23744
+        },
+        {
+          "archivo": "Kenney_FurnitureKit/plantSmall1.fbx",
+          "sha256": "db522e243ac7dfa923fb12c0c5fac54b733ef9f577fecb29408798c73a5a1830",
+          "bytes": 25382
+        },
+        {
+          "archivo": "Kenney_FurnitureKit/plantSmall2.fbx",
+          "sha256": "3679adf676ce3a5fe0b35ed9ca21db7153da40a509ae017f76072acdf42ec811",
+          "bytes": 38646
+        },
+        {
+          "archivo": "Kenney_FurnitureKit/lampSquareTable.fbx",
+          "sha256": "b5d6e641603301405c3b8a0fffbc48381731c48cde87351d256f421b32ab75d6",
+          "bytes": 18047
+        },
+        {
+          "archivo": "Kenney_FurnitureKit/lampWall.fbx",
+          "sha256": "81b0164da1672cd3729b5bd53ab23b8fa76aaef91a830eb46f22dc8b8fc14bfa",
+          "bytes": 16993
+        },
+        {
+          "archivo": "Kenney_FurnitureKit/rugRound.fbx",
+          "sha256": "1d2f0aa29eb544767c9c17e98810e58845689857d34f0a465bff7dbd5892f136",
+          "bytes": 29259
+        },
+        {
+          "archivo": "Kenney_FurnitureKit/tableRound.fbx",
+          "sha256": "2e024db523150e4661a58012ca063c22a73724e004d1805ad2ed2fc88cd03563",
+          "bytes": 19706
+        },
+        {
+          "archivo": "Kenney_FurnitureKit/sideTable.fbx",
+          "sha256": "39c4d0c640b0ed8bb3b6d116600ebc7f5a9ba72219be762ea7799deba50562da",
+          "bytes": 22455
+        },
+        {
+          "archivo": "Kenney_FurnitureKit/speakerSmall.fbx",
+          "sha256": "841ca64bbec246ac022794c049598921c8ad2bd431c8b5aca871f132870c7563",
+          "bytes": 40334
+        },
+        {
+          "archivo": "Kenney_FurnitureKit/trashcan.fbx",
+          "sha256": "587adb36a4a29c203e0ad478370c289d758990485c05244c7943e4d5db3ae7f8",
+          "bytes": 21455
+        }
+      ],
+      "instancias_en_escena": {
+        "lampSquareTable": 2,
+        "lampWall": 6,
+        "plantSmall1": 1,
+        "plantSmall2": 1,
+        "pottedPlant": 2,
+        "rugRound": 1,
+        "sideTable": 1,
+        "speakerSmall": 2,
+        "stoolBar": 6,
+        "stoolBarSquare": 2,
+        "tableRound": 2,
+        "trashcan": 1
+      }
+    },
+    {
+      "id": "Kenney_FoodKit",
+      "nombre": "Food Kit 2.0",
+      "autor": "Kenney (www.kenney.nl)",
+      "licencia": "CC0 1.0 Universal (dominio público)",
+      "licencia_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "pagina": "https://kenney.nl/assets/food-kit",
+      "descarga_directa": "https://kenney.nl/media/pages/assets/food-kit/83086fa91c-1719418518/kenney_food-kit.zip",
+      "zip_sha256": "cdad90853682499b94c9fda2f87678b24bfd8f3264e0ed323f6b6a27fd7c6f6f",
+      "zip_bytes": 4606270,
+      "fecha_descarga": "2026-10-10",
+      "archivo_de_licencia": "Kenney_FoodKit/License.txt",
+      "archivos_incorporados": [
+        {
+          "archivo": "Kenney_FoodKit/cocktail.fbx",
+          "sha256": "bb6a37dc54b295ff4898938da614ca211d8fb95bba18c2bab21f4d883cee6dbf",
+          "bytes": 42256
+        },
+        {
+          "archivo": "Kenney_FoodKit/cup.fbx",
+          "sha256": "0a65d19131fd19a2e49864330cb9b28d0ad110ab18759336738babd85837d64a",
+          "bytes": 26208
+        },
+        {
+          "archivo": "Kenney_FoodKit/glass.fbx",
+          "sha256": "2a6f4db6698c579b8a9fe7513b685553b1eb8d72a2d7051406a8b5c9f750c197",
+          "bytes": 26208
+        },
+        {
+          "archivo": "Kenney_FoodKit/soda-glass.fbx",
+          "sha256": "87b39e3db6e278aa67b0e863675ca6c9b1bb1b03017ab85feaafb9f3ab402c56",
+          "bytes": 42480
+        },
+        {
+          "archivo": "Kenney_FoodKit/soda-can.fbx",
+          "sha256": "e34014f578b01e162a6a5f6c85209419651c540b810fa595ec5728e7c901b706",
+          "bytes": 29792
+        },
+        {
+          "archivo": "Kenney_FoodKit/mug.fbx",
+          "sha256": "664c1a810335ffcddf57515d47d27bde18cd147d8fedca29731c91f795b9fa70",
+          "bytes": 29136
+        },
+        {
+          "archivo": "Kenney_FoodKit/bottle-ketchup.fbx",
+          "sha256": "53495209e9378fed4c00621eef2dfeb0d66df46a08f4659aebcd15ab4a5806dd",
+          "bytes": 26576
+        },
+        {
+          "archivo": "Kenney_FoodKit/burger-cheese.fbx",
+          "sha256": "1bcf864191a216cc97f30eac0d5cade576cf15560ad103237d0fb16071d7eba3",
+          "bytes": 50576
+        },
+        {
+          "archivo": "Kenney_FoodKit/plate.fbx",
+          "sha256": "ea5c42cf1ddf3526d69409e0ce1c3eba41ea9b0ec412c11471a9b617803d62b1",
+          "bytes": 27248
+        },
+        {
+          "archivo": "Kenney_FoodKit/cupcake.fbx",
+          "sha256": "2f8f81942e87183b2b5a10dddf7d996ff2eb77d3a32e2421dea142959ecad046",
+          "bytes": 42912
+        },
+        {
+          "archivo": "Kenney_FoodKit/Textures/colormap.png",
+          "sha256": "75baf74d9483a0fc56ac21ceba346fbe16fc24a2a1bf0524c53e6bbe802e1153",
+          "bytes": 10715
+        }
+      ],
+      "instancias_en_escena": {
+        "bottle-ketchup": 1,
+        "burger-cheese": 1,
+        "cocktail": 3,
+        "cup": 2,
+        "cupcake": 1,
+        "glass": 1,
+        "mug": 2,
+        "plate": 1,
+        "soda-can": 2,
+        "soda-glass": 1
+      }
+    }
+  ]
+}

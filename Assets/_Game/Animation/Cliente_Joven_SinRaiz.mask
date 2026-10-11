@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Cliente_Joven_SinRaiz
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 0
+  - m_Path: Armadura_Cliente_Joven
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/columna
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/columna/brazo_D
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/columna/brazo_D/antebrazo_D
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/columna/brazo_D/antebrazo_D/mano_D
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/columna/brazo_I
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/columna/brazo_I/antebrazo_I
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/columna/brazo_I/antebrazo_I/mano_I
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/columna/cabeza
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/muslo_D
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/muslo_D/pantorrilla_D
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/muslo_D/pantorrilla_D/pie_D
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/muslo_I
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/muslo_I/pantorrilla_I
+    m_Weight: 1
+  - m_Path: Armadura_Cliente_Joven/root/pelvis/muslo_I/pantorrilla_I/pie_I
+    m_Weight: 1
+  - m_Path: SM_Cliente_Joven
+    m_Weight: 1
