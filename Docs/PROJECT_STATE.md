@@ -54,3 +54,9 @@ Repositorio público compartido para tres personas con sus agentes. Preparado: `
 - Escena reproducible: `Assets/_Game/Scenes/PuertoAlba_Grid.unity`.
 - Unity 6000.0.84f1, sin `-quit`: `TYCOON_PUERTO_ALBA_GRID_SMOKE_OK blocks=441 radiusBlocks=10 zones=8 casino=1 gasStations=2 towers=2 transit=1 cargo=3 traffic=16 doors=75 objects=2374`.
 - `dotnet run --project Tests/CitySmoke`: 72 comprobaciones aprobadas. La ciudad aún genera 2,374 objetos en `Start`; optimización de agrupado/batching queda pendiente. No es arte final.
+
+## Codex (área C) — consulta espacial de cuadras (2026-10-11)
+
+- `CityGridLayout.TryGetBlockAtWorldPosition` resuelve la cuadra por coordenadas X/Z del mundo, limita la consulta al borde de la cuadrícula y rechaza valores no finitos.
+- `Tests/CitySmoke` cubre casino central, gasolinera, bordes, exterior e infinitos/NaN: 77 comprobaciones aprobadas.
+- Prueba pura de datos; no verifica Unity Play Mode ni cambia geometría.

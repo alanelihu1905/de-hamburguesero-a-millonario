@@ -47,6 +47,25 @@ namespace Tycoon3D.World
             return true;
         }
 
+        /// <summary>Finds the block whose center is nearest to a world-space X/Z position.</summary>
+        public bool TryGetBlockAtWorldPosition(float worldX, float worldZ, out CityBlockDefinition block)
+        {
+            float halfExtent = SideLength * BlockPitchMeters * .5f;
+            if (float.IsNaN(worldX) || float.IsInfinity(worldX) ||
+                float.IsNaN(worldZ) || float.IsInfinity(worldZ) ||
+                Math.Abs(worldX) > halfExtent || Math.Abs(worldZ) > halfExtent)
+            {
+                block = default;
+                return false;
+            }
+
+            int x = (int)Math.Floor(worldX / BlockPitchMeters + .5f);
+            int z = (int)Math.Floor(worldZ / BlockPitchMeters + .5f);
+            x = Math.Max(-BlocksFromCenter, Math.Min(BlocksFromCenter, x));
+            z = Math.Max(-BlocksFromCenter, Math.Min(BlocksFromCenter, z));
+            return TryGetBlock(x, z, out block);
+        }
+
         private static CityBlockDefinition CreateBlock(int x, int z)
         {
             ZoneId zone = NearestZone(x, z);

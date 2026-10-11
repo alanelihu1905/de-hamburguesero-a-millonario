@@ -24,6 +24,19 @@ Check(grid.Blocks.Count == 441, "ciudad cubre 21 x 21 cuadras");
 Check(grid.DiameterMeters == 1776f, "huella urbana mide 1,776 m por lado");
 Check(grid.TryGetBlock(-10, -10, out _) && grid.TryGetBlock(10, 10, out _), "cuadrícula incluye radio de diez cuadras");
 Check(!grid.TryGetBlock(-11, 0, out _), "cuadrícula rechaza exterior del radio");
+Check(grid.TryGetBlockAtWorldPosition(0f, 0f, out var centerByPosition) && centerByPosition.Feature == CityBlockFeature.Casino,
+    "consulta espacial encuentra casino en origen");
+Check(grid.TryGetBlockAtWorldPosition(0f, -8 * CityGridLayout.BlockPitchMeters, out var stationByPosition) &&
+      stationByPosition.Feature == CityBlockFeature.GasStation,
+    "consulta espacial encuentra gasolinera por coordenadas del mundo");
+float gridHalfExtent = CityGridLayout.SideLength * CityGridLayout.BlockPitchMeters * .5f;
+Check(grid.TryGetBlockAtWorldPosition(gridHalfExtent, -gridHalfExtent, out var edgeByPosition) &&
+      edgeByPosition.X == CityGridLayout.BlocksFromCenter && edgeByPosition.Z == -CityGridLayout.BlocksFromCenter,
+    "consulta espacial incluye borde exterior de la cuadrícula");
+Check(!grid.TryGetBlockAtWorldPosition(gridHalfExtent + .01f, 0f, out _),
+    "consulta espacial rechaza posiciones fuera de la ciudad");
+Check(!grid.TryGetBlockAtWorldPosition(float.NaN, 0f, out _) && !grid.TryGetBlockAtWorldPosition(0f, float.PositiveInfinity, out _),
+    "consulta espacial rechaza coordenadas no finitas");
 Check(grid.Blocks.Select(block => block.Zone).Distinct().Count() == CityMap.Zones.Length, "las ocho zonas ocupan bloques");
 Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.Casino) == 1, "casino siempre existe en el inicio");
 Check(grid.Blocks.Count(block => block.Feature == CityBlockFeature.GasStation) == 2, "ciudad contiene dos gasolineras");
