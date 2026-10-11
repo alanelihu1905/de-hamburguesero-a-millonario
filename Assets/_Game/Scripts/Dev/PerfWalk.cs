@@ -61,6 +61,7 @@ namespace Tycoon3D.Dev
             label = LaunchFlags.Value("-perf-label") ?? string.Empty;
             int quality = LaunchFlags.IntValue("-quality-level", -1);
             if (quality >= 0 && quality < QualitySettings.names.Length) QualitySettings.SetQualityLevel(quality, true);
+            Application.runInBackground = true;                        // sin foco la app se pausaba y la medición no avanzaba
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = -1;
             string output = LaunchFlags.Value("-perf-out");

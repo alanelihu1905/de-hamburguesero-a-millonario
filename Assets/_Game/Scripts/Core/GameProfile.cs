@@ -102,6 +102,8 @@ namespace Tycoon3D.Core
             Outcome = repository.Load(out var loaded);
             Data = loaded;
             Settings.Restore(Data);
+            int forcedScale = Tycoon3D.Dev.LaunchFlags.IntValue("-hud-scale", 0);          // capturas y pruebas: texto al N % (queda en el perfil de esa ejecución)
+            if (forcedScale > 0) Settings.SetScalePercent(forcedScale);
             Debug.Log("SAVE_LOAD " + Outcome + " dir=" + repository.Directory + " pesos=" + Data.Pesos + " fichas=" + Data.Chips +
                       " ventas=" + Data.BurgerSales + " rondas=" + Data.CasinoRounds + " pendiente=" + Data.PendingActive +
                       (repository.LastError != null ? " error=" + repository.LastError : ""));

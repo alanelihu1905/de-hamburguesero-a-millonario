@@ -16,9 +16,32 @@ git lfs pull            # modelos, imágenes y audio viven en Git LFS
 
 1. En Unity Hub: *Add project from disk* y elige la carpeta clonada. La primera apertura tarda varios minutos (genera `Library/`, que no se sube).
 2. Abre `Assets/_Game/Scenes/BarrioResidencial.unity` y pulsa **Play**.
-3. Controles: **WASD** mover · **ratón** mirar · **E** interactuar · **Q** siguiente apuesta / canjear fichas · **1-4** apuesta · **F** luces fijas · **R** volver al inicio (no borra el progreso) · **Esc** libera el cursor.
+3. Controles: **WASD** mover · **ratón** mirar · **E** interactuar · **Q** siguiente apuesta / canjear fichas · **1-4** apuesta · **F** luces fijas · **R** volver al inicio (no borra el progreso) · **Esc** libera el cursor y abre los **ajustes** (tamaño del texto y reasignar E, Q y F; WASD, R y Esc no se pueden reasignar).
 
-El progreso (dinero, ventas, fichas, libro del casino) se guarda solo. Para empezar de cero, borra la carpeta `~/Library/Application Support/Tycoon3D/De Hamburguesero a Millonario/Tycoon3D/` (macOS) o ejecuta con `-save-dir <carpeta-vacía>`.
+El progreso (dinero, ventas, fichas, libro del casino, caja del casino, hora del juego y ajustes) se guarda solo. Para empezar de cero, borra la carpeta del perfil o ejecuta con `-save-dir <carpeta-vacía>`:
+
+| Sistema | Carpeta del perfil |
+| --- | --- |
+| Windows | `%USERPROFILE%\AppData\LocalLow\Tycoon3D\De Hamburguesero a Millonario\Tycoon3D\` |
+| macOS | `~/Library/Application Support/Tycoon3D/De Hamburguesero a Millonario/Tycoon3D/` |
+
+Si abres dos copias del juego con el mismo perfil, la segunda avisa en pantalla y juega **sin guardar** (la primera conserva el candado `profile.lock`).
+
+### Datos editables
+
+Los precios de las hamburguesas y el lote de fichas de la cajera salen de [`Assets/StreamingAssets/economy.json`](Assets/StreamingAssets/economy.json) (en una build, junto al ejecutable, en `*_Data/StreamingAssets/`). Se editan con cualquier editor de texto, sin recompilar; si el archivo falta o es inválido se usan los valores de siempre y queda una línea `ECONOMY_CONFIG` en el log. También se puede apuntar a otro archivo con `-economy-config <ruta>`.
+
+### Argumentos de línea de comandos (pruebas y capturas)
+
+| Argumento | Para qué |
+| --- | --- |
+| `-save-dir <carpeta>` | Perfil de guardado aparte (nunca uses el de otra persona) |
+| `-casino-live`, `-casino-roll <0-99>`, `-casino-at-cashier` | Empezar frente a una máquina o la cajera; forzar la tirada (99 = jackpot, 0 = pérdida) |
+| `-casino-shots <carpeta>` | Recorre puntos de vista, juega una ronda de cada tipo, guarda PNG y cierra |
+| `-clock-hour <h>`, `-clock-speed <segundos por día>`, `-clock-freeze` | Fijar la hora del juego, su velocidad o detenerla |
+| `-perf-walk`, `-perf-laps <n>`, `-perf-out <archivo>`, `-perf-label <texto>` | Medición de rendimiento reproducible (ver `Docs/TEST_REPORT.md`) |
+| `-quality-level <n>`, `-no-daynight`, `-no-variety` | Medir en otra calidad o sin el ciclo de día y noche / la variedad de clientes |
+| `-economy-config <archivo>` | Usar otro `economy.json` |
 
 ## Pruebas
 
@@ -33,14 +56,31 @@ dotnet run --project Tests/EconomySmoke   # monedero y ciclo de hamburguesas
 Con Unity (de línea de comandos; **sin** `-quit`, porque Unity saldría antes de ejecutar nada y devolvería 0). Busca el marcador en el log:
 
 ```bash
-UNITY=/Applications/Unity/Hub/Editor/6000.0.84f1/Unity.app/Contents/MacOS/Unity
+UNITY=/Applications/Unity/Hub/Editor/6000.0.84f1/Unity.app/Contents/MacOS/Unity      # en Windows: "C:\Program Files\Unity\Hub\Editor\6000.0.84f1\Editor\Unity.exe"
 $UNITY -batchmode -nographics -projectPath . -executeMethod Tycoon3D.Editor.CasinoPlaySmoke.Run -logFile smoke.log
 grep TYCOON_CASINO_SMOKE_OK smoke.log        # debe aparecer
 $UNITY -batchmode -nographics -projectPath . -executeMethod Tycoon3D.Editor.PrototypePlaySmoke.Run -logFile burger.log
 grep TYCOON_SMOKE_OK burger.log
 ```
 
-Build macOS: `Tools > Tycoon3D > ...` o `-executeMethod Tycoon3D.Editor.PrototypeMacBuild.Build` (con `-quit`). Los builds van a `Builds/` y no se suben.
+Todas las pruebas de Play Mode (cada una con su marcador, **sin** `-quit`):
+
+| Método (`Tycoon3D.Editor.…Run`) | Marcador | Qué comprueba |
+| --- | --- | --- |
+| `PrototypePlaySmoke` | `TYCOON_SMOKE_OK` | Ciclo de hamburguesas, saldo $135 |
+| `CasinoPlaySmoke` | `TYCOON_CASINO_SMOKE_OK` | Casino, fichas, cajera, guardado y recarga |
+| `EconomyConfigPlaySmoke` | `TYCOON_ECONOMY_CONFIG_OK` | Precios desde `economy.json` |
+| `DayNightPlaySmoke` | `TYCOON_DAYNIGHT_OK` | Ciclo de día y noche y hora guardada |
+| `SettingsPlaySmoke` | `TYCOON_SETTINGS_OK` | Ajustes de teclas y tamaño del texto |
+| `CashierShiftPlaySmoke` | `TYCOON_CASHIER_SHIFT_OK` | Turno de la cajera y fichas sobre el mostrador |
+| `JackpotPlaySmoke` | `TYCOON_JACKPOT_OK` | Celebración del jackpot |
+| `CustomerOrdersPlaySmoke` | `TYCOON_ORDERS_OK` | Clientes que piden y pagan |
+| `CustomerVarietyPlaySmoke` | `TYCOON_VARIETY_OK` | Variantes de ropa y paseantes nuevos |
+| `PerfWalkPlaySmoke` (con `-perf-walk -perf-laps 1 -perf-out <archivo>`) | `TYCOON_PERF_WALK_OK` | Recorrido de medición |
+
+Los constructores de la escena (`CasinoFoxIntegration.IntegrateAllWithCasino`, `PrototypeMacBuild.Build`, `PrototypeWinBuild.Build`) sí se lanzan **con** `-quit`: no terminan solos.
+
+Builds: `Tools > Tycoon3D > ...` o `-executeMethod Tycoon3D.Editor.PrototypeMacBuild.Build` / `PrototypeWinBuild.Build` (con `-quit`; el de Windows necesita el módulo *Windows Build Support* del editor). Los builds van a `Builds/` y no se suben. La lista de QA de arranque para una build de Windows está en [`Docs/QA_ARRANQUE.md`](Docs/QA_ARRANQUE.md).
 
 ## Estructura
 
